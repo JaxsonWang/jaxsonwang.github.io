@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="我们来看一个新手甚至写了多年Java的朋友都可能不是十分确定的问题：  在Java方法传参时，究竟是引用传递还是值传递？  为了说明问题， 我给出一个非常简单的class定义： public class Foo {   String attribute;   Foo(String s) {     this.attribute = s;   }   void setAttribute(String">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java之值传递Or引用传递？">
+<meta property="og:url" content="https://jaxsonwang.github.io/java-reference-or-value.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="我们来看一个新手甚至写了多年Java的朋友都可能不是十分确定的问题：  在Java方法传参时，究竟是引用传递还是值传递？  为了说明问题， 我给出一个非常简单的class定义： public class Foo {   String attribute;   Foo(String s) {     this.attribute = s;   }   void setAttribute(String">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://segmentfault.com/img/bVDb94?w=182&h=264">
+<meta property="og:image" content="https://segmentfault.com/img/bVDcbr?w=391&h=278">
+<meta property="og:image" content="https://segmentfault.com/img/bVDcbB?w=369&h=281">
+<meta property="og:image" content="https://segmentfault.com/img/bVDcbL?w=595&h=291">
+<meta property="og:image" content="https://segmentfault.com/img/bVDcck?w=591&h=290">
+<meta property="og:image" content="https://segmentfault.com/img/bVDcc0?w=364&h=269">
+<meta property="og:image" content="https://segmentfault.com/img/bVDcdG?w=385&h=274">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java之值传递Or引用传递？">
+<meta name="twitter:description" content="我们来看一个新手甚至写了多年Java的朋友都可能不是十分确定的问题：  在Java方法传参时，究竟是引用传递还是值传递？  为了说明问题， 我给出一个非常简单的class定义： public class Foo {   String attribute;   Foo(String s) {     this.attribute = s;   }   void setAttribute(String">
+<meta name="twitter:image" content="https://segmentfault.com/img/bVDb94?w=182&h=264">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/java-reference-or-value.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java之值传递Or引用传递？ | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/java-reference-or-value.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java之值传递Or引用传递？
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-18 19:21:50" itemprop="dateCreated datePublished" datetime="2016-09-18T19:21:50+09:00">2016-09-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/java-reference-or-value.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-reference-or-value.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们来看一个新手甚至写了多年Java的朋友都可能不是十分确定的问题：</p>
+<blockquote>
+<p>在Java方法传参时，究竟是引用传递还是值传递？</p>
+</blockquote>
+<p>为了说明问题， 我给出一个非常简单的class定义：</p>
+<pre><code>public class Foo {
+  String attribute;
+  Foo(String s) {
+    this.attribute = s;
+  }
+  void setAttribute(String s) {
+    this.attribute = s;
+  }
+  String getAttribute() {
+    return this.attribute;
+  }
+}
+</code></pre><p>下面在阐明观点时，可能会多次用到该类。</p>
+<p>关于Java里值传递还是引用传递，至少从表现形式上来看，两种观点都有支撑的论据。下面我来一一分析：</p>
+<h2 id="观点1：引用传递"><a href="#观点1：引用传递" class="headerlink" title="观点1：引用传递"></a>观点1：引用传递</h2><p>理由如下：先看一段代码</p>
+<pre><code>public class Main {
+  public static void modifyReference(Foo c){
+    c.setAttribute(&quot;c&quot;); // line DDD
+  }
+
+  public static void main(String[] args) {
+    Foo fooRef = new Foo(&quot;a&quot;); // line AAA
+    modifyReference(fooRef); // line BBB
+    System.out.println(fooRef.getAttribute()); // 输出 c
+  }
+}
+</code></pre><p>上述示例，输出结果为<code>&quot;c&quot;</code>，而不是<code>&quot;c&quot;</code>。</p>
+<p>我们在<code>line AAA</code>处新创建了一个Object Foo并将其引用<code>fooRef</code>在<code>line BBB</code>处传给了方法<code>modifyReference()</code>的参数<code>cRef</code>, 该方法内部处理后，<code>fooRef</code>指向的Object中的值从”a”变成了”c”, 而引用<code>fooRef</code>还是那个引用， 因此，我们是否可以认为，在<code>line BBB</code>处发生了引用传递？</p>
+<p>先留着疑问，我们继续往下看。</p>
+<h2 id="观点2：值传递"><a href="#观点2：值传递" class="headerlink" title="观点2：值传递"></a>观点2：值传递</h2><p>继续看一段代码</p>
+<pre><code>public class Main {
+  public static void changeReference(Foo aRef){
+    Foo bRef = new Foo(&quot;b&quot;);
+    aRef = bRef;   // line EEE
+  }
+
+  public static void main(String[] args) {
+    Foo fooRef = new Foo(&quot;a&quot;); // line AAA
+    changeReference(fooRef); // line BBB
+    System.out.println(fooRef.getAttribute()); // 输出 a
+  }
+}
+</code></pre><p>上述示例，输出结果为<code>&quot;a&quot;</code>， 而不是<code>&quot;b&quot;</code>。</p>
+<p>我们在<code>line AAA</code>处新创建了一个Object Foo并将其引用<code>fooRef</code>在<code>line EEE</code>处传给了方法<code>changeReference()</code>的参数<code>aRef</code>, 该方法内部引用<code>aRef</code>在<code>line DDD</code>处被重新赋值。如果是引用传递，那么引用<code>aRef</code>在<code>line EEE</code>处已经被指向了新的Object, 输出应该为<code>&quot;b&quot;</code>才对，事实上是怎样的呢？事实上输出了<code>&quot;b&quot;</code>,也就是说<code>changeReference()</code>方法改变了传入引用所指对象的值。</p>
+<p>观点1和观点2的输出结果多少会让人有些困惑，别急，我们继续往下看。</p>
+<h2 id="深入分析"><a href="#深入分析" class="headerlink" title="深入分析"></a>深入分析</h2><p>为了详细分析这个问题，把上述两段代码合起来：</p>
+<pre><code>public class Main {
+  public static void modifyReference(Foo cRef){
+    cRef.setAttribute(&quot;c&quot;); // line DDD
+  }
+  public static void changeReference(Foo aRef){
+    Foo bRef = new Foo(&quot;b&quot;); // line FFF
+    aRef = bRef;   // line EEE
+  }
+
+  public static void main(String[] args) {
+    Foo fooRef = new Foo(&quot;a&quot;); // line AAA
+    changeReference(fooRef); // line BBB
+    System.out.println(fooRef.getAttribute()); // 输出 a
+
+    modifyReference(fooRef); // line CCC
+    System.out.println(fooRef.getAttribute()); // 输出 c
+
+  }
+}
+</code></pre><p>下面来深入内部来详细分析一下引用和Object内部的变化。来看下面图示：</p>
+<blockquote>
+<p>① Line AAA, 申明一个名叫<code>fooRef</code>，类型为<code>Foo</code>的引用，并见其分配给一个新的包含属性值为<code>&quot;f&quot;</code>的对象，该对象类型为<code>Foo</code>。</p>
+</blockquote>
+<pre><code>Foo fooRef = new Foo(&quot;a&quot;); // line AAA
+</code></pre><p><img src="https://segmentfault.com/img/bVDb94?w=182&amp;h=264" alt></p>
+<blockquote>
+<p>② Line DDD, 方法内部，申明了一个<code>Foo</code>类型的名为<code>aRef</code>的引用，且<code>aRef</code>被初始化为<code>null</code>。</p>
+</blockquote>
+<pre><code>void changeReference(Foo a);
+</code></pre><p><img src="https://segmentfault.com/img/bVDcbr?w=391&amp;h=278" alt></p>
+<blockquote>
+<p>③ Line CCC, <code>changeReference()</code>方法被调用后，引用<code>aRef</code>被分配给<code>fooRef</code>指向的对象。</p>
+</blockquote>
+<pre><code>changeReference(fooRef);
+</code></pre><p><img src="https://segmentfault.com/img/bVDcbB?w=369&amp;h=281" alt></p>
+<blockquote>
+<p>④ Line FFF, 申明一个名叫<code>bRef</code>，类型为<code>Foo</code>的引用，并见其分配给一个新的包含属性值为<code>&quot;b&quot;</code>的对象，该对象类型为<code>Foo</code>。</p>
+</blockquote>
+<pre><code>Foo bRef = new Foo(&quot;b&quot;);
+</code></pre><p><img src="https://segmentfault.com/img/bVDcbL?w=595&amp;h=291" alt></p>
+<blockquote>
+<p>⑤ Line EEE, 将引用<code>aRef</code>重新分配给了包含属性<code>&quot;b&quot;</code>的对象。此处注意，并非将<code>fooRef</code>重新分配，而是<code>aRef</code>。</p>
+</blockquote>
+<pre><code>aRef = bRef;
+</code></pre><p><img src="https://segmentfault.com/img/bVDcck?w=591&amp;h=290" alt></p>
+<blockquote>
+<p>⑥ Line CCC, 调用方法<code>modifyReference(Foo cRef)</code>后，新建了一个引用<code>cRef</code>并将之分配到包含该属性<code>&quot;f&quot;</code>的对象上，该对象同时被两个引用<code>fooRef</code>和<code>cRef</code>指向着。</p>
+</blockquote>
+<pre><code>modifyReference(fooRef);
+</code></pre><p><img src="https://segmentfault.com/img/bVDcc0?w=364&amp;h=269" alt></p>
+<blockquote>
+<p>⑦ Line DDD, <code>cRef.setAttribute(&quot;c&quot;);</code>将会改变<code>cRef</code>引用指向的包含属性<code>&quot;f&quot;</code>的对象，而该对象同时被引用<code>fooRef</code>指向着。</p>
+</blockquote>
+<pre><code>cRef.setAttribute(&quot;c&quot;);
+</code></pre><p><img src="https://segmentfault.com/img/bVDcdG?w=385&amp;h=274" alt></p>
+<p>此时引用<code>fooRef</code>指向的对象内部属性值<code>&quot;f&quot;</code>也被重新设置为<code>&quot;c&quot;</code>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java内部方法传参不是引用传递，而是引用本身的”值”的传递，归根结底还是<strong>值传递</strong>。将一个对象的引用<code>fooRef</code>传给方法的形参<code>newRef</code>，将给该对象新增了一个引用，相当于多了一个<code>alias</code>。我们可以通过这个原引用<code>fooRef</code>，或这是方法参数里的新引用<code>newRef</code>去访问、操作原对象，也可以改变参数里的引用<code>newRef</code>本身的值，却无法改变原引用<code>fooRef</code>的值。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/java-reference-or-value.html" title="Java之值传递Or引用传递？">https://jaxsonwang.github.io/java-reference-or-value.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/centos-install-ghost-blog-2.html" rel="next" title="Centos环境安装Ghost Blog（下）">
+                <i class="fa fa-chevron-left"></i> Centos环境安装Ghost Blog（下）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/react-assembly-note.html" rel="prev" title="理解React 组件">
+                理解React 组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#观点1：引用传递"><span class="nav-number">1.</span> <span class="nav-text">观点1：引用传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观点2：值传递"><span class="nav-number">2.</span> <span class="nav-text">观点2：值传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入分析"><span class="nav-number">3.</span> <span class="nav-text">深入分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

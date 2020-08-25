@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Web 前端工程入门简介 前言随著现代化网页（Modern Web）开发专业和複杂性的提昇以及对于使用者体验的要求下，网页开发已从过去的 Web Develpoer 一夫当关，转向专业分工，更加细分成网页前端（Web Front End）、网页后端（Web Back End）等职位。此外，由于跨平台、跨浏览器的需求日益增加，技术变化更迭快速，市场上对于前端工程师（Web Front End Eng">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R01-前端工程简介和 React 生态系简介">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-1.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="Web 前端工程入门简介 前言随著现代化网页（Modern Web）开发专业和複杂性的提昇以及对于使用者体验的要求下，网页开发已从过去的 Web Develpoer 一夫当关，转向专业分工，更加细分成网页前端（Web Front End）、网页后端（Web Back End）等职位。此外，由于跨平台、跨浏览器的需求日益增加，技术变化更迭快速，市场上对于前端工程师（Web Front End Eng">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/frameworks.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/html-css-js.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-eco-wp.gif">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R01-前端工程简介和 React 生态系简介">
+<meta name="twitter:description" content="Web 前端工程入门简介 前言随著现代化网页（Modern Web）开发专业和複杂性的提昇以及对于使用者体验的要求下，网页开发已从过去的 Web Develpoer 一夫当关，转向专业分工，更加细分成网页前端（Web Front End）、网页后端（Web Back End）等职位。此外，由于跨平台、跨浏览器的需求日益增加，技术变化更迭快速，市场上对于前端工程师（Web Front End Eng">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/09/frameworks.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-1.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>R01-前端工程简介和 React 生态系简介 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R01-前端工程简介和 React 生态系简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-21 20:14:05" itemprop="dateCreated datePublished" datetime="2016-09-21T20:14:05+09:00">2016-09-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-1.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Web-前端工程入门简介"><a href="#Web-前端工程入门简介" class="headerlink" title="Web 前端工程入门简介"></a>Web 前端工程入门简介</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/09/frameworks.png" alt="Web 前端工程入门简介"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>随著现代化网页（Modern Web）开发专业和複杂性的提昇以及对于使用者体验的要求下，网页开发已从过去的 Web Develpoer 一夫当关，转向专业分工，更加细分成网页前端（Web Front End）、网页后端（Web Back End）等职位。此外，由于跨平台、跨浏览器的需求日益增加，技术变化更迭快速，市场上对于前端工程师（Web Front End Engineer）的需求也与日俱增，前端工程的（Front End Engineering）所要面对的挑战也越来越多。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/html-css-js.png" alt="Web 前端工程入门简介"></p>
+<h3 id="前端工程范畴"><a href="#前端工程范畴" class="headerlink" title="前端工程范畴"></a>前端工程范畴</h3><p>事实上，在目前的业界，前端工程的定位光谱非常广泛，有聚焦在网页设计（Web Design），也有专注在软体工程（Software Engineering）的部份，本书则是将前端工程定位在软体工程的范畴。而 HTML、CSS 和 JavaScript 是前端工程最重要的技术基础。过去一段时间，我们所认为的前端工程主要专注在浏览器平台，但现在的 Web 平台已经不再侷限于桌面浏览器，而是必须面对更多的跨平台、跨浏览器的应用开发场景，其中包含：</p>
+<ol>
+<li>网页浏览器（Web Browser），一般的网页应用程式开发</li>
+<li>透过 CLI 指令去操作的 Headless 浏览器（Headless　Application）。例如：<a href="http://phantomjs.org/" target="_blank" rel="noopener">phantomJS</a>、<a href="http://casperjs.org/" target="_blank" rel="noopener">CasperJS</a> 等</li>
+<li>运作在 WebView 浏览器核心（WebView Application）的应用。例如：<a href="https://cordova.apache.org/" target="_blank" rel="noopener">Apache Cordova</a>、<a href="http://electron.atom.io/" target="_blank" rel="noopener">Electron</a>、<a href="http://nwjs.io/" target="_blank" rel="noopener">NW.js</a> 等行动、桌面应用程式开发</li>
+<li>原生应用程式（Native Application），透过 Web 技术撰写原生应用程式。例如：<a href="https://facebook.github.io/react-native/" target="_blank" rel="noopener">React Native</a>、<a href="https://www.nativescript.org/" target="_blank" rel="noopener">Native Script</a> 等</li>
+</ol>
+<p>过去几年，前端开发就像经历了文艺复兴（Rinascimento）的年代，开始了各种框架、套件百花齐放的时代。虽然现在有更多好用工具可以协助开发，但前端工程师似乎并没有变得比较轻鬆。以往若能妥善运用 jQuery 等函式库就可以应付大部分前端工程师的工作，但现在前端徵才广告上不仅要求精通 HTML、CSS 和 JavaScript，还要对于还要对于 <a href="http://backbonejs.org/" target="_blank" rel="noopener">Backbone</a>、<a href="http://emberjs.com/" target="_blank" rel="noopener">Ember</a>、<a href="https://angularjs.org/" target="_blank" rel="noopener">Angular</a>、<a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React</a>、<a href="https://vuejs.org/" target="_blank" rel="noopener">Vue</a> 等 JavaScript 框架或函式库有一定程度的了解。</p>
+<p>在众多 JavaScript 框架或函式库中，<a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React</a> 是 Facebook 推出的开源 <a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" rel="noopener">JavaScript</a> Library，它的出现让许多革新性的 Web 观念开始流行起来，例如：Virtual DOM、Web Component、更直觉的宣告式 UI 设计、更优雅地实现 Server Rendering 等。接下来本书将透过介绍 React 生态系（ecosystem）带领读者入门 React 的世界，让读者可以从零开始真的动手用 React 开发跨平台应用程式。</p>
+<h1 id="React-生态系（Ecosystem）入门简介"><a href="#React-生态系（Ecosystem）入门简介" class="headerlink" title="React 生态系（Ecosystem）入门简介"></a>React 生态系（Ecosystem）入门简介</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/09/react-eco-wp.gif" alt="React 生态系（Ecosystem）入门简介"></p>
+<p>根据 <a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React 官方网站</a> 的说明：React 是一个专注于 UI（View）的 JavaScript 函式库（Library）。自从 Facebook 于 2013 年开源 React 这个函式库后，相关的生态系开始蓬勃发展。事实上，透过学习 React 生态系（ecosystem）的过程中，可以让我们顺便学习现代化 Web 开发的重要观念（例如：模组化、ES6+、Webpack、Babel、ESLint、函数式程式设计等），成为更好的开发者。</p>
+<h3 id="ReactJS"><a href="#ReactJS" class="headerlink" title="ReactJS"></a>ReactJS</h3><p>ReactJS 是 Facebook 推出的 JavaScript 函式库，若以 MVC 框架来看，React 定位是在 View 的范畴。在 ReactJS 0.14 版之后，ReactJS 更把原先处理 DOM 的部分独立出去（react-dom），让 ReactJS 核心更单纯，也更符合 React 所倡导的 <code>Learn once, write everywhere</code> 的理念。事实上，ReactJS 本身的 API 相对单纯，但由于整个生态系非常庞大，因此学习 React 却是一条漫长的道路。此外，当你想把 React 应用在你的应用程式时，你通常必须学习整个 React Stack 才能充分发挥 React 的最大优势。</p>
+<h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>事实上，JSX 并非一种全新的语言，而是一种语法糖（<a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank" rel="noopener">Syntatic Sugar</a>），一种语法类似 <a href="https://zh.wikipedia.org/wiki/XML" target="_blank" rel="noopener">XML</a> 的 ECMAScript 语法扩充。在 JSX 中 HTML 和组建这些元素标籤的程式码有紧密的关系，这和过去我们强调 HTML、JavaScript 分离的观念有很大不同。当然，你可以选择不要在 React 使用 JSX，不过相信我，当你真正开始撰写 React 元件（Component）时，你会很庆幸有 JSX 真好。</p>
+<h3 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h3><p>NPM（Node Package Manager）是 Node.js 下的主流套件管理工具。在 NPM 上有非常多的套件，可以让你不用再重造轮子，更可以让你可以轻鬆用指令管理不同的套件。由于 NPM 主要是基于 <a href="https://en.wikipedia.org/wiki/CommonJS" target="_blank" rel="noopener">CommonJS</a> 的规范，通常必须搭配 Browserify 这样的工具才能在前端使用 NPM 的模组。然而因 NPM 是基于 Nested Dependency Tree，不同的套件有可能会在引入依赖时会引入相同但不同版本的套件，造成档案大小过大的情形。这和另一个套件管理工具 <a href="https://bower.io/" target="_blank" rel="noopener">Bower</a> 专注在前端套件且使用 Flat Dependency Tree（让使用者决定相依的套件版本）是比较不同的地方。</p>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6+"></a>ES6+</h3><p><a href="https://babeljs.io/blog/2015/06/07/react-on-es6-plus" target="_blank" rel="noopener">ES6+</a> 系指 ES6（ES2015）和 ES7 的联集，在 ES6+ 新的标准当中引入许多新的特性和功能，弥补了过去 JavaScript 被诟病的一些特性。由于未来 React 将以支援 ES6+ 为主，因此直接学习 ES6+ 用法是相对好的选择，本书的所有范例也将会以 ES6+ 撰写。</p>
+<h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h3><p>由于并非所有浏览器都支援 ES6+ 语法，所以透过 <a href="https://babeljs.io/" target="_blank" rel="noopener">Babel</a> 这个 JavaScript 编译器（可以想成是翻译机或是翻译蒟篛）可以让你的 ES6+ 、JSX 等程式码转换成浏览器可以看的懂得语法。通常会在资料夹的 root 位置加入 <code>.bablerc</code> 进行转译规则 <code>preset</code> 和引用外挂（plugin）的设定。</p>
+<h3 id="JavaScript-模组化开发"><a href="#JavaScript-模组化开发" class="headerlink" title="JavaScript 模组化开发"></a>JavaScript 模组化开发</h3><p>随著 Web 应用程式的複杂性提高，JavaScript 模组化开发已经成为必然的趋势，以下简单介绍 JavaScript 模组化的相关规范。事实上，在一开始没有官方定义的标准时出现了各种社群自行定义的规范和实践。</p>
+<ol>
+<li>CDN-Based也就是最传统的 <code>&lt;script&gt;</code> 引入方式，然而使用这种方式虽然简单方便，但在开发实际中大型应用程式时会产生许多弊端： - 全域作用域容易造成变数污染和衝突</li>
+</ol>
+<ul>
+<li>文件只能依照 <code>&lt;script&gt;</code> 顺序载入，不具弹性</li>
+<li>在大型专案中各种资源和版本难以维护</li>
+<li>必须由开发者自行判断模组和函式库之间的依赖关系</li>
+</ul>
+<ol start="2">
+<li>AMD<a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition" target="_blank" rel="noopener">Asynchronous Module Definition</a> 简称 AMD，为非同步载入模组的规范，其在宣告时模组时即需定义依赖的模组。AMD 常用于浏览器端，其最著名的实践为 <a href="http://requirejs.org/" target="_blank" rel="noopener">RequireJS</a>基本格式： <code>`</code><br><code>define(id?, dependencies?, factory);</code></li>
+</ol>
+<p><code></code>3. CommonJS<a href="http://wiki.commonjs.org/wiki/CommonJS" target="_blank" rel="noopener">CommonJS</a> 规范是一种同步模组载入的规范。以 Node.js 其遵守 CommonJS 规范，使用 <code>require</code> 进行模组同步载入，并透过 <code>exports</code>、<code>module.exports</code> 来输出模组。主要实现为 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a> 伺服器端的同步载入和浏览器端的 <a href="http://browserify.org/" target="_blank" rel="noopener">Browserify</a>。</p>
+<pre><code>4. CMDCMD 全称为 [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md)，其规范和 AMD 类似，但相对简洁，却又保持和 CommonJS 的兼容性。其最大特色为：依赖就近，延迟执行。主要实现为：[Sea.js](http://seajs.org/docs/#intro)。
+5. UMD[Universal Module Definition](https://github.com/umdjs/umd) 是为了要兼容 CommonJS 和 AMD 所设计的规范，希望让模组能跨平台执行。
+6. ES6 ModuleECMAScript6 的标准中定义了 JavaScript 的模组化方式，让 JavaScript 在开发大型複杂应用程式时上更为方便且易于管理，亦可以取代过去 AMD、CommonJS 等规范，成为通用于浏览器端和伺服器端的模组化解决方案。但目前浏览器和 Node 在 ES6 模组支援度还不完整，大部分情况需要透过 [Babel](https://babeljs.io/) 转译器进行转译。
+
+### Webpack/Browserify + Gulp
+
+随著网页应用程式开发的複杂性提昇，现在的网页往往不单只是单纯的网页，而是一个网页应用程式（WebApp）。为了管理複杂的应用程式开发，此时模组化开发方法便显得日益重要，而理想上的模组化开发工具一直是前端工程的很大的议题。Webpack 和 Browserify + Gulp 则是进行 React 应用程式开发常用的开发工具，可以协助进行自动化程式码打包、转译等重複性工作，提昇开发效率。本书范例主要会搭配 Webpack 进行开发。
+
+1. Webpack[Webpack](https://webpack.github.io/) 是一个模组打包工具（module bundler），以下列出 Webpack 的几项主要功能： - 将 CSS、图片与其他资源打包
+- 打包之前预处理（Less、CoffeeScript、JSX、ES6 等）的档案
+- 依 entry 文件不同，把 .js 分拆为多个 .js 档案
+- 整合丰富的 Loader 可以使用（Webpack 本身仅能处理 JavaScript 模组，其馀档案如：CSS、Image 需要载入不同 Loader 进行处理）
+2. Browserify如同官网上说明的：`Browserify lets you require(&apos;modules&apos;) in the browser by bundling up all of your dependencies.`，Browserify 是一个可以让你在浏览器端也能使用像 Node 用的 [CommonJS](https://en.wikipedia.org/wiki/CommonJS) 规范一样，用输出（export）和引用（require）来管理模组。此外，也能让前端使用许多在 NPM 中的模组。
+3. Gulp`Gulp` 是一个前端任务工具自动化管理工具（Task Runner）。随著前端工程的发展，我们在开发前端应用程式时有许多工作是必须重複进行，例如：打包文件、uglify、将 LESS 转译成一般的 CSS 的档案，转译 ES6 语法等工作。若是使用一般手动的方式，往往会造成效率的低下，所以透过像是 [Grunt](http://gruntjs.com/)、Gulp 这类的 Task Runner 不但可以提昇效率，也可以更方便管理这些任务。由于 Gulp 是透过 pipeline 方式来处理档案，在使用上比起 Grunt 的方式直观许多，所以这边我们主要讨论的是 Gulp。
+
+### ESLint
+
+[ESLint](http://eslint.org/) 是一个提供 JavaScript 和 JSX 的程式码检查工具，可以确保团队的程式码品质。其支援可插拔的特性，可以根据需求在 `.eslintrc` 设定检查规则。目前主流的检查规则会使用 Airbnb 所释出的 [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)，在使用上需先安装 [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb) 等套件。
+
+### React Router
+
+[React Router](https://github.com/reactjs/react-router) 是 React 中主流使用的 Routing 函式库，透过 URL 的变化来管理对应的状态和元件。若开发不刷页的单页式（single page application）的 React 应用程式通常都会需要用到。
+
+### Flux/Redux
+
+[Flux](https://facebook.github.io/flux/) 是一个实现单项流的应用程式资料架构（architecture），同样是由 Facebook 推出，并和 React 专注于 View 的部份形成互补。而由 Dan Abramov 所开发的 [Redux](https://github.com/reactjs/redux) 被 React 开发社群认为是 Flux-like 更优雅的作法，也是目前主流搭配 React 的状态（State）管理工具。让你在开发複杂的应用程式时可以更方便管理你的状态（state）。
+
+### ImmutableJS
+
+[ImmutableJS](https://facebook.github.io/immutable-js/)，是一个能让开发者建立不可变资料结构的函式库。建立不可变（immutable）资料结构不仅可以让状态可预测性更高，也可以提昇程式的效能。
+
+### Isomorphic JavaScript
+
+Isomorphic JavaScript 是指前后端（Client/Server）共用相同部分的程式码，让 JavaScript 应用可以同时执行在浏览器端和伺服器端，在 React 中可以透过伺服器端渲染（server side rendering）静态 HTML 的方式达到 Isomorphic JavaScript 效果，让 SEO 和执行效能更加提昇并让前后端共用程式码。而另一个常一起出现的 Universal JavaScript 一般定义更为广泛，系指可以运行在不同环境下的 JavaScript Code，并不局限于浏览器和伺服器端。但要留意的是在 Github 和许多技术文章的分享上会把两者定义为同一件事情。
+
+### React 测试
+
+Facebook 本身有提供 [Test Utilities](https://facebook.github.io/react/docs/test-utils.html)，但由于不够好用，所以目前主流开发社群比较倾向使用 Airbnb 团队开发的 [enzyme](https://github.com/airbnb/enzyme)，其可以与市面上常见的测试工具（[Mocha](https://mochajs.org/)、[Karma](https://karma-runner.github.io/)、Jest 等）搭配使用。其中 [Jest](https://facebook.github.io/jest/) 是 Facebook 所开发的单元测试工具，其主要基于 [Jasmine](http://jasmine.github.io/) 所建立的测试框架。Jest 除了支援 JSDOM 外，也可以自动模拟 (mock) 透过 `require()` 进来的模组，让开发者可以更专注在目前被测试的模组中。
+
+### React Native
+
+[React Native](https://facebook.github.io/react-native/)和过去的 [Apache Cordova](https://cordova.apache.org/) 等基于 WebView 的解决方案比较不同，它让开发者可以使用 React 和 JavaScript 开发原生应用程式（Native App），让 `Learn once, write anywhere` 理想变得可能。
+
+### GraphQL/Relay
+
+[GraphQL](http://graphql.org/docs/getting-started/) 是 Facebook 所开发的资料查询语言（Data Query Language），主要是想解决传统 RESTful API 所遇到的一些问题，并提供前端更有弹性的 API 设计方式。[Relay](https://facebook.github.io/relay/) 则是 Facebook 提出搭配 GraphQL 用于 React 的一个宣告式数据框架，可以降低 Ajax 的请求数量（类似的框架还有 Netflix 推出的 [Falcor](https://netflix.github.io/falcor/)）。但由于目前主流的后端 API 仍以传统 RESTful API 设计为主，所以在使用 GraphQL 上通常会需要比较大架构设计的变动。因此本书则是把 GraphQL/Relay 介绍放到附录的部份，让有兴趣的读者可以自行参考体验一下。
+
+### 总结
+
+以上就是读者在 React 生态系游走时会遇到的各种关卡，也许有些初学者会对于这样庞大的体系所吓到，放弃学习 React 这项革新性技术的机会。不过别担心，接下来笔者将带领读者按图索骥，依序介绍整个 React 生态系的各种技术，一步步带领大家用 React 实作出生活中会用到的应用程式。
+
+### 延伸阅读
+
+1. [Navigating the React.JS Ecosystem](https://www.toptal.com/react/navigating-the-react-ecosystem)
+2. [petehunt/react-howto](https://github.com/petehunt/react-howto#learning-relay-falcor-etc)
+3. [React Ecosystem – A summary](https://staminaloops.github.io/undefinedisnotafunction/react-ecosystem/)
+4. [React Official Site](https://facebook.github.io/react/)
+5. [A collection of awesome things regarding React ecosystem](https://github.com/enaqx/awesome-react)
+6. [Webpack 中文指南](http://zhaoda.net/webpack-handbook/index.html)
+7. [AMD 和 CMD 的区别有哪些？](https://www.zhihu.com/question/20351507)
+8. [jslint to eslint](https://www.qianduan.net/jslint-to-eslint/)
+9. [Facebook的Web开发三板斧：React.js、Relay和GraphQL](http://1ke.co/course/595)
+10. [airbnb/javascript](https://github.com/airbnb/javascript)``
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-1.html" title="R01-前端工程简介和 React 生态系简介">https://jaxsonwang.github.io/reactjs-getting-started-1.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/sec-understand-reactjs.html" rel="next" title="秒懂ReactJS">
+                <i class="fa fa-chevron-left"></i> 秒懂ReactJS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/reactjs-getting-started-2.html" rel="prev" title="R02-React 开发环境设置与 Webpack 入门教学">
+                R02-React 开发环境设置与 Webpack 入门教学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-前端工程入门简介"><span class="nav-number">1.</span> <span class="nav-text">Web 前端工程入门简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端工程范畴"><span class="nav-number">1.0.2.</span> <span class="nav-text">前端工程范畴</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#React-生态系（Ecosystem）入门简介"><span class="nav-number">2.</span> <span class="nav-text">React 生态系（Ecosystem）入门简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReactJS"><span class="nav-number">2.0.1.</span> <span class="nav-text">ReactJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX"><span class="nav-number">2.0.2.</span> <span class="nav-text">JSX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NPM"><span class="nav-number">2.0.3.</span> <span class="nav-text">NPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6"><span class="nav-number">2.0.4.</span> <span class="nav-text">ES6+</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Babel"><span class="nav-number">2.0.5.</span> <span class="nav-text">Babel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-模组化开发"><span class="nav-number">2.0.6.</span> <span class="nav-text">JavaScript 模组化开发</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

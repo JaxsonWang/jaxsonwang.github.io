@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ReactJS 与 Component 设计入门介绍前言在上一个章节中我们快速学习了 React 开发环境建置和 Webpack 入门。接下来我们将更进一步了解 React 和 Component 设计时需注意的几个重要特性。 ReactJS 特性简介React 原本是 Facebook 自己内部使用的开发工具，但却是一个目标远大的一个专案：Learn once, write anywhere。自">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R03-React&#x2F;JSX&#x2F;Component 简介">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-3.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="ReactJS 与 Component 设计入门介绍前言在上一个章节中我们快速学习了 React 开发环境建置和 Webpack 入门。接下来我们将更进一步了解 React 和 Component 设计时需注意的几个重要特性。 ReactJS 特性简介React 原本是 Facebook 自己内部使用的开发工具，但却是一个目标远大的一个专案：Learn once, write anywhere。自">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/component.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/reactjs.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/fb_like.jpg">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R03-React&#x2F;JSX&#x2F;Component 简介">
+<meta name="twitter:description" content="ReactJS 与 Component 设计入门介绍前言在上一个章节中我们快速学习了 React 开发环境建置和 Webpack 入门。接下来我们将更进一步了解 React 和 Component 设计时需注意的几个重要特性。 ReactJS 特性简介React 原本是 Facebook 自己内部使用的开发工具，但却是一个目标远大的一个专案：Learn once, write anywhere。自">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/09/component.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-3.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>R03-React/JSX/Component 简介 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R03-React/JSX/Component 简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-23 19:26:49" itemprop="dateCreated datePublished" datetime="2016-09-23T19:26:49+09:00">2016-09-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-3.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-3.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ReactJS-与-Component-设计入门介绍"><a href="#ReactJS-与-Component-设计入门介绍" class="headerlink" title="ReactJS 与 Component 设计入门介绍"></a>ReactJS 与 Component 设计入门介绍</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在上一个章节中我们快速学习了 React 开发环境建置和 Webpack 入门。接下来我们将更进一步了解 React 和 Component 设计时需注意的几个重要特性。</p>
+<h3 id="ReactJS-特性简介"><a href="#ReactJS-特性简介" class="headerlink" title="ReactJS 特性简介"></a>ReactJS 特性简介</h3><p>React 原本是 Facebook 自己内部使用的开发工具，但却是一个目标远大的一个专案：<code>Learn once, write anywhere</code>。自从 2013 年开源后周边的生态系更是蓬勃发展。ReactJS 的出现让前端开发有许多革新性的思维出现，其中有几个重要特性值得我们去探讨：</p>
+<ol>
+<li>基于元件（Component）化思考</li>
+<li>用 JSX 进行宣告式（Declarative）UI 设计</li>
+<li>使用 Virtual DOM</li>
+<li>Component PropType 防呆机制</li>
+<li>Component 就像个状态机（State Machine），而且也有生命週期（Life Cycle）</li>
+<li>一律重绘（Always Redraw）和单向资料流（Unidirectional Data Flow）</li>
+<li>在 JavaScript 裡写 CSS：Inline Style</li>
+</ol>
+<h3 id="基于元件（Component）化思考"><a href="#基于元件（Component）化思考" class="headerlink" title="基于元件（Component）化思考"></a>基于元件（Component）化思考</h3><p><img src="https://res.i95.me/wp-content/uploads/2016/09/component.png" alt="ReactJS 与 Component 设计入门介绍"></p>
+<p>在 React 的世界中最基本的单元为元件（Component），每个元件也可以包含一个以上的子元件，并依照需求组装成一个组合式的（Composable）元件，因此具有封装（encapsulation）、关注点分离 (Separation of Concerns)、複用 (Reuse) 、组合 (Compose) 等特性。</p>
+<p><code>&lt;TodoApp&gt;</code> 元件可以包含 <code>&lt;TodoHeader /&gt;</code>、<code>&lt;TodoList /&gt;</code> 子元件</p>
+<pre><code>&lt;div&gt;
+    &lt;TodoHeader /&gt;
+    &lt;TodoList /&gt;
+&lt;/div&gt;
+</code></pre><p><code>&lt;TodoList /&gt;</code> 元件内部长相：</p>
+<pre><code>&lt;div&gt;
+    &lt;ul&gt;
+        &lt;li&gt;写程式码&lt;/li&gt;
+        &lt;li&gt;哄妹子&lt;/li&gt;
+        &lt;li&gt;买书&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><p>元件化一直是网页前端开发的圣杯，许多开发者最希望的就是可以最大化重複使用（reuse）过去所写的程式码，不要重複造轮子（DRY）。在 React 中元件是一切的基础，让开发应用程式就好像在堆积木一样。然而对于过去习惯模版式（template）开发的前端工程师来说，短时间要转换成元件化思考模式并不容易，尤其过去我们往往习惯于将 HTML、CSS 和 JavaScript 分离，现在却要把它们都封装在一起。</p>
+<p>一个比较好的方式就是训练自己看到不同的网页或应用程式时，强迫自己将看到的页面切成一个个元件。相信过了一段时间后，天眼开了，就比较容易习惯元件化的思考方式。</p>
+<p>以下是一般 React Component 撰写的主要两种方式：</p>
+<ol>
+<li><p>使用 ES6 的 Class（可以进行比较複杂的操作和元件生命週期的控制，相对于 stateless components 耗费资源） <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    `// 注意元件开头第一个字母都要大写  </span><br><span class="line">    class MyComponent extends React.Component &#123;  </span><br><span class="line">    // render 是 Class based 元件唯一必须的方法（method）  </span><br><span class="line">    render() &#123;  </span><br><span class="line">    return (  </span><br><span class="line">    </span><br><span class="line">    Hello, World!</span><br><span class="line">    </span><br><span class="line">      </span><br><span class="line">    );  </span><br><span class="line">    &#125;  </span><br><span class="line">    &#125;`</span><br><span class="line"></span><br><span class="line">``</span><br><span class="line"></span><br><span class="line">// 将 元件插入 id 为 app 的 DOM 元素中  </span><br><span class="line">ReactDOM.render(, document.getElementById(&apos;app&apos;));</span><br><span class="line"></span><br><span class="line">    2. 使用 Functional Component 写法（单纯地 render UI 的 stateless components，没有内部状态、没有实作物件和 ref，没有生命週期函数。若非需要控制生命週期的话建议多使用 stateless components 获得比较好的效能）</span><br></pre></td></tr></table></figure></p>
+<p> // 使用 arrow function 来设计 Functional Component 让 UI 设计更单纯（f(D) =&gt; UI），减少副作用（side effect）<br> const MyComponent = () =&gt; (</p>
+<pre><code>&lt;div&gt;Hello, World!&lt;/div&gt;
+</code></pre><p> );</p>
+<p> // 将 <mycomponent> 元件插入 id 为 app 的 DOM 元素中<br> ReactDOM.render(<mycomponent>, document.getElementById(‘app’));</mycomponent></mycomponent></p>
+</li>
+</ol>
+<h3 id="用-JSX-进行宣告式（Declarative）UI-设计"><a href="#用-JSX-进行宣告式（Declarative）UI-设计" class="headerlink" title="用 JSX 进行宣告式（Declarative）UI 设计"></a>用 JSX 进行宣告式（Declarative）UI 设计</h3><p>React 在设计上的思路认为使用 Component 比起模版（Template）和显示逻辑（Display Logic）更能实现关注点分离的概念，而搭配 JSX 可以实现声明式 Declarative（注重 what to），而非命令式 Imperative（注重 how to）的程式撰写方式。</p>
+<p>像下述的宣告式（Declarative）UI 设计就比单纯用（Template）式的方式更易懂：</p>
+<pre><code>// 使用宣告式（Declarative）UI 设计很容易可以看出这个元件的功能
+&lt;MailForm /&gt;
+
+
+// &lt;MailForm /&gt; 内部长相
+&lt;form&gt;
+    &lt;input type=&quot;text&quot; name=&quot;email&quot;&gt;
+    &lt;button type=&quot;submit&quot;&gt;&lt;/button&gt;
+&lt;/form&gt;
+</code></pre><p>由于 JSX 在 React 元件撰写上扮演很重要的角色，因此在下一个章节我们也将更深入讲解 JSX 使用细节。</p>
+<h3 id="使用-Virtual-DOM"><a href="#使用-Virtual-DOM" class="headerlink" title="使用 Virtual DOM"></a>使用 Virtual DOM</h3><p>在传统 Web 中一般是使用 jQuery 进行 DOM 的直接操作。然而更改 DOM 往往是 Web 效能的瓶颈，因此在 React 世界设计有 Virtual DOM 的机制，让 App 和 DOM 之间用 Virtual DOM 进行沟通。当更改 DOM 时，会透过 React 自身的 diff 演算法去计算出最小更新，进而去最小化更新真实的 DOM。</p>
+<h3 id="Component-PropType-防呆机制"><a href="#Component-PropType-防呆机制" class="headerlink" title="Component PropType 防呆机制"></a>Component PropType 防呆机制</h3><p>在 React 设计时除了提供 props 预设值设定（Default Prop Values）外，也提供了 Prop 的验证（Validation）机制，让整个 Component 设计更加稳健：</p>
+<pre><code>//  注意元件开头第一个字母都要大写
+class MyComponent extends React.Component {
+    // render 是 Class based 元件唯一必须的方法（method）
+    render() {
+        return (
+            &lt;div&gt;Hello, World!&lt;/div&gt;
+        );
+    }
+}
+
+// PropTypes 验证，若传入的 props type 不符合将会显示错误
+MyComponent.propTypes = {
+  todo: React.PropTypes.object,
+  name: React.PropTypes.string,
+}
+
+// Prop 预设值，若对应 props 没传入值将会使用 default 值
+MyComponent.defaultProps = {
+ todo: {}, 
+ name: &apos;&apos;, 
+}
+</code></pre><p>关于更多的 Validation 用法可以参考<a href="https://facebook.github.io/react/docs/reusable-components.html" target="_blank" rel="noopener">官方网站</a> 的说明。</p>
+<h3 id="Component-就像个状态机（State-Machine），而且也有生命週期（Life-Cycle）"><a href="#Component-就像个状态机（State-Machine），而且也有生命週期（Life-Cycle）" class="headerlink" title="Component 就像个状态机（State Machine），而且也有生命週期（Life Cycle）"></a>Component 就像个状态机（State Machine），而且也有生命週期（Life Cycle）</h3><p>Component 就像个状态机（State Machine），根据不同的 state（透过 <code>setState()</code> 修改）和 props（由父元素传入），Component 会出现对应的显示结果。而人有生老病死，元件也有生命週期。透过操作生命週期处理函数，可以在对应的时间点进行 Component 需要的处理，关于更详细的元件生命週期介绍我们会再下一个章节进行更一步说明。</p>
+<h3 id="一律重绘（Always-Redraw）和单向资料流（Unidirectional-Data-Flow）"><a href="#一律重绘（Always-Redraw）和单向资料流（Unidirectional-Data-Flow）" class="headerlink" title="一律重绘（Always Redraw）和单向资料流（Unidirectional Data Flow）"></a>一律重绘（Always Redraw）和单向资料流（Unidirectional Data Flow）</h3><p>在 React 世界中，props 和 state 是影响 React Component 长相的重要要素。其中 props 都是由父元素所传进来，不能更改，若要更改 props 则必须由父元素进行更改。而 state 则是根据使用者互动而产生的不同状态，主要是透过 setState() 方法进行修改。当 React 发现 props 或是 state 更新时，就会重绘整个 UI。当然你也可以使用 forceUpdate() 去强迫重绘 Component。而 React 透过整合 Flux 或 Flux-like（例如：Redux）可以更具体实现单向资料流（Unidirectional Data Flow），让资料流的管理更为清晰。</p>
+<h3 id="在-JavaScript-裡写-CSS：Inline-Style"><a href="#在-JavaScript-裡写-CSS：Inline-Style" class="headerlink" title="在 JavaScript 裡写 CSS：Inline Style"></a>在 JavaScript 裡写 CSS：Inline Style</h3><p>在 React Component 中 CSS 使用 Inline Style 写法，全都封装在 JavaScript 当中：</p>
+<pre><code>const divStyle = {
+  color: &apos;red&apos;,
+  backgroundImage: &apos;url(&apos; + imgUrl + &apos;)&apos;,
+};
+
+ReactDOM.render(&lt;div style={divStyle}&gt;Hello World!&lt;/div&gt;, document.getElementById(&apos;app&apos;));
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上介绍了 ReactJS 的几个重要特性：</p>
+<ol>
+<li>基于元件（Component）化思考</li>
+<li>用 JSX 进行宣告式（Declarative）UI 设计</li>
+<li>使用 Virtual DOM</li>
+<li>Component PropType 防呆机制</li>
+<li>Component 就像个状态机（State Machine），而且也有生命週期（Life Cycle）</li>
+<li>一律重绘（Always Redraw）和单向资料流（Unidirectional Data Flow）</li>
+<li>在 JavaScript 裡写 CSS：Inline Style</li>
+</ol>
+<p>接下来我们将进一步探讨 React 裡 JSX 的使用方式。</p>
+<h3 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><ol>
+<li><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a></li>
+<li><a href="http://blog.reverberate.org/2014/02/react-demystified.html" target="_blank" rel="noopener">React Demystified</a></li>
+<li><a href="https://facebook.github.io/react/docs/top-level-api.html" target="_blank" rel="noopener">Top-Level API</a></li>
+<li><a href="https://facebook.github.io/react/docs/reusable-components.html#es6-classes" target="_blank" rel="noopener">ES6 Classes Component</a></li>
+</ol>
+<hr>
+<h1 id="JSX-简明入门教学指南"><a href="#JSX-简明入门教学指南" class="headerlink" title="JSX 简明入门教学指南"></a>JSX 简明入门教学指南</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/09/reactjs.png" alt="JSX 简明入门教学指南"></p>
+<h2 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h2><p>根据 <a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React</a> 官方定义，React 是一个构建使用者介面的 JavaScritp Library。以 MVC 模式来说，ReactJS 主要是负责 View 的部份。过去一段时间，我们被灌输了许多前端分离的观念，在前端三兄弟中（或三姊妹、三剑客）：HTML 掌管内容结构、CSS 负责外观样式，JavaScript 主管逻辑互动，千万不要混在一块。然而，在 React 世界裡，所有事物都是 以 Component 为基础，将同一个 Compoent 相关的程式和资源都放在一起，而在撰写 React Component 时我们通常会使用 <a href="https://facebook.github.io/jsx/" target="_blank" rel="noopener">JSX</a> 的方式来提升程式撰写效率。事实上，JSX 并非一种全新的语言，而是一种语法糖（<a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank" rel="noopener">Syntatic Sugar</a>），一种语法类似 <a href="https://zh.wikipedia.org/wiki/XML" target="_blank" rel="noopener">XML</a> 的 ECMAScript 语法扩充。在 JSX 中 HTML 和组建这些元素标籤的程式码有紧密的关系。因此你可能要熟悉一下以 Component 为单位的思考方式（本文主要使用 ES6 语法）。</p>
+<p>此外，React 和 JSX 的思维在于善用 JavaScript 的强大能力，放弃蹩脚的模版语言，这和 <a href="https://angularjs.org/" target="_blank" rel="noopener">Angular</a> 强化 HTML 的理念也有所不同。当然 JSX 并非强制使用，你也可以选择不用，因为最终 JSX 的内容会转化成 JavaScript（浏览器只看的懂 JavaScript）。不过等你阅读完接下来的内容，你或许会开始发现 JSX 的好，认真考虑使用 JSX 的语法。</p>
+<h3 id="一、使用-JSX-的好处"><a href="#一、使用-JSX-的好处" class="headerlink" title="一、使用 JSX 的好处"></a>一、使用 JSX 的好处</h3><blockquote>
+<ol>
+<li>提供更加语意化且易懂的标籤 由于 JSX 类似 XML 的语法，让一些非开发人员也更容易看懂，且能精确定义包含属性的树状结构。一般来说我们想做一个回馈表单，使用 HTML 写法通常会长这样：</li>
+</ol>
+</blockquote>
+<pre><code>&lt;form class=&quot;messageBox&quot;&gt;
+  &lt;textarea&gt;&lt;/textarea&gt;
+  &lt;button type=&quot;submit&quot;&gt;&lt;/button&gt;
+&lt;/form&gt;
+</code></pre><p>使用 JSX，就像 XML 语法结构一样可以自行定义标籤且有开始和关闭，容易理解：</p>
+<pre><code>&lt;MessageBox /&gt;
+</code></pre><p>React 思路认为使用 Component 比起模版（Template）和显示逻辑（Display Logic）更能实现关注点分离的概念，而搭配 JSX 可以实现声明式 <code>Declarative</code>（注重 what to），而非命令式 <code>Imperative</code>（注重 how to）的程式撰写方式：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/fb_like.jpg" alt="Facebook 上面按讚功能"></p>
+<p>以 Facebook 上面按讚功能来说，若是命令式 <code>Imperative</code> 写法大约会是长这样：</p>
+<pre><code>if(userLikes()) {
+  if(!hasBlueLike()) {
+    removeGrayLike();
+    addBlueLike();
+  }
+} else {
+  if(hasBlueLike()) {
+    removeBlueLike();
+    addGrayLike();
+  }
+}
+</code></pre><p>若是声明式 <code>Declarative</code> 则是会长这样：</p>
+<pre><code>if(this.state.liked) {
+  return (&lt;BlueLike /&gt;);
+} else {
+  return (&lt;GrayLike /&gt;);
+}
+</code></pre><p>看完上述说明是不是感觉 <code>React</code> 结合 <code>JSX</code> 的写法更易读易懂？事实上，当 Component 组成越来越複杂时，若使用 JSX 将可以让整个结构更加直观，可读性较高。</p>
+<blockquote>
+<ol>
+<li>更加简洁 虽然最终 JSX 会转换成 JavaScript，但使用 JSX 可以让程式看起来更加简洁，以下为使用 JSX 和不使用 JSX 的范例：</li>
+</ol>
+</blockquote>
+<pre><code>&lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;Hello!&lt;/a&gt;
+</code></pre><p>不使用 JSX（记得我们说过 JSX 是选用的）：</p>
+<pre><code>// React.createElement(元件/HTML标籤, 元件属性，以物件表示, 子元件)
+React.createElement(&apos;a&apos;, {href: &apos;https://facebook.github.io/react/&apos;}, &apos;Hello!&apos;)
+</code></pre><blockquote>
+<ol>
+<li>结合原生 JavaScript 语法 JSX 并非一种全新的语言，而是一种语法糖（Syntatic Sugar），一种语法类似 XML 的 ECMAScript 语法扩充，所以并没有改变 JavaScript 语意。透过结合 JavaScript ，可以释放 JavaScript 语言本身能力。下面例子就是运用 <code>map</code> 方法，轻易把 <code>result</code> 值迭代出来，产生无序清单（ul）的内容，不用再使用蹩脚的模版语言（这边有个小地方要留意的是每个 <code>&lt;li&gt;</code> 元素记得加上独特的 key 这边用 map function 迭代出的 index，不然会出现问题）：</li>
+</ol>
+</blockquote>
+<pre><code>// const 为常数
+const lists = [&apos;JavaScript&apos;, &apos;Java&apos;, &apos;Node&apos;, &apos;Python&apos;];
+
+class HelloMessage extends React.Compoent {
+  render() {
+    return (
+    &lt;ul&gt;
+      {lists.map((result, index) =&gt; {
+        return (&lt;li key={index}&gt;{result}&lt;/li&gt;);
+      })}
+    &lt;/ul&gt;);
+  }
+}
+</code></pre><h3 id="二、JSX-用法摘要"><a href="#二、JSX-用法摘要" class="headerlink" title="二、JSX 用法摘要"></a>二、JSX 用法摘要</h3><blockquote>
+<ol>
+<li>环境设定与使用方式 初步了解为何要使用 JSX 后，我们来聊聊 JSX 的用法。一般而言 JSX 通常有两种使用方式：</li>
+</ol>
+</blockquote>
+<ol>
+<li>使用 <a href="http://browserify.org/" target="_blank" rel="noopener">browserify</a> 或 <a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a> 等 <a href="https://en.wikipedia.org/wiki/CommonJS" target="_blank" rel="noopener">CommonJS</a> bundler 并整合 <a href="https://babeljs.io/" target="_blank" rel="noopener">babel</a> 预处理</li>
+<li>于浏览器端做解析</li>
+</ol>
+<p>在这边简单起见，我们先使用第二种方式，先让大家专注熟悉 JSX 语法使用，等到后面章节再教大家使用 bundler 的方式去做解析（可以试著把下面的原始码贴到 <a href="http://jsbin.com/" target="_blank" rel="noopener">JSbin</a> 的 HTML 看结果）：</p>
+<pre><code>&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;title&gt;Hello React!&lt;/title&gt;
+&lt;!-- 请先于 index.html 中引入 react.js, react-dom.js 和 babel-core 的 browser.min.js --&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js&quot;&gt;&lt;/script&gt;
+
+
+&lt;div id=&quot;example&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/babel&quot;&gt;
+  // 程式码写在这边！
+  ReactDOM.render(
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+    document.getElementById(&apos;example&apos;)
+  );
+&lt;/script&gt;
+</code></pre><p>一般载入 JSX 方式有：</p>
+<ul>
+<li><p>内嵌</p>
+<script type="text/babel">
+  ReactDOM.render(
+    <h1>Hello, world!</h1>,
+    document.getElementById('example')
+  );
+</script>
+
+
+</li>
+</ul>
+<ul>
+<li>从外部引入</li>
+</ul>
+<p><code>&lt;script type=&quot;text/jsx&quot; src=&quot;main.jsx&quot;&gt;&lt;/script&gt;</code></p>
+<blockquote>
+<ol>
+<li>标籤用法 JSX 标籤非常类似 XML ，可以直接书写。一般 Component 命名首字大写，HTML Tags 小写。以下是一个建立 Component 的 class：</li>
+</ol>
+</blockquote>
+<pre><code>class HelloMessage extends React.Compoent {
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;p&gt;Hello React!&lt;/p&gt;
+        &lt;MessageList /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre><blockquote>
+<ol>
+<li>转换成 JavaScript</li>
+</ol>
+</blockquote>
+<p>JSX 最终会转换成浏览器可以读取的 JavaScript，以下为其规则：</p>
+<pre><code>React.createElement(
+  string/ReactClass, // 表示 HTML 元素或是 React Component
+  [object props], // 属性值，用物件表示
+  [children] // 接下来参数皆为元素子元素
+)
+</code></pre><p>解析前（特别注意在 JSX 中使用 JavaScript 表达式时使用 <code>{}</code> 括起，如下方范例的 <code>text</code>，裡面对应的是变数。若需希望放置一般文字，请加上 <code>&#39;&#39;</code>）：</p>
+<pre><code>var text = &apos;Hello React&apos;;
+&lt;h1&gt;{text}&lt;/h1&gt;
+&lt;h1&gt;{&apos;text&apos;}&lt;/h1&gt;
+</code></pre><p>解析完后：</p>
+<pre><code>var text = &apos;Hello React&apos;;
+React.createElement(&quot;h1&quot;, null, &quot;Hello React!&quot;);
+</code></pre><p>另外要特别要注意的是由于 JSX 最终会转成 JavaScript 且每一个 JSX 节点都对应到一个 JavaScript 函数，所以在 Component 的 <code>render</code> 方法中只能回传一个根节点（Root Nodes）。例如：若有多个 <code>&lt;div&gt;</code> 要 <code>render</code> 请在外面包一个 Component 或 <code>&lt;div&gt;</code>、<code>&lt;span&gt;</code> 元素。</p>
+<blockquote>
+<ol>
+<li>注解 由于 JSX 最终会编译成 JavaScript，注解也一样使用 <code>//</code> 和 <code>/**/</code> 当做注解方式：</li>
+</ol>
+</blockquote>
+<pre><code>// 单行注解
+
+/*
+  多行注解
+*/
+
+var content = (
+  &lt;List&gt;
+      {/* 若是在子元件注解要加 {}  */}
+      &lt;Item
+        /* 多行
+           注解
+           喔 */
+        name={window.isLoggedIn ? window.name : &apos;&apos;} // 单行注解
+      /&gt;
+  &lt;/List&gt;
+);
+</code></pre><blockquote>
+<ol>
+<li>属性 在 HTML 中，我们可以透过标籤上的属性来改变标籤外观样式，在 JSX 中也可以，但要注意 <code>class</code> 和 <code>for</code> 由于为 JavaScript 保留关键字用法，因此在 JSX 中使用 <code>className</code> 和 <code>htmlFor</code> 替代。</li>
+</ol>
+</blockquote>
+<pre><code>class HelloMessage extends React.Compoent {
+  render() {
+    return (
+      &lt;div className=&quot;message&quot;&gt;
+        &lt;p&gt;Hello React!&lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre><blockquote>
+<p>Boolean 属性 在 JSX 中预设只有属性名称但没设值为 <code>true</code>，例如以下第一个 input 标籤 <code>disabled</code> 虽然没设值，但结果和下面的 input 为相同：</p>
+</blockquote>
+<pre><code>&lt;input type=&quot;button&quot; disabled /&gt;;
+&lt;input type=&quot;button&quot; disabled={true} /&gt;;
+</code></pre><p>反之，若是没有属性，则预设预设为 <code>false</code>：</p>
+<pre><code>&lt;input type=&quot;button&quot; /&gt;;
+&lt;input type=&quot;button&quot; disabled={false} /&gt;;
+</code></pre><blockquote>
+<ol>
+<li>扩展属性 在 ES6 中使用 <code>...</code> 是迭代物件的意思，可以把所有物件对应的值迭代出来设定属性，但要注意后面设定的属性会盖掉前面相同属性：</li>
+</ol>
+</blockquote>
+<pre><code>var props = {
+  style: &quot;width:20px&quot;,
+  className: &quot;main&quot;,
+  value: &quot;yo&quot;,  
+}
+
+&lt;HelloMessage  {...props} value=&quot;yo&quot; /&gt;
+
+// 等于以下
+React.createElement(&quot;h1&quot;, React._spread({}, props, {value: &quot;yo&quot;}), &quot;Hello React!&quot;);
+</code></pre><blockquote>
+<ol>
+<li>自定义属性 若是希望使用自定义属性，可以使用 <code>data-</code>：</li>
+</ol>
+</blockquote>
+<pre><code>&lt;HelloMessage data-attr=&quot;xd&quot; /&gt;
+</code></pre><blockquote>
+<ol>
+<li>显示 HTML 通常为了避免资讯安全问题，我们会过滤掉 HTML，若需要显示的话可以使用：</li>
+</ol>
+</blockquote>
+<pre><code>&lt;div&gt;{ {_html: &apos;&lt;h1&gt;Hello World!!&lt;/h1&gt;&apos;}}&lt;/div&gt;
+</code></pre><blockquote>
+<ol>
+<li>样式使用 在 JSX 中使用外观样式方法如下，第一个 <code>{}</code> 是 JSX 语法，第二个为 JavaScript 物件。与一般属性值用 <code>-</code> 分隔不同，为驼峰式命名写法：</li>
+</ol>
+</blockquote>
+<pre><code>&lt;HelloMessage style={ { color: &apos;#FFFFFF&apos;, fontSize: &apos;30px&apos;}} /&gt;
+</code></pre><blockquote>
+<ol>
+<li>事件处理 事件处理为前端开发的重头戏，在 JSX 中透过 inline 事件的绑定来监听并处理事件（注意也是驼峰式写法），更多事件处理方法请<a href="https://facebook.github.io/react/docs/events.html#supported-events" target="_blank" rel="noopener">参考官网</a></li>
+</ol>
+</blockquote>
+<pre><code>&lt;HelloMessage onClick={this.onBtn} /&gt;
+</code></pre><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>以上就是 JSX 简明入门教学，希望透过以上介绍，让读者了解在 React 中为何要使用 JSX，以及 JSX 基本概念和用法。最后为大家複习一下：在 React 世界裡，所有事物都是以 Component 为基础，通常会将同一个 Compoent 相关的程式和资源都放在一起，而在撰写 React Component 时我们常会使用 <a href="https://facebook.github.io/jsx/" target="_blank" rel="noopener">JSX</a> 的方式来提升程式撰写效率。JSX 是一种语法类似 XML 的 ECMAScript 语法扩充，可以善用 JavaScript 的强大能力，放弃蹩脚的模版语言。当然 JSX 并非强制使用，你也可以选择不用，因为最终 JSX 的内容会转化成 JavaScript。当相信阅读完上述的内容后，你会开始认真考虑使用 JSX 的语法。</p>
+<h3 id="延伸阅读-1"><a href="#延伸阅读-1" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><ol>
+<li><a href="http://www.puritys.me/docs-blog/article-320-Imperative-programming-or-declarative-programming.html" target="_blank" rel="noopener">Imperative programming or declarative programming</a></li>
+<li><a href="https://facebook.github.io/react/docs/jsx-in-depth.html" target="_blank" rel="noopener">JSX in Depth</a></li>
+<li><a href="https://www.gitbook.com/book/kdchang/react101/details" target="_blank" rel="noopener">从零开始学 React（ReactJS 101）</a></li>
+</ol>
+<p><code></code></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-3.html" title="R03-React/JSX/Component 简介">https://jaxsonwang.github.io/reactjs-getting-started-3.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/wechat-applications-open-era.html" rel="next" title="微信应用号时代正式开启！">
+                <i class="fa fa-chevron-left"></i> 微信应用号时代正式开启！
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/reactjs-getting-started-4.html" rel="prev" title="R04-Props/State 基础与 Component 生命周期">
+                R04-Props/State 基础与 Component 生命周期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ReactJS-与-Component-设计入门介绍"><span class="nav-number">1.</span> <span class="nav-text">ReactJS 与 Component 设计入门介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReactJS-特性简介"><span class="nav-number">1.0.2.</span> <span class="nav-text">ReactJS 特性简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于元件（Component）化思考"><span class="nav-number">1.0.3.</span> <span class="nav-text">基于元件（Component）化思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用-JSX-进行宣告式（Declarative）UI-设计"><span class="nav-number">1.0.4.</span> <span class="nav-text">用 JSX 进行宣告式（Declarative）UI 设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Virtual-DOM"><span class="nav-number">1.0.5.</span> <span class="nav-text">使用 Virtual DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Component-PropType-防呆机制"><span class="nav-number">1.0.6.</span> <span class="nav-text">Component PropType 防呆机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Component-就像个状态机（State-Machine），而且也有生命週期（Life-Cycle）"><span class="nav-number">1.0.7.</span> <span class="nav-text">Component 就像个状态机（State Machine），而且也有生命週期（Life Cycle）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一律重绘（Always-Redraw）和单向资料流（Unidirectional-Data-Flow）"><span class="nav-number">1.0.8.</span> <span class="nav-text">一律重绘（Always Redraw）和单向资料流（Unidirectional Data Flow）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-JavaScript-裡写-CSS：Inline-Style"><span class="nav-number">1.0.9.</span> <span class="nav-text">在 JavaScript 裡写 CSS：Inline Style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.0.10.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸阅读"><span class="nav-number">1.0.11.</span> <span class="nav-text">延伸阅读</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#JSX-简明入门教学指南"><span class="nav-number">2.</span> <span class="nav-text">JSX 简明入门教学指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-1"><span class="nav-number">2.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、使用-JSX-的好处"><span class="nav-number">2.1.1.</span> <span class="nav-text">一、使用 JSX 的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、JSX-用法摘要"><span class="nav-number">2.1.2.</span> <span class="nav-text">二、JSX 用法摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">2.1.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸阅读-1"><span class="nav-number">2.1.4.</span> <span class="nav-text">延伸阅读</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="由于开发一套系统需要，经过朋友推荐CodeIgniter php框架，所以有了这次简单的快速上手教程。 官网地址：https://www.codeigniter.com 中文官网：https://codeigniter.org.cn 中文文档：https://codeigniter.org.cn/user_guide 加载静态内容新建一个控制器来处理静态页面，控制器就是一个简单的类，它是整个 We">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CodeIgniter简单上手">
+<meta property="og:url" content="https://jaxsonwang.github.io/codeigniter-notes.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="由于开发一套系统需要，经过朋友推荐CodeIgniter php框架，所以有了这次简单的快速上手教程。 官网地址：https://www.codeigniter.com 中文官网：https://codeigniter.org.cn 中文文档：https://codeigniter.org.cn/user_guide 加载静态内容新建一个控制器来处理静态页面，控制器就是一个简单的类，它是整个 We">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CodeIgniter简单上手">
+<meta name="twitter:description" content="由于开发一套系统需要，经过朋友推荐CodeIgniter php框架，所以有了这次简单的快速上手教程。 官网地址：https://www.codeigniter.com 中文官网：https://codeigniter.org.cn 中文文档：https://codeigniter.org.cn/user_guide 加载静态内容新建一个控制器来处理静态页面，控制器就是一个简单的类，它是整个 We">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/codeigniter-notes.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CodeIgniter简单上手 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/codeigniter-notes.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CodeIgniter简单上手
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-02-28 16:16:07" itemprop="dateCreated datePublished" datetime="2018-02-28T16:16:07+09:00">2018-02-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/codeigniter-notes.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/codeigniter-notes.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于开发一套系统需要，经过朋友推荐<code>CodeIgniter</code> php框架，所以有了这次简单的快速上手教程。 官网地址：<a href="https://www.codeigniter.com" target="_blank" rel="noopener">https://www.codeigniter.com</a> 中文官网：<a href="https://codeigniter.org.cn" target="_blank" rel="noopener">https://codeigniter.org.cn</a> 中文文档：<a href="https://codeigniter.org.cn/user_guide" target="_blank" rel="noopener">https://codeigniter.org.cn/user_guide</a></p>
+<h3 id="加载静态内容"><a href="#加载静态内容" class="headerlink" title="加载静态内容"></a>加载静态内容</h3><p>新建一个<strong>控制器</strong>来处理静态页面，控制器就是一个简单的类，它是整个 Web 应用程序的 “粘合剂” 。 例如，当访问下面这个 URL 时: <a href="http://example.com/news/latest/10" target="_blank" rel="noopener">http://example.com/news/latest/10</a> 通过这个 URL 就可以推测出来，有一个叫做 “news” 的控制器，被调用的方法为 “latest” ， 这个方法的作用应该是查询 10 条新闻条目并显示在页面上。在 MVC 模式里，会经常看到下面 格式的 URL ： <a href="http://example.com/%5Bcontroller-class%5D/%5Bcontroller-method%5D/%5Barguments%5D" target="_blank" rel="noopener">http://example.com/[controller-class]/[controller-method]/[arguments]</a> 新建一个文件 application/controllers/Pages.php：</p>
+<pre><code>&lt;?php
+class Pages extends CI_Controller {
+    public function view($page = &apos;home&apos;)
+    {
+    }
+}
+</code></pre><p>创建了一个 Pages 类，有一个方法 view 并可接受一个 $page 参数。 Pages 类继承自 CI_Controller 类，这意味着它可以访问 CI_Controller 类（ system/core/Controller.php ）中定义的方法和变量。 新建页头文件 application/views/templates/header.php 并添加以下代码：</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;CodeIgniter Tutorial&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;&lt;?php echo $title; ?&gt;&lt;/h1&gt;
+</code></pre><p>再新建个页脚文件 application/views/templates/footer.php ，然后添加以下代码：</p>
+<pre><code>        &lt;em&gt;&amp;copy; 2017&lt;/em&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="在控制器中添加逻辑"><a href="#在控制器中添加逻辑" class="headerlink" title="在控制器中添加逻辑"></a>在控制器中添加逻辑</h3><p>刚刚新建了一个控制器，里面有一个 view() 方法，这个方法接受一个参数 用于指定要加载的页面，静态页面模板位于 application/views/pages/ 目录。 在该目录中，再新建两个文件 home.php 和 about.php ，在每个文件里随便 写点东西然后保存它们。 为了加载这些页面，需要先检查下请求的页面是否存在：</p>
+<pre><code>public function view($page = &apos;home&apos;)
+{
+  if ( ! file_exists(APPPATH.&apos;views/pages/&apos;.$page.&apos;.php&apos;))
+    {
+        // Whoops, we don&apos;t have a page for that!
+        show_404();
+    }
+    $data[&apos;title&apos;] = ucfirst($page); // Capitalize the first letter
+    $this-&gt;load-&gt;view(&apos;templates/header&apos;, $data);
+    $this-&gt;load-&gt;view(&apos;pages/&apos;.$page, $data);
+    $this-&gt;load-&gt;view(&apos;templates/footer&apos;, $data);
+}
+</code></pre><p>当请求的页面存在，将包括页面和页脚一起被加载并显示给用户，如果不存在， 会显示一个 “404 Page not found” 错误。 第一行检查页面是否存在，file_exists() 是个原生的 PHP 函数，用于检查某个 文件是否存在，show_404() 是个 CodeIgniter 内置的函数，用来显示一个默认的 错误页面。 在页头文件中，$title 变量用来自定义页面的标题，它是在这个方法中赋值的， 但是注意的是并不是直接赋值给 title 变量，而是赋值给一个 $data 数组的 title 元素。 最后要做的是按顺序加载所需的视图，view() 方法的第二个参数用于向视图传递参数， $data 数组中的每一项将被赋值给一个变量，这个变量的名字就是数组的键值。 所以控制器中 $data[‘title’] 的值，就等于视图中的 $title 的值。</p>
+<h3 id="创建数据模型"><a href="#创建数据模型" class="headerlink" title="创建数据模型"></a>创建数据模型</h3><p>数据库的查询操作应该放在模型里，而不是写在控制器里，这样可以很方便的重用它。 模型正是用于从数据库或者其他存储中获取、新增、更新数据的地方。 打开 application/models/ 目录，新建一个文件 News_model.php ，然后写入下面的代码：</p>
+<pre><code>&lt;?php
+class News_model extends CI_Model {
+    public function __construct()
+    {
+        $this-&gt;load-&gt;database();
+    }
+}
+</code></pre><p>在查询数据库之前，要先创建一个数据库表。连接的数据库，运行下面的 SQL 语句（MySQL），并添加一些测试数据：</p>
+<pre><code>CREATE TABLE news (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    title varchar(128) NOT NULL,
+    slug varchar(128) NOT NULL,
+    text text NOT NULL,
+    PRIMARY KEY (id),
+    KEY slug (slug)
+);
+
+NSERT INTO `news` (`id`, `title`, `slug`, `text`) VALUES
+(1, &apos;好世界&apos;, &apos;you&apos;, &apos;这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容&apos;),
+(2, &apos;Hello World&apos;, &apos;me&apos;, &apos;This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.&apos;);
+</code></pre><p>通过这个代码，可以执行两种不同的查询，一种是获取所有的新闻条目，另一种 是根据它的 slug 来获取新闻条目。应该注意到，$slug 变量在执行查询之前 并没有做检查， 查询构造器 会自动帮检查的。</p>
+<h3 id="显示新闻"><a href="#显示新闻" class="headerlink" title="显示新闻"></a>显示新闻</h3><p>查询已经写好了，接下来需要将模型绑定到视图上，向用户显示新闻条目了。 这可以在之前写的 Pages 控制器里来做，但为了更清楚的阐述，定义了一个新的 News 控制器，创建在 application/controllers/News.php 文件中：</p>
+<pre><code>&lt;?php
+class News extends CI_Controller {
+    public function __construct()
+    {
+        parent::__construct();
+        $this-&gt;load-&gt;model(&apos;news_model&apos;);
+        $this-&gt;load-&gt;helper(&apos;url_helper&apos;);
+    }
+    public function index()
+    {
+        $data[&apos;news&apos;] = $this-&gt;news_model-&gt;get_news();
+    }
+    public function view($slug = NULL)
+    {
+        $data[&apos;news_item&apos;] = $this-&gt;news_model-&gt;get_news($slug);
+    }
+}
+</code></pre><p>首先是 __construct() 方法，它调用父类（CI_Controller）中的构造函数，并加载模型。这样模型就可以 在这个控制器的其他方法中使用了。另外它还加载了 URL 辅助函数 ， 因为在后面的视图中会用到它。 其次，有两个方法用来显示新闻条目，一个显示所有的，另一个显示特定的。 可以看到第二个方法中调用模型方法时传入了 $slug 参数，模型根据这个 slug 返回特定的新闻条目。 现在，通过模型，控制器已经获取到数据了，但还没有显示。下一步要做的就是， 将数据传递给视图：</p>
+<pre><code>public function index()
+{
+    $data[&apos;news&apos;] = $this-&gt;news_model-&gt;get_news();
+    $data[&apos;title&apos;] = &apos;News archive&apos;;
+    $this-&gt;load-&gt;view(&apos;templates/header&apos;, $data);
+    $this-&gt;load-&gt;view(&apos;news/index&apos;, $data);
+    $this-&gt;load-&gt;view(&apos;templates/footer&apos;);
+}
+</code></pre><p>上面的代码从模型中获取所有的新闻条目，并赋值给一个变量，另外页面的标题赋值给了 $data[‘title’] 元素，然后所有的数据被传递给视图。现在需要创建一个视图文件来 显示新闻条目了，新建 application/views/news/index.php 文件并添加如下代码：</p>
+<pre><code>&lt;h2&gt;&lt;?php echo $title; ?&gt;&lt;/h2&gt;
+&lt;?php foreach ($news as $news_item): ?&gt;
+    &lt;h3&gt;&lt;?php echo $news_item[&apos;title&apos;]; ?&gt;&lt;/h3&gt;
+    &lt;div class=&quot;main&quot;&gt;
+        &lt;?php echo $news_item[&apos;text&apos;]; ?&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;a href=&quot;&lt;?php echo site_url(&apos;news/view/&apos;.$news_item[&apos;slug&apos;]); ?&gt;&quot;&gt;View article&lt;/a&gt;&lt;/p&gt;
+&lt;?php endforeach; ?&gt;
+</code></pre><p>新闻的列表页就做好了，但是还缺了显示特定新闻条目的页面，之前创建的模型可以很容易的 实现该功能，只需要向控制器中添加一些代码，然后再新建一个视图就可以了。回到 News 控制器，使用下面的代码替换掉 view() 方法：</p>
+<pre><code>public function view($slug = NULL)
+{
+    $data[&apos;news_item&apos;] = $this-&gt;news_model-&gt;get_news($slug);
+    if (empty($data[&apos;news_item&apos;]))
+    {
+        show_404();
+    }
+    $data[&apos;title&apos;] = $data[&apos;news_item&apos;][&apos;title&apos;];
+    $this-&gt;load-&gt;view(&apos;templates/header&apos;, $data);
+    $this-&gt;load-&gt;view(&apos;news/view&apos;, $data);
+    $this-&gt;load-&gt;view(&apos;templates/footer&apos;);
+}
+</code></pre><p>并没有直接调用 get_news() 方法，而是传入了一个 $slug 参数， 所以它会返回相应的新闻条目。最后剩下的事是创建视图文件 application/views/news/view.php 并添加如下代码：</p>
+<pre><code>&lt;?php
+echo &apos;&lt;h2&gt;&apos;.$news_item[&apos;title&apos;].&apos;&lt;/h2&gt;&apos;;
+echo $news_item[&apos;text&apos;];
+</code></pre><h3 id="创建新闻条目"><a href="#创建新闻条目" class="headerlink" title="创建新闻条目"></a>创建新闻条目</h3><p>为了向数据库中写入数据，需要先创建一个表单用来填写要存储的信息，这意味着 的表单里需要包含两项：一项代表标题，另一项代表内容。可以在模型中通过代码 从标题中提取出 slug。在文件 application/views/news/create.php 中创建一个新视图：</p>
+<pre><code>&lt;h2&gt;&lt;?php echo $title; ?&gt;&lt;/h2&gt;
+&lt;?php echo validation_errors(); ?&gt;
+&lt;?php echo form_open(&apos;news/create&apos;); ?&gt;
+    &lt;label for=&quot;title&quot;&gt;Title&lt;/label&gt;
+    &lt;input type=&quot;input&quot; name=&quot;title&quot; /&gt;&lt;br /&gt;
+    &lt;label for=&quot;text&quot;&gt;Text&lt;/label&gt;
+    &lt;textarea name=&quot;text&quot;&gt;&lt;/textarea&gt;&lt;br /&gt;
+    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Create news item&quot; /&gt;
+&lt;/form&gt;
+</code></pre><p>这里有两个地方可能还不熟悉：form_open() 函数 以及 validation_errors() 函数。 第一个函数是由 表单辅助函数 提供的，用于生成 form 元素，并添加一些额外的功能，如添加一个隐藏的 CSRF 保护字段 , 第二个函数用于显示表单验证的错误信息。 回到的 News 控制器，将要在这里做两件事：检查表单是否被提交，以及提交的数据是否能通过验证规则。 可以使用 表单验证类 来做到这一点。</p>
+<pre><code>public function create()
+    {
+        $this-&gt;load-&gt;helper(&apos;form&apos;);
+        $this-&gt;load-&gt;library(&apos;form_validation&apos;);
+        $data[&apos;title&apos;] = &apos;Create a news item&apos;;
+        $this-&gt;form_validation-&gt;set_rules(&apos;title&apos;, &apos;Title&apos;, &apos;required&apos;);
+        $this-&gt;form_validation-&gt;set_rules(&apos;text&apos;, &apos;Text&apos;, &apos;required&apos;);
+        if ($this-&gt;form_validation-&gt;run() === FALSE)
+        {
+            $this-&gt;load-&gt;view(&apos;templates/header&apos;, $data);
+            $this-&gt;load-&gt;view(&apos;news/create&apos;);
+            $this-&gt;load-&gt;view(&apos;templates/footer&apos;);
+        }
+        else
+        {
+            $this-&gt;news_model-&gt;set_news();
+            $this-&gt;load-&gt;view(&apos;news/success&apos;);
+        }
+    }
+</code></pre><p>上面的代码添加了不少功能，前几行代码加载了 表单辅助函数 和 表单验证类。然后，设置了表单验证规则， set_rules() 方法有三个参数：表单中字段的名称，错误信息中使用的名称，以及验证规则。在这个例子中， 规则为 title 和 text 字段是必填的。 接下来，可以看到一个判断条件检查表单验证是否成功通过，如果没有通过，将显示出表单， 如果通过了验证，则会调用模型。然后，加载视图显示出成功信息。新建一个视图文件 application/views/news/success.php 并写上成功的信息：</p>
+<pre><code>&lt;?php
+echo &quot;成功&quot;;
+</code></pre><p>写一个方法将数据保存到数据库中，将会使用 输入类 获取用户提交的数据， 并使用 查询构造器类 向数据库中插入数据。打开之前创建的模型文件，添加以下代码：</p>
+<pre><code>public function set_news()
+{
+    $this-&gt;load-&gt;helper(&apos;url&apos;);
+    $slug = url_title($this-&gt;input-&gt;post(&apos;title&apos;), &apos;dash&apos;, TRUE);
+    $data = array(
+        &apos;title&apos; =&gt; $this-&gt;input-&gt;post(&apos;title&apos;),
+        &apos;slug&apos; =&gt; $slug,
+        &apos;text&apos; =&gt; $this-&gt;input-&gt;post(&apos;text&apos;)
+    );
+    return $this-&gt;db-&gt;insert(&apos;news&apos;, $data);
+}
+</code></pre><p>新加的这个方法用于向数据库插入数据，第三行有一个新方法 url_title() ， 这个方法由 URL 辅助函数 提供，用于将字符串 中的所有空格替换成连接符（-），并将所有字符转换为小写。 这样其实就生成了一个 slug ，可以很好的用于创建 URI 。 然后继续准备将要被插入到数据库中的记录，将其赋值给 $data 数组， 数组中的每一项都对应之前创建的数据库表中的一列，这里应该看到又出现了一个新方法， 来自 输入类 的 post() 方法，这个方法可以对数据进行过滤， 防止其他人的恶意攻击。输入类默认已经加载了。最后，将 $data 数组插入到的数据库中。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/codeigniter-notes.html" title="CodeIgniter简单上手">https://jaxsonwang.github.io/codeigniter-notes.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-summed-and-2018-plan.html" rel="next" title="2017年总结以及新年计划">
+                <i class="fa fa-chevron-left"></i> 2017年总结以及新年计划
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/axios-js-get-started-and-dynamic-axios-configuration.html" rel="prev" title="Axios.js上手和动态Axios配置">
+                Axios.js上手和动态Axios配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载静态内容"><span class="nav-number">1.</span> <span class="nav-text">加载静态内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在控制器中添加逻辑"><span class="nav-number">2.</span> <span class="nav-text">在控制器中添加逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据模型"><span class="nav-number">3.</span> <span class="nav-text">创建数据模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示新闻"><span class="nav-number">4.</span> <span class="nav-text">显示新闻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新闻条目"><span class="nav-number">5.</span> <span class="nav-text">创建新闻条目</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

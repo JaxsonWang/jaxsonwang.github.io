@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="熟悉前端的人都会听过css的伪类与伪元素，然而大多数的人都会将这两者混淆。本文从解析伪类与伪元素的含义出发，区分这两者的区别，并且列出大部分伪类与伪元素的具体用法，即使你有用过伪类与伪元素，但里面总有一两个你没见过的吧。 1.伪类与伪元素 先说一说为什么css要引入伪元素和伪类，以下是css2.1 Selectors章节中对伪类与伪元素的描述： CSS introduces the concept">
+<meta name="keywords" content="全栈人生,全栈笔记,全栈工程师,全栈,淮城一只猫,淮城,IT博客,个人博客,王瑾,盒子丶先生,WEB平台,BOX-ROM,BoxMod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结伪类与伪元素">
+<meta property="og:url" content="https://jaxsonwang.github.io/summary-of-pseudo-classes-and-pseudo-elements.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="熟悉前端的人都会听过css的伪类与伪元素，然而大多数的人都会将这两者混淆。本文从解析伪类与伪元素的含义出发，区分这两者的区别，并且列出大部分伪类与伪元素的具体用法，即使你有用过伪类与伪元素，但里面总有一两个你没见过的吧。 1.伪类与伪元素 先说一说为什么css要引入伪元素和伪类，以下是css2.1 Selectors章节中对伪类与伪元素的描述： CSS introduces the concept">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E7%B1%BB.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E5%85%83%E7%B4%A0.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="总结伪类与伪元素">
+<meta name="twitter:description" content="熟悉前端的人都会听过css的伪类与伪元素，然而大多数的人都会将这两者混淆。本文从解析伪类与伪元素的含义出发，区分这两者的区别，并且列出大部分伪类与伪元素的具体用法，即使你有用过伪类与伪元素，但里面总有一两个你没见过的吧。 1.伪类与伪元素 先说一说为什么css要引入伪元素和伪类，以下是css2.1 Selectors章节中对伪类与伪元素的描述： CSS introduces the concept">
+<meta name="twitter:image" content="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E7%B1%BB.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/summary-of-pseudo-classes-and-pseudo-elements.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>总结伪类与伪元素 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/summary-of-pseudo-classes-and-pseudo-elements.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">总结伪类与伪元素
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-10 09:37:09" itemprop="dateCreated datePublished" datetime="2016-09-10T09:37:09+09:00">2016-09-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/summary-of-pseudo-classes-and-pseudo-elements.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/summary-of-pseudo-classes-and-pseudo-elements.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>熟悉前端的人都会听过css的伪类与伪元素，然而大多数的人都会将这两者混淆。本文从解析伪类与伪元素的含义出发，区分这两者的区别，并且列出大部分伪类与伪元素的具体用法，即使你有用过伪类与伪元素，但里面总有一两个你没见过的吧。</p>
+<p><strong>1.伪类与伪元素</strong></p>
+<p>先说一说为什么css要引入伪元素和伪类，以下是<a href="https://www.w3.org/TR/CSS2/selector.html#pseudo-elements" target="_blank" rel="noopener">css2.1 Selectors章节中对伪类与伪元素的描述</a>：</p>
+<p><em>CSS introduces the concepts of pseudo-elements and pseudo-classes to permit formatting based on information that lies outside the document tree.</em></p>
+<p>直译过来就是：css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档树中的部分，比如，一句话中的第一个字母，或者是列表中的第一个元素。下面分别对伪类和伪元素进行解释：</p>
+<p>伪类用于当已有元素处于的某个状态时，为其添加对应的样式，这个状态是根据用户行为而动态变化的。比如说，当用户悬停在指定的元素时，我们可以通过:hover来描述这个元素的状态。虽然它和普通的css类相似，可以为已有的元素添加样式，但是它只有处于dom树无法描述的状态下才能为元素添加样式，所以将其称为伪类。</p>
+<p>伪元素用于创建一些不在文档树中的元素，并为其添加样式。比如说，我们可以通过:before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。</p>
+<p><strong>2.伪类与伪元素的区别</strong></p>
+<p>这里通过两个例子来说明两者的区别。</p>
+<p>下面是一个简单的html列表片段：</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;我是第一个&lt;/li&gt;
+    &lt;li&gt;我是第二个&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>如果想要给第一项添加样式，可以在为第一个</p>
+<ul>
+<li>添加一个类，并在该类中定义对应样式：</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li class=&quot;first-item&quot;&gt;我是第一个&lt;/li&gt;
+    &lt;li&gt;我是第二个&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>li.first-item  {
+    color:  orange
+</code></pre><p>如果不用添加类的方法，我们可以通过给设置第一个</p>
+<ul>
+<li>的:first-child伪类来为其添加样式。这个时候，被修饰的</li>
+<li>元素依然处于文档树中。</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;我是第一个&lt;/li&gt;
+    &lt;li&gt;我是第二个&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>li:first-child  {
+    color:  orange
+}
+</code></pre><p>下面是另一个简单的html段落片段：</p>
+<pre><code>&lt;p&gt;Hello World,  and  wish you have  a  good day!&lt;/p&gt;
+</code></pre><p>如果想要给该段落的第一个字母添加样式，可以在第一个字母中包裹一个元素，并设置该span元素的样式：</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;p&gt;&lt;span class=&quot;first&quot;&gt;H&lt;/span&gt;ello World,  and  wish you have  a  good day!&lt;/p&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>.first  {
+    font-size:  5em;
+}
+</code></pre><p>如果不创建一个元素，我们可以通过设置</p>
+<p>的:first-letter伪元素来为其添加样式。这个时候，看起来好像是创建了一个虚拟的元素并添加了样式，但实际上文档树中并不存在这个元素。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;p&gt;Hello World,  and  wish you have  a  good day!&lt;/p&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>p:first-letter  {
+    font-size:  5em;
+</code></pre><p>从上述例子中可以看出，伪类的操作对象是文档树中已有的元素，而伪元素则创建了一个文档数外的元素。因此，伪类与伪元素的区别在于：有没有创建一个文档树之外的元素。</p>
+<p><strong>3.伪元素是使用单冒号还是双冒号？</strong></p>
+<p>CSS3规范中的要求使用双冒号(::)表示伪元素，以此来区分伪元素和伪类，比如::before和::after等伪元素使用双冒号(::)，:hover和:active等伪类使用单冒号(:)。除了一些低于IE8版本的浏览器外，大部分浏览器都支持伪元素的双冒号(::)表示方法。</p>
+<p>然而，除了少部分伪元素，如::backdrop必须使用双冒号，大部分伪元素都支持单冒号和双冒号的写法，比如::after，写成:after也可以正确运行。</p>
+<p>对于<a href="https://www.w3.org/community/webed/wiki/Advanced_CSS_selectors#CSS3_pseudo-element_double_colon_syntax" target="_blank" rel="noopener">伪元素是使用单冒号还是双冒号的问题</a>，w3c标准中的描述如下：</p>
+<p><em>Please note that the new CSS3 way of writing pseudo-elements is to use a double colon, eg a::after { … }, to set them apart from pseudo-classes. You may see this sometimes in CSS. CSS3 however also still allows for single colon pseudo-elements, for the sake of backwards compatibility, and we would advise that you stick with this syntax for the time being.</em></p>
+<p>大概的意思就是：虽然CSS3标准要求伪元素使用双冒号的写法，但也依然支持单冒号的写法。为了向后兼容，我们建议你在目前还是使用单冒号的写法。</p>
+<p>实际上，伪元素使用单冒号还是双冒号很难说得清谁对谁错，你可以按照个人的喜好来选择某一种写法。</p>
+<p><strong>4.伪类与伪元素的具体用法</strong></p>
+<p>这一章以含义解析和例子的方式列出大部分的伪类和伪元素的具体用法。下面是根据用途分类的伪类总结图和根据冒号分类的伪元素总结图：</p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E7%B1%BB.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E7%B1%BB.png" alt="伪类"></a></p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E5%85%83%E7%B4%A0.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/2016/05/%E4%BC%AA%E5%85%83%E7%B4%A0.png" alt="伪元素"></a></p>
+<p>某些伪类或伪元素仍然处于试验阶段，在使用前建议先在<a href="http://caniuse.com/" target="_blank" rel="noopener">Can I Use</a>等网站查一查其浏览器兼容性。处于试验阶段的伪类或伪元素会在标题中标注。</p>
+<p><strong>伪类</strong></p>
+<p><strong>状态</strong></p>
+<p>由于状态伪类的用法大家都十分熟悉，这里就不用例子说明了。</p>
+<p><strong>1 :link</strong></p>
+<p>选择未访问的链接</p>
+<p><strong>2 :visited</strong></p>
+<p>选择已访问的链接</p>
+<p><strong>3 :hover</strong></p>
+<p>选择鼠标指针浮动在其上的元素</p>
+<p><strong>4 :active</strong></p>
+<p>选择活动的链接</p>
+<p><strong>5 :focus</strong></p>
+<p>选择获取焦点的输入字段</p>
+<p><strong>结构化</strong></p>
+<p><strong>1 :not</strong></p>
+<p>一个否定伪类，用于匹配不符合参数选择器的元素。</p>
+<p>如下例，除了第一个</p>
+<ul>
+<li>元素外，其他</li>
+<li>元素的文本都会变为橙色。</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li class=&quot;first-item&quot;&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>li:not(.first-item)  {
+    color:  orange;
+}
+</code></pre><p><strong>2 :first-child</strong></p>
+<p>匹配元素的第一个子元素。</p>
+<p>如下例，第一个</p>
+<ul>
+<li>元素的文本会变为橙色。</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;这里的文本是橙色的&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>li:first-child  {
+    color:  orange;
+}
+</code></pre><p><strong>3 : last-child</strong></p>
+<p>匹配元素的最后一个子元素。</p>
+<p>如下例，最后一个</p>
+<ul>
+<li>元素的文本会变为橙色。</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;这里的文本是橙色的&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>li:last-child  {
+    color:  orange;
+}
+</code></pre><p><strong>4 first-of-type</strong></p>
+<p>匹配属于其父元素的首个特定类型的子元素的每个元素。</p>
+<p>如下例，第一个</p>
+<ul>
+<li>元素和第一个元素的文本会变为橙色。</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;这里的文本是橙色的&lt;/li&gt;
+    &lt;li&gt;一些文本 &lt;span&gt;这里的文本是橙色的&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>ul  :first-of-type  {
+    color:  orange;
+}
+</code></pre><p><strong>5 :last-of-type</strong></p>
+<p>匹配元素的最后一个子元素。</p>
+<p>如下例，最后一个</p>
+<ul>
+<li>元素的文本会变为橙色。</li>
+</ul>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;一些文本&lt;span&gt;一些文本&lt;/span&gt; &lt;span&gt;这里的文本是橙色的&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;这里的文本是橙色的&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>ul  :last-of-type  {
+    color:  orange;
+}
+</code></pre><p><strong>6 :nth-child</strong></p>
+<p>:nth-child根据元素的位置匹配一个或者多个元素，它接受一个an+b形式的参数，an+b匹配到的元素示例如下：</p>
+<ul>
+<li>1n+0，或n，匹配每一个子元素。</li>
+<li>2n+0，或2n，匹配位置为2、4、6、8…的子元素，该表达式与关键字even等价。</li>
+<li>2n+1匹配位置为1、3、5、7…的子元素、该表达式与关键字odd等价。</li>
+<li>3n+4匹配位置为4、7、10、13…的子元素。</li>
+</ul>
+<p>如下例，有以下HTML列表：</p>
+<pre><code>&lt;ol&gt;
+    &lt;li&gt;Alpha&lt;/li&gt;
+    &lt;li&gt;Beta&lt;/li&gt;
+    &lt;li&gt;Gamma&lt;/li&gt;
+    &lt;li&gt;Delta&lt;/li&gt;
+    &lt;li&gt;Epsilon&lt;/li&gt;
+    &lt;li&gt;Zeta&lt;/li&gt;
+    &lt;li&gt;Eta&lt;/li&gt;
+    &lt;li&gt;Theta&lt;/li&gt;
+    &lt;li&gt;Iota&lt;/li&gt;
+    &lt;li&gt;Kappa&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<p>选择第二个元素，”Beta”会变成橙色：</p>
+<pre><code>ol  :nth-child(2)  {
+    color:  orange;
+}
+</code></pre><p>选择位置序号是2的倍数的元素，”Beta”, “Delta”, “Zeta”, “kappa”会变成橙色:</p>
+<pre><code>ol  :nth-child(2n)  {
+    color:  orange;
+}
+</code></pre><p>选择位置序号为偶数的元素：</p>
+<pre><code>ol  :nth-child(even)  {
+    color:  orange;
+}
+</code></pre><p>选择从第6个开始，位置序号是2的倍数的元素，”Zeta”, “Theta”, “Kappa”会变成橙色：</p>
+<pre><code>ol  :nth-child(2n+6)  {
+    color:  orange;
+}
+</code></pre><p><strong>7 :nth-last-child</strong></p>
+<p>:nth-last-child与:nth-child相似，不同之处在于它是从最后一个子元素开始计数的。</p>
+<p><strong>8 :nth-of-type</strong></p>
+<p>:nth-of-type与nth-child相似，不同之处在于它是只匹配特定类型的元素。</p>
+<p>如下例，第二个</p>
+<p>元素会变为橙色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;article&gt;
+    &lt;h1&gt;我是标题&lt;/h1&gt;
+    &lt;p&gt;一些文本&lt;/p&gt;
+    &lt;a  href=&quot;&quot;&gt;&lt;img src=&quot;images/rwd.png&quot;  alt=&quot;Mastering RWD&quot;&gt;&lt;/a&gt;
+    &lt;p&gt;这里的文本是橙色的&lt;/p&gt;
+&lt;/article&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>p:nth-of-type(2)  {
+    color:  orange;
+}
+</code></pre><p><strong>9 :nth-last-type</strong></p>
+<p>:nth-last-of-type与nth-of-type相似，不同之处在于它是从最后一个子元素开始计数的。</p>
+<p><strong>10 :only-child</strong></p>
+<p>当元素是其父元素中唯一一个子元素时，:only-child匹配该元素。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;这里的文本是橙色的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>ul  :only-child  {
+    color:  orange;
+}
+</code></pre><p><strong>11 :only-of-type</strong></p>
+<p>当元素是其父元素中唯一一个特定类型的子元素时，:only-child匹配该元素。</p>
+<p>如下例，第一个ul元素只有一个li类型的元素，该li元素的文本会变为橙色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;这里的文本是橙色的&lt;/li&gt;
+    &lt;p&gt;这里不是橙色&lt;/p&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+    &lt;li&gt;一些文本&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>li:only-of-type  {
+    color:  orange;
+}
+</code></pre><p><strong>12 :target</strong></p>
+<p>当URL带有锚名称，指向文档内某个具体的元素时，:target匹配该元素。</p>
+<p>如下例，url中的target命中id值为target的article元素，article元素的背景会变为黄色。</p>
+<p><strong>URL:</strong></p>
+<p><a href="http://example.com/#target" target="_blank" rel="noopener">http://example.com/#target</a></p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;article id=&quot;target&quot;&gt;
+    &lt;h1&gt;:target  pseudo-class&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet,  consectetur adipisicing elit!&lt;/p&gt;
+&lt;/article&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:target  {
+    background:  yellow;
+}
+</code></pre><p><strong>表单相关</strong></p>
+<p><strong>1 :checked</strong></p>
+<p>:checked匹配被选中的input元素，这个input元素包括radio和checkbox。</p>
+<p>如下例，当复选框被选中时，与其相邻的元素的背景会变成黄色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;checkbox&quot;/&gt;
+&lt;label&gt;我同意&lt;/label&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>input:checked  +  label  {
+    background:  yellow;
+}
+</code></pre><p><strong>2 :default</strong></p>
+<p>:default匹配默认选中的元素，例如：提交按钮总是表单的默认按钮。</p>
+<p>如下例，只有提交按钮的背景变成了黄色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;form action=&quot;#&quot;&gt;
+    &lt;button&gt;重置&lt;/button&gt;
+    &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;
+&lt;/form&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:default  {
+    background:  yellow;
+}
+</code></pre><p><strong>3 :disabled</strong></p>
+<p>:disabled匹配禁用的表单元素。</p>
+<p>如下例，被禁用input输入框的透明度会变成50%。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;text&quot;  disabled/&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:disabled  {
+    opacity:  .5;
+}
+</code></pre><p><strong>4 :empty</strong></p>
+<p>:empty匹配没有子元素的元素。如果元素中含有文本节点、HTML元素或者一个空格，则:empty不能匹配这个元素。</p>
+<p>如下例，:empty能匹配的元素会变为黄色。</p>
+<p>第一个元素中有文本节点，所以其背景不会变成黄色；</p>
+<p>第二个元素中有一个空格，有空格则该元素不为空，所以其背景不会变成黄色；</p>
+<p>第三个元素中没有任何内容，所以其背景会变成黄色；</p>
+<p>第四个元素中只有一个注释，此时该元素是空的，所以其背景会变成黄色；</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;div&gt;这个容器里的背景是橙色的&lt;/div&gt;
+&lt;div&gt;  &lt;/div&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;div&gt;&lt;!--  This  comment is  not  considered content  --&gt;&lt;/div&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>div  {
+    background:  orange;
+    height:  30px;
+    width:  200px;
+}
+div:empty  {
+    background:  yellow;
+}
+</code></pre><p><strong>5 :enabled</strong></p>
+<p>:enabled匹配没有设置disabled属性的表单元素。</p>
+<p><strong>6 :in-range</strong></p>
+<p>:in-range匹配在指定区域内元素。</p>
+<p>如下例，当数字选择器的数字在5到10是，数字选择器的边框会设为绿色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;number&quot;  min=&quot;5&quot;  max=&quot;10&quot;&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>input[type=number]  {
+    border:  5px  solid orange;
+}
+input[type=number]:in-range  {
+    border:  5px  solid green;
+}
+</code></pre><p><strong>7 :out-of-range</strong></p>
+<p>:out-of-range与:in-range相反，它匹配不在指定区域内的元素。</p>
+<p><strong>8 :indeterminate</strong></p>
+<p>indeterminate的英文意思是“不确定的”。当某组中的单选框或复选框还没有选取状态时，:indeterminate匹配该组中所有的单选框或复选框。</p>
+<p>如下例，当下面的一组单选框没有一个处于被选中时，与input相邻的label元素的背景会被设为橙色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;
+        &lt;input type=&quot;radio&quot;  name=&quot;list&quot;  id=&quot;option1&quot;&gt;
+        &lt;label for=&quot;option1&quot;&gt;Option  1&lt;/label&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;input type=&quot;radio&quot;  name=&quot;list&quot;  id=&quot;option2&quot;&gt;
+        &lt;label for=&quot;option2&quot;&gt;Option  2&lt;/label&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;input type=&quot;radio&quot;  name=&quot;list&quot;  id=&quot;option3&quot;&gt;
+        &lt;label for=&quot;option3&quot;&gt;Option  3&lt;/label&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:indeterminate  +  label  {
+    background:  orange;
+}
+</code></pre><p><strong>9 :valid</strong></p>
+<p>:valid匹配条件验证正确的表单元素。</p>
+<p>如下例，当email输入框内的值符合email格式时，输入框的边框会被设为绿色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;email&quot;/&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>input[type=email]:valid  {
+    border:  1px  solid green;
+}
+</code></pre><p><strong>10 :invalid</strong></p>
+<p>:invalid与:valid相反，匹配条件验证错误的表单元素。</p>
+<p><strong>11 :optional</strong></p>
+<p>:optional匹配是具有optional属性的表单元素。当表单元素没有设置为required时，即为optional属性。</p>
+<p>如下例，第一个input的背景不会被设为黄色，第二个input的背景会被设为黄色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;text&quot;  required  /&gt;
+&lt;input type=&quot;text&quot;  /&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:optional  {
+    background:  yellow;
+}
+</code></pre><p><strong>12 :required</strong></p>
+<p>:required与:optional相反匹配设置了required属性的表单元素。</p>
+<p><strong>13 :read-only</strong></p>
+<p>:read-only匹配设置了只读属性的元素，表单元素可以通过设置“readonly”属性来定义元素只读。</p>
+<p>如下例，input元素的背景会被设为黄色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;text&quot;  value=&quot;I am read only&quot;  readonly&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>input:read-only  {
+    background-color:  yellow;
+}
+</code></pre><p><strong>14 :read-write</strong></p>
+<p>:read-write匹配处于编辑状态的元素。input，textarea和设置了contenteditable的HTML元素获取焦点时即处于编辑状态。</p>
+<p>如下例，input输入框和富文本框获取焦点时，背景变成黄色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;text&quot;  value=&quot;获取焦点时背景变黄&quot;/&gt;
+&lt;div class=&quot;editable&quot;  contenteditable&gt;
+    &lt;h1&gt;点击这里可以编辑&lt;/h1&gt;
+    &lt;p&gt;获取焦点时背景变黄&lt;/p&gt;
+&lt;/div&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:read-write:focus  {
+    background:  yellow;
+}
+</code></pre><p><strong>15 :scope(处于试验阶段)</strong></p>
+<p>:scope匹配处于style作用域下的元素。当style没有设置scope属性时，style内的样式会对整个html起作用。</p>
+<p>如下例，第二个section中的元素的文本会变为斜体。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;article&gt;
+    &lt;section&gt;
+        &lt;h1&gt;很正常的一些文本&lt;/h1&gt;
+        &lt;p&gt;很正常的一些文本&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+        &lt;style scoped&gt;
+            :scope {
+                font-style:  italic;
+            }
+        &lt;/style&gt;
+        &lt;h1&gt;这里的文本是斜体的&lt;/h1&gt;
+        &lt;p&gt;这里的文本是斜体的&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/article&gt;
+</code></pre><p>注：目前支持这个伪类的浏览器只有火狐。</p>
+<p><strong>语言相关</strong></p>
+<p><strong>1 :dir(处于实验阶段)</strong></p>
+<p>:dir匹配指定阅读方向的元素，当HTML元素中设置了dir属性时该伪类才能生效。现时支持的阅读方向有两种：ltr（从左往右）和rtl（从右往左）。目前，只有火狐浏览器支持:dir伪类，并在火狐浏览器中使用时需要添加前缀( -moz-dir() )。</p>
+<p>如下例，p元素中的阿拉伯语（阿拉伯语是从右往左阅读的）文本会变成橙色。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;article dir=&quot;rtl&quot;&gt;
+&lt;p&gt;التدليك  واحد  من  أقدم  العلوم  الصحية  التي  عرفها  الانسان  والذي  يتم  استخدامه  لأغراض  الشفاء  منذ  ولاده  الطفل.&lt;/p&gt;
+&lt;/article&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>/* prefixed */
+article  :-moz-dir(rtl)  {
+    color:  orange;
+}
+/* unprefixed */
+article  :dir(rtl)  {
+    color:  orange;
+}
+</code></pre><p>如下例，p元素中的英语文本会变成蓝色</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;article dir=&quot;ltr&quot;&gt;
+    &lt;p&gt;اIf  you already know some HTML and  CSS and  understand the principles of responsive web design,  then  this  book is  for  you.&lt;/p&gt;
+&lt;/article&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>article  :-moz-dir(ltr)  {
+    color:  blue;
+}
+/* unprefixed */
+article  :dir(ltr)  {
+    color:  blue;
+}
+</code></pre><p><strong>2 :lang</strong></p>
+<p>:lang匹配设置了特定语言的元素，设置特定语言可以通过为了HTML元素设置lang=””属性，设置meta元素的charset=””属性，或者是在http头部上设置语言属性。</p>
+<p>实际上，lang=””属性不只可以在html标签上设置，也可以在其他的元素上设置。</p>
+<p>如下例，分别给不同的语言设置不同的引用样式：</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;article lang=&quot;en&quot;&gt;
+    &lt;q&gt;Lorem ipsum dolor sit amet.&lt;/q&gt;
+&lt;/article&gt;
+&lt;article lang=&quot;fr&quot;&gt;
+    &lt;q&gt;Lorem ipsum dolor sit amet.&lt;/q&gt;
+&lt;/article&gt;
+&lt;article lang=&quot;de&quot;&gt;
+    &lt;q&gt;Lorem ipsum dolor sit amet.&lt;/q&gt;
+&lt;/article&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>:lang(en)  q  {  quotes:  &apos;“&apos;  &apos;”&apos;;  }
+:lang(fr)  q  {  quotes:  &apos;«&apos;  &apos;»&apos;;  }
+:lang(de)  q  {  quotes:  &apos;»&apos;  &apos;«&apos;;  }
+</code></pre><p><strong>其他</strong></p>
+<p><strong>1 :root</strong></p>
+<p>:root匹配文档的根元素。一般的html文件的根元素是html元素，而SVG或XML文件的根元素则可能是其他元素。</p>
+<p>如下例，将html元素的背景设置为橙色</p>
+<pre><code>:root  {
+    background:  orange;
+}
+</code></pre><p><strong>2.:fullscreen</strong></p>
+<p>:fullscreen匹配处于全屏模式下的元素。全屏模式不是通过按F11来打开的全屏模式，而是通过Javascript的Fullscreen API来打开的，不同的浏览器有不同的Fullscreen API。目前，:fullscreen需要添加前缀才能使用。</p>
+<p>如下例，当处于全屏模式时，h1元素的背景会变成橙色</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;h1 id=&quot;element&quot;&gt;在全屏模式下，这里的文本的背景会变成橙色.&lt;/h1&gt;
+&lt;button&gt;进入全屏模式!&lt;/button&gt;
+</code></pre><p><strong>JAVASCRIPT:</strong></p>
+<pre><code>var  docelem  =  document.getElementById(&apos;element&apos;);
+var  button  =  document.querySelector(&apos;button&apos;);
+button.onclick  =  function()  {
+    if  (docelem.requestFullscreen)  {
+        docelem.requestFullscreen();
+    }else  if  (docelem.webkitRequestFullscreen)  {
+        docelem.webkitRequestFullscreen();
+    }  else  if(docelem.mozRequestFullScreen)  {
+        docelem.mozRequestFullScreen();
+    }  else  if(docelem.msRequestFullscreen)  {
+        docelem.msRequestFullscreen();
+    }
+}
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>h1:fullscreen  {
+    background:  orange;
+}
+h1:-webkit-full-screen  {
+    background:  orange;
+}
+h1:-moz-full-screen  {
+    background:  orange;
+}
+h1:-ms-fullscreen  {
+    background:  orange;
+}
+</code></pre><p><strong>伪元素</strong></p>
+<p><strong>1 ::before/:before</strong></p>
+<p>:before在被选元素前插入内容。需要使用content属性来指定要插入的内容。被插入的内容实际上不在文档树中。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;h1&gt;World&lt;/h1&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>h1:before  {
+    content:  &quot;Hello &quot;;
+}
+</code></pre><p><strong>2 ::after/:after</strong></p>
+<p>:after在被元素后插入内容，其用法和特性与:before相似。</p>
+<p><strong>3 ::first-letter/:first-letter</strong></p>
+<p>:first-letter匹配元素中文本的首字母。被修饰的首字母不在文档树中。</p>
+<p><strong>CSS:</strong></p>
+<pre><code>h1:first-letter  {
+    font-size:  5em;
+}
+</code></pre><p><strong>4 ::first-line/:first-line</strong></p>
+<p>:first-line匹配元素中第一行的文本。这个伪元素只能用在块元素中，不能用在内联元素中。</p>
+<p><strong>CSS:</strong></p>
+<pre><code>p:first-line  {
+    background:  orange;
+}
+</code></pre><p><strong>5 ::selection</strong></p>
+<p>::selection匹配用户被用户选中或者处于高亮状态的部分。在火狐浏览器使用时需要添加-moz前缀。该伪元素只支持双冒号的形式。</p>
+<p><strong>CSS:</strong></p>
+<pre><code>::-moz-selection  {
+    color:  orange;
+    background:  #333;
+}
+::selection  {
+    color:  orange;
+    background:  #333;
+}
+</code></pre><p><strong>6 ::placeholder</strong></p>
+<p>::placeholder匹配占位符的文本，只有元素设置了placeholder属性时，该伪元素才能生效。</p>
+<p>该伪元素不是CSS的标准，它的实现可能在将来会有所改变，所以要决定使用时必须谨慎。</p>
+<p>在一些浏览器中（IE10和Firefox18及其以下版本）会使用单冒号的形式。</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;input type=&quot;email&quot;  placeholder=&quot;name@domain.com&quot;&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>input::-moz-placeholder  {
+    color:#666;
+}
+input::-webkit-input-placeholder  {
+    color:#666;
+}
+/* IE 10 only */
+input:-ms-input-placeholder  {
+    color:#666;
+}
+/* Firefox 18 and below */
+input:-moz-input-placeholder  {
+    color:#666;
+}
+</code></pre><p><strong>7 ::backdrop(处于试验阶段)</strong></p>
+<p>::backdrop用于改变全屏模式下的背景颜色，全屏模式的默认颜色为黑色。该伪元素只支持双冒号的形式</p>
+<p><strong>HTML:</strong></p>
+<pre><code>&lt;h1 id=&quot;element&quot;&gt;This  heading will have  a  solid background color in  full-screen mode.&lt;/h1&gt;
+&lt;button onclick=&quot;var el = document.getElementById(&apos;element&apos;); el.webkitRequestFullscreen();&quot;&gt;Trigger full screen!&lt;/button&gt;
+</code></pre><p><strong>CSS:</strong></p>
+<pre><code>h1:fullscreen::backdrop  {
+    background:  orange;
+}
+</code></pre><p><strong>参考文章</strong></p>
+<ol>
+<li><a href="https://www.smashingmagazine.com/2016/05/an-ultimate-guide-to-css-pseudo-classes-and-pseudo-elements/#disabled" target="_blank" rel="noopener">An Ultimate Guide To CSS Pseudo-Classes And Pseudo-Elements</a></li>
+<li><a href="http://swordair.com/origin-and-difference-between-css-pseudo-classes-and-pseudo-elements/" target="_blank" rel="noopener">CSS伪类与CSS伪元素的区别及由来</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/summary-of-pseudo-classes-and-pseudo-elements.html" title="总结伪类与伪元素">https://jaxsonwang.github.io/summary-of-pseudo-classes-and-pseudo-elements.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/using-html-canvas-waves.html" rel="next" title="使用HTML的canvas来完成波浪特效">
+                <i class="fa fa-chevron-left"></i> 使用HTML的canvas来完成波浪特效
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/enhanced-tag-of-html.html" rel="prev" title="实用HTML文件的增强标记">
+                实用HTML文件的增强标记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Flux 基础概念与实战入门 前言随著 React App 複杂度提昇，我们会发现常常需要从 Parent Component 透过 props 传递方法到 Child Component 去改变 state tree，不但不方便也难以管理，因此我们需要更好的资料架构来建置更複杂的应用程式。Flux 是 Facebook 推出的 client-side 应用程式架构（Architecture），主">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R07-Flux&#x2F;Redux 入门实战教学">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-7.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="Flux 基础概念与实战入门 前言随著 React App 複杂度提昇，我们会发现常常需要从 Parent Component 透过 props 传递方法到 Child Component 去改变 state tree，不但不方便也难以管理，因此我们需要更好的资料架构来建置更複杂的应用程式。Flux 是 Facebook 推出的 client-side 应用程式架构（Architecture），主">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-flux.jpeg">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/flux-simple-diagram.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/flux-react.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/folder-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/flux-demo.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/redux-logo.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/using-redux-compare.jpg">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/redux-flowchart.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-redux-diagram.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/redux-flow.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/redux-folder.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-redux-demo.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/using-redux.jpg">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/redux-store.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-redux-dev-demo.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R07-Flux&#x2F;Redux 入门实战教学">
+<meta name="twitter:description" content="Flux 基础概念与实战入门 前言随著 React App 複杂度提昇，我们会发现常常需要从 Parent Component 透过 props 传递方法到 Child Component 去改变 state tree，不但不方便也难以管理，因此我们需要更好的资料架构来建置更複杂的应用程式。Flux 是 Facebook 推出的 client-side 应用程式架构（Architecture），主">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-flux.jpeg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-7.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>R07-Flux/Redux 入门实战教学 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R07-Flux/Redux 入门实战教学
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-27 17:52:36" itemprop="dateCreated datePublished" datetime="2016-09-27T17:52:36+09:00">2016-09-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-7.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-7.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Flux-基础概念与实战入门"><a href="#Flux-基础概念与实战入门" class="headerlink" title="Flux 基础概念与实战入门"></a>Flux 基础概念与实战入门</h2><p><img src="https://res.i95.me/wp-content/uploads/2016/09/react-flux.jpeg" alt="React Flux" title="React Flux"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>随著 React App 複杂度提昇，我们会发现常常需要从 Parent Component 透过 props 传递方法到 Child Component 去改变 state tree，不但不方便也难以管理，因此我们需要更好的资料架构来建置更複杂的应用程式。<a href="https://facebook.github.io/flux/" target="_blank" rel="noopener">Flux</a> 是 Facebook 推出的 client-side 应用程式架构（Architecture），主要想解决 <code>MVC</code> 架构的一些问题。事实上，Flux 并非一个完整的前端 Framework，其特色在于实现了 Unidirectional Data Flow（单向流）的资料流设计模式，在开发複杂的大型应用程式时可以更容易地管理 state（状态）。由于 React 主要是负责 View 的部份，所以透过搭配 Flux-like 的资料处理架构，可以更好的去管理我们的 state（状态），处理複杂的使用者互动（例如：Facebook 同时要维护使用者是否按讚、点击相片，是否有新讯息等状态）。</p>
+<p>由于原始的 Flux 架构在实现上有些部分可以精简和改善，在实务上我们通常会使用开发者社群开发的 Flux-like 相关的架构实现（例如：<a href="http://redux.js.org/index.html" target="_blank" rel="noopener">Redux</a>、<a href="http://alt.js.org/" target="_blank" rel="noopener">Alt</a>、<a href="https://github.com/reflux/refluxjs" target="_blank" rel="noopener">Reflux</a> 等）。不过这边我们主要会使用 Facebook 本身提供 <code>Dispatcher API</code> 函式库（可以想成是一个 pub/sub 处理器，透过 broadcast 将 <code>payloads</code> 传给注册的 callback function）并搭配 <code>NodeJS</code> 的 <code>EventEmitter</code> 模组去完成 Flux 架构的实现。</p>
+<h3 id="Flux-概念介绍"><a href="#Flux-概念介绍" class="headerlink" title="Flux 概念介绍"></a>Flux 概念介绍</h3><p><img src="https://res.i95.me/wp-content/uploads/2016/09/flux-simple-diagram.png" alt="React Flux" title="React Flux"></p>
+<p>在 Flux Unidirectional Data Flow（单项流）世界裡有四大主角，分别负责不同对应的工作：</p>
+<ol>
+<li>actions / Action Creator action 负责定义所有改变 state（状态）的行为，可以让开发者快速了解 App 的各种功能，若你想改变 state 你只能发 action。注意 action 可以是同步或是非同步。例如：新增代办事项，呼叫非同步 API 获取资料。</li>
+</ol>
+<p>实务上我们会分成 action 和 Action Creator。action 为描述行为的 object（物件），Action Creator 将 action 送给 dispatcher。一般来说符合 Flux Standard Action 的 action 会如以下范例程式码，具备 <code>type</code> 来区别所触发的行为。而 <code>payload</code> 则是所夹带的资料：</p>
+<pre><code>// action
+const addTodo = {
+  type: &apos;ADD_TODO&apos;,
+  payload: {
+    text: &apos;Do something.&apos;  
+  }
+}
+
+AppDispatcher.dispatch(addTodo);
+</code></pre><p>当发生 rejected Promise 情况：</p>
+<pre><code>{
+  type: &apos;ADD_TODO&apos;,
+  payload: new Error(),
+  error: true
+}
+</code></pre><ol start="2">
+<li>Dispatcher <code>Dispatcher</code> 是 Flux 架构的核心，每个 App 只有一个 Dispatcher，提供 API 让 store 可以注册 <code>callback function</code>，并负责向所有 store 发送 action 事件。在本范例中我们使用 Facebook 提供的 Dispatcher API，其内建有 <code>dispatch</code> 和 <code>subscribe</code> 方法。</li>
+<li>Stores 一个 App 通常会有多个 store 负责存放业务逻辑，根据不同业务会有不同 store，例如：TodoStore、RecipeStore。 store 负责操作和储存资料并提供 <code>view</code> 使用 <code>listener</code>（监听器），若有资料更新即会触发更新。值得注意的是 store 只提供 <code>getter API</code> 读取资料，若想改变 state 一律发送 action。</li>
+<li>Views（Controller Views） 这部份是 <code>React</code> 负责的范畴，负责提供监听事件的 <code>callback function</code>，当事件发生时重新取得资料并重绘 <code>View</code>。</li>
+</ol>
+<h3 id="Flux-流程回顾"><a href="#Flux-流程回顾" class="headerlink" title="Flux 流程回顾"></a>Flux 流程回顾</h3><p><img src="https://res.i95.me/wp-content/uploads/2016/09/flux-react.png" alt="React Flux" title="React Flux"></p>
+<p>Flux 架构前置作业：</p>
+<ol>
+<li>Stores 向 Dispatcher 注册 callback，当资料改变时告知 Stores</li>
+<li>Controller Views 向 Stores 取得初始资料</li>
+<li>Controller Views 将资料给 Views 去渲染 UI</li>
+<li>Controller Views 向 store 注册 listener，当资料改变时告知 Controller Views</li>
+</ol>
+<p>Flux 与使用者互动运作流程：</p>
+<ol>
+<li>使用者和 App 互动，触发事件，Action Creator 发送 actions 给 Dispatcher</li>
+<li>Dispatcher 依序将 action 传给 store 并由 action type 判断合适的处理方式</li>
+<li>若有资料更新则会触发 Controller Views 向 store 注册的 listener 并向 store 取得更新资料</li>
+<li>View 根据 Controller Views 的新资料重新绘製 UI</li>
+</ol>
+<h3 id="Flux-实战初体验"><a href="#Flux-实战初体验" class="headerlink" title="Flux 实战初体验"></a>Flux 实战初体验</h3><p>介绍完了整个 Flux 基本架构后，接下来我们就来动手实作一个简单 Flux 架构的 Todo，让使用者可以在 <code>input</code> 输入代办事项并新增。</p>
+<p>首先，我们先完成一些开发的前置作业，先透过以下指令在根目录产生 npm 设定档 <code>package.json</code>：</p>
+<pre><code>$ npm init
+</code></pre><p>安装相关套件（包含开发环境使用的套件）：</p>
+<pre><code>$ npm install --save react react-dom flux events
+
+
+$ npm install --save-dev babel-core babel-eslint babel-loader babel-preset-es2015 babel-preset-react eslint eslint-config-airbnb eslint-loader eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react html-webpack-plugin webpack webpack-dev-server
+</code></pre><p>安装好后我们可以设计一下我们的资料夹结构，首先我们在根目录建立 <code>src</code>，放置 <code>script</code> 的 <code>source</code> 。在 <code>components</code> 资料夹中我们会放置所有 <code>components</code>（个别元件资料夹中会用 <code>index.js</code> 输出元件，让引入元件更简洁），另外还有 <code>actions</code>、<code>constants</code>、<code>dispatcher</code>、<code>stores</code>，其馀设定档则放置于根目录下。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/folder-1.png" alt="React Flux 资料夹结构" title="React Flux 资料夹结构"></p>
+<p>接下来我们参考上一章设定一下开发文档（<code>.babelrc</code>、<code>.eslintrc</code>、<code>webpack.config.js</code>）。这样我们就完成了开发环境的设定可以开始动手实作 <code>React Flux</code> 应用程式了！</p>
+<p>HTML Markup：</p>
+<pre><code>&lt;html lang=&quot;en&quot;&gt;
+
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;TodoFlux&lt;/title&gt;
+
+
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+</code></pre><p>以下为 <code>src/index.js</code> 完整程式码，安排了父 <code>component</code> 和在 HTML Markup 插入位置：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import TodoHeader from &apos;./components/TodoHeader&apos;;
+import TodoList from &apos;./components/TodoList&apos;;
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;TodoHeader /&gt;
+        &lt;TodoList /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById(&apos;app&apos;));
+</code></pre><p>通常实务上我们会开一个 <code>constants</code> 资料夹存放 <code>config</code> 或是 <code>actionTypes</code> 常数。以下是 <code>src/constants/actionTypes.js</code>：</p>
+<pre><code>export const ADD_TODO = &apos;ADD_TODO&apos;;
+</code></pre><p>在这个范例中我们继承了 Facebook 提供的 Dispatcher API（主要是继承了 <code>dispatch</code>、<code>register</code> 和 <code>subscribe</code> 的方法），打造自己的 DispatcherClass，当使用者触发 <code>handleAction()</code> 会 <code>dispatch</code> 出事件。以下是 <code>src/dispatch/AppDispatcher.js</code>：</p>
+<pre><code>// Todo app dispatcher with actions responding to both
+// view and server actions
+import { Dispatcher } from &apos;flux&apos;;
+
+class DispatcherClass extends Dispatcher {
+  handleAction(action) {
+    this.dispatch({
+      type: action.type,
+      payload: action.payload,
+    });
+  }
+}
+
+const AppDispatcher = new DispatcherClass();
+
+export default AppDispatcher;
+</code></pre><p>以下是我们利用 <code>AppDispatcher</code> 打造的 <code>Action Creator</code> 由 <code>handleAction</code> 负责发出传入的 <code>action</code> ，完整程式码如 <code>src/actions/todoActions.js</code>：</p>
+<pre><code>import AppDispatcher from &apos;../dispatcher/AppDispatcher&apos;;
+import { ADD_TODO } from &apos;../constants/actionTypes&apos;;
+
+export const TodoActions = {
+  addTodo(text) {
+    AppDispatcher.handleAction({
+      type: ADD_TODO,
+      payload: {
+        text,
+      },
+    });
+  },
+};
+</code></pre><p><code>Store</code> 主要是负责资料以及业务逻辑处理，我们继承了 <code>events</code> 模组的 <code>EventEmitter</code>，当 <code>action</code> 传入 <code>AppDispatcher.register</code> 的处理范围后，根据 <code>action type</code> 选择适合处理的 <code>store</code> 进行处理，处理完后透过 <code>emit</code> 方法发出事件让监听的 <code>Views Controller</code> 知道。以下是 <code>src/stores/TodoStore.js</code>：</p>
+<pre><code>import AppDispatcher from &apos;../dispatcher/AppDispatcher&apos;;
+import { ADD_TODO } from &apos;../constants/actionTypes&apos;;
+import { EventEmitter } from &apos;events&apos;;
+
+const store = {
+  todos: [],
+  editing: false,
+};
+
+class TodoStoreClass extends EventEmitter {
+  addChangeListener(callback) {
+    this.on(ADD_TODO, callback);
+  }
+  removeChangeListener(callback) {
+    this.removeListener(ADD_TODO, callback);
+  }
+  getTodos() {
+    return store.todos;
+  }
+}
+
+const TodoStore = new TodoStoreClass();
+
+AppDispatcher.register((action) =&gt; {
+  switch (action.type) {
+    case ADD_TODO:
+      store.todos.push(action.payload.text);
+      TodoStore.emit(ADD_TODO);
+      break;
+    default:
+      return true;
+  }
+  return true;
+});
+
+export default TodoStore;
+</code></pre><p>在这个 React Flux 范例中我们把 <code>View</code> 和 <code>Views Controller</code> 整合在一起。在 <code>TodoHeader</code> 中，我们主要任务是让使用者可以透过 <code>input</code> 新增代办事项。使用者输入文字在 <code>input</code> 时会触发 <code>onChange</code> 事件，进而更新内部的 <code>state</code>，当使用者按了送出钮就会触发 <code>onAdd</code> 事件，<code>dispatch</code> 出 <code>addTodo event</code>。以下是 <code>src/components/TodoHeader.js</code> 完整范例：</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { TodoActions } from &apos;../../actions/todoActions&apos;;
+
+class TodoHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+    this.state = {
+      text: &apos;&apos;,
+      editing: false,
+    };
+  }
+  onChange(event) {
+    this.setState({
+      text: event.target.value,
+    });
+  }
+  onAdd() {
+    TodoActions.addTodo(this.state.text);
+    this.setState({
+      text: &apos;&apos;,
+    });
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;TodoFlux&lt;/h1&gt;
+        &lt;div&gt;
+          &lt;input
+            value={this.state.text}
+            type=&quot;text&quot;
+            placeholder=&quot;请输入代办事项&quot;
+            onChange={this.onChange}
+          /&gt;
+          &lt;button
+            onClick={this.onAdd}
+          &gt;
+            送出
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default TodoHeader;
+</code></pre><p>在上面的 Component 中我们让使用者可以新增代办事项，接下来我们要让新增的代办事项可以显示。我们在 <code>componentDidMount</code> 设了一个监听器 <code>TodoStore</code> 资料改变时会去把资料重新再更新，这样当使用者新增代办事项时 <code>TodoList</code> 就会保持同步。当以下是 <code>src/components/TodoList.js</code> 完整程式码：</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import TodoStore from &apos;../../stores/TodoStore&apos;;
+
+function getAppState() {
+  return {
+    todos: TodoStore.getTodos(),
+  };
+}
+class TodoList extends Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.state = {
+      todos: [],
+    };
+  }
+  componentDidMount() {
+    TodoStore.addChangeListener(this.onChange);
+  }
+  onChange() {
+    this.setState(getAppState());
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;ul&gt;
+          {
+            this.state.todos.map((todo, key) =&gt; (
+              &lt;li key={key}&gt;{todo}&lt;/li&gt;
+            ))
+          }
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default TodoList;
+</code></pre><p>若读者都有跟著上面的步骤走完的话，最后我们在终端机的根目录位置执行 <code>npm start</code> 就可以看到整个成果萝，YA！ <img src="https://res.i95.me/wp-content/uploads/2016/09/flux-demo.png" alt="React Flux " title="React Flux "></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Flux 优势：</p>
+<ol>
+<li>让开发者可以快速了解整个 App 中的行为</li>
+<li>资料和业务逻辑统一存放好管理</li>
+<li>让 View 单纯化只负责 UI 的排版不需负责 state 管理</li>
+<li>清楚的架构和分工对于複杂中大型应用程式易于维护和管理程式码</li>
+</ol>
+<p>Flux 劣势：</p>
+<ol>
+<li>程式码上不够简洁</li>
+<li>对于简单小应用来说稍微複杂</li>
+</ol>
+<p>以上就是 Flux 的实战入门，我知道一开始接触 Flux 的读者一定会觉得很抽象，有些读者甚至会觉得这个架构到底有什麽好处（明明感觉没比 MVC 高明到哪去或是一点都不简洁），但如同上述优点所说 Flux 设计模式的优势在于清楚的架构和分工对于複杂中大型应用程式易于维护和管理程式码。若还是不熟悉的读者可以跟著范例多动手，相信慢慢就可以体会 Flux 的特色。事实上，在开发社群中为了让 Flux 架构更加简洁，产生了许多 Flux-like 的架构和函式库，接下来将带读者们进入目前最热门的架构：<code>Redux</code>。</p>
+<h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ol>
+<li><a href="https://scotch.io/tutorials/getting-to-know-flux-the-react-js-architecture" target="_blank" rel="noopener">Getting To Know Flux, the React.js Architecture</a></li>
+<li><a href="https://facebook.github.io/flux/" target="_blank" rel="noopener">Flux 官方网站</a></li>
+<li><a href="http://blog.techbridge.cc/2016/04/29/introduce-flux-from-flux-and-mvc/" target="_blank" rel="noopener">从 Flux 与 MVC 的差异来简介 Flux</a></li>
+<li><a href="https://medium.com/@softwarecf/flux-stores-and-es6-9b453dbf9db#.uuf1ddj8u" target="_blank" rel="noopener">Flux Stores and ES6</a></li>
+<li><a href="https://medium.com/front-end-developers/react-and-flux-migrating-to-es6-with-babel-and-eslint-6390cf4fd878#.vafamphwy" target="_blank" rel="noopener">React and Flux: Migrating to ES6 with Babel and ESLint</a></li>
+<li><a href="https://shellmonger.com/2015/08/17/building-an-es6jsxreact-flux-app-part-2-the-flux/" target="_blank" rel="noopener">Building an ES6/JSX/React Flux App – Part 2 – The Flux</a></li>
+<li><a href="https://github.com/reactjs/redux/issues/1287" target="_blank" rel="noopener">Question: How to choose between Redux’s store and React’s state? #1287</a></li>
+<li><a href="https://github.com/acdlite/flux-standard-action" target="_blank" rel="noopener">acdlite/flux-standard-action</a></li>
+</ol>
+<hr>
+<h1 id="Redux-基础概念"><a href="#Redux-基础概念" class="headerlink" title="Redux 基础概念"></a>Redux 基础概念</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/09/redux-logo.png" alt="React Redux" title="React Redux"></p>
+<h2 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h2><p>前面一个章节我们讲解了 Flux 的功能和用法，但在实务上许多开发者较偏好的是同为 Flux-like 但较为简洁且文件丰富清楚的 <a href="http://redux.js.org/index.html" target="_blank" rel="noopener">Redux</a> 当作状态资料管理的架构。Redux 是由 Dan Abramov 所发起的一个开源的 library，其主要功能如官方首页写著：<code>Redux is a predictable state container for JavaScript apps.</code>，亦即 Redux 希望能提供一个可以预测的 state 管理容器，让开发者可以可以更容易开发複杂的 JavaScript 应用程式（注意 Redux 和 React 并无相依性，只是和 React 可以有很好的整合）。</p>
+<h2 id="Flux-Redux-超级比一比"><a href="#Flux-Redux-超级比一比" class="headerlink" title="Flux/Redux 超级比一比"></a>Flux/Redux 超级比一比</h2><p>从简单 Flux/Redux 比较图可以看出两者之间有些差异：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/using-redux-compare.jpg" alt="React Redux" title="React Redux"></p>
+<p>在开始实作 Redux App 之前我们先来了解一下 Redux 和 Flux 的一些差异：</p>
+<ol>
+<li><p>只使用一个 store 将整个应用程式的状态 (state) 用物件树 (object tree) 的方式储存起来： 原生的 Flux 会有许多分散的 store 储存各个不同的状态，但在 redux 中，只会有唯一一个 store 将所有的资料用物件的方式包起来。</p>
+<p> //原生 Flux 的 store<br> const userStore = {</p>
+<pre><code>name: &apos;&apos;
+</code></pre><p> }<br> const todoStore = {</p>
+<pre><code>text: &apos;&apos;
+</code></pre><p> }</p>
+<p> // Redux 的单一 store<br> const state = {</p>
+<pre><code>userState: {
+    name: &apos;&apos;
+},
+todoState: {
+    text: &apos;&apos;
+}
+</code></pre><p> }</p>
+</li>
+</ol>
+<ol start="2">
+<li>唯一可以改变 state 的方法就是发送 action，这部份和 Flux 类似，但 Redux 并没有像 Flux 设计有 Dispatcher。Redux 的 action 和 Flux 的 action 都是一个包含 <code>type</code> 和 <code>payload</code> 的物件。</li>
+<li>Redux 拥有 Flux 所没有的 Reducer。Reducer 根据 action 的 type 去执行对应的 state 做变化的函式叫做 Reducer。你可以使用 switch 或是使用函式 mapping 的方式去对应处理的方式。</li>
+<li>Redux 拥有许多方便好用的辅助测试工具（例如：<a href="https://github.com/gaearon/redux-devtools" target="_blank" rel="noopener">redux-devtools</a>、<a href="https://github.com/gaearon/react-transform-boilerplate" target="_blank" rel="noopener">react-transform-boilerplate</a>），方便测试和使用 <code>Hot Module Reload</code>。</li>
+</ol>
+<h3 id="Redux-核心概念介绍"><a href="#Redux-核心概念介绍" class="headerlink" title="Redux 核心概念介绍"></a>Redux 核心概念介绍</h3><p><img src="https://res.i95.me/wp-content/uploads/2016/09/redux-flowchart.png" alt="React Redux" title="React Redux"></p>
+<p>从上述的图中我们可以看到 Redux 资料流的模型大致上可以简化成： <code>View -&gt; Action -&gt; (Middleware) -&gt; Reducer</code>。当使用者和 View 互动时会触发事件发出 Action，若有使用 Middleware 的话会在进入 Reducer 进行一些处理，当 Action 进到 Reducer 时，Reducer 会根据，action type 去 mapping 对应处理的动作，然后回传回新的 state。View 则因为侦测到 state 更新而重绘页面。在这个章节我们讨论的是 synchronous（同步）的情形，asynchronous（非同步）的状况会在接下来的章节进行讨论。以下就用官方网站上的简单范例来让大家感受一下 Redux 的整个使用流程：</p>
+<pre><code>import { createStore } from &apos;redux&apos;;
+
+/** 
+  下面是一个简单的 reducers ，主要功能是针对传进来的 action type 判断并回传新的 state
+  reducer 规格：(state, action) =&gt; newState 
+  一般而言 state 可以是 primitive、array 或 object 甚至是 ImmutableJS Data。但要留意的是不能修改到原来的 state ，
+  回传的是新的 state。由于使用在 Redux 中使用 ImmutableJS 有许多好处，所以我们的范例 App 也会使用 ImmutableJS 
+*/
+function counter(state = 0, action) {
+  switch (action.type) {
+  case &apos;INCREMENT&apos;:
+    return state + 1;
+  case &apos;DECREMENT&apos;:
+    return state - 1;
+  default:
+    return state;
+  }
+}
+
+// 创建 Redux store 去存放 App 的所有 state
+// store 的可用 API { subscribe, dispatch, getState } 
+let store = createStore(counter);
+
+// 可以使用 subscribe() 来订阅 state 是否更新。但实务通常会使用 react-redux 来串连 React 和 Redux
+store.subscribe(() =&gt;
+  console.log(store.getState());
+);
+
+// 若想改变 state ，一律发 action
+store.dispatch({ type: &apos;INCREMENT&apos; });
+// 1
+store.dispatch({ type: &apos;INCREMENT&apos; });
+// 2
+store.dispatch({ type: &apos;DECREMENT&apos; });
+// 1
+</code></pre><h3 id="Redux-API-入门"><a href="#Redux-API-入门" class="headerlink" title="Redux API 入门"></a>Redux API 入门</h3><ol>
+<li>createStore：<code>createStore(reducer, [preloadedState], [enhancer])</code>我们知道在 Redux 中只会有一个 store。在产生 store 时我们会使用 <code>createStore</code> 这个 API 来创建 store。第一个参数放入我们的 <code>reducer</code> 或是有多个 <code>reducers</code> combine（使用 <code>combineReducers</code>）在一起的 <code>rootRuducers</code>。第二个参数我们会放入希望预先载入的 <code>state</code> 例如：user session 等。第三个参数通常会放入我们想要使用用来增强 Redux 功能的 <code>middlewares</code>，若有多个 <code>middlewares</code> 的话，通常会使用 <code>applyMiddleware</code> 来整合。</li>
+<li>Store 属于 Store 的四个方法：</li>
+</ol>
+<ul>
+<li>getState()</li>
+<li>dispatch(action)</li>
+<li>subscribe(listener)</li>
+<li>replaceReducer(nextReducer) 关于 Store 重点是要知道 Redux 只有一个 Sotre 负责存放整个 App 的 State，而唯一能改变 State 的方法只有发送 action。</li>
+</ul>
+<ol start="3">
+<li>combineReducers：<code>combineReducers(reducers)</code>combineReducers 可以将多个 reducers 进行整合并回传一个 Function，让我们可以将 reducer 适度分割</li>
+<li>applyMiddleware：<code>applyMiddleware(...middlewares)</code>官方针对 Middleware 进行说明</li>
+</ol>
+<blockquote>
+<p>It provides a third-party extension point between dispatching an action, and the moment it reaches the reducer.</p>
+</blockquote>
+<p>若有 NodeJS 的经验的读者，对于 middleware 概念应该不陌生，让开发者可以在 req 和 res 之间进行一些操作。在 Redux 中 Middleware 则是扮演 action 到达 reducer 前的第三方扩充。而 applyMiddleware 可以将多个 <code>middlewares</code> 整合并回传一个 Function，便于使用。</p>
+<p>若是你要使用 asynchronous（非同步）的行为的话需要使用其中一种 middleware： <a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="noopener">redux-thunk</a>、<a href="https://github.com/acdlite/redux-promise" target="_blank" rel="noopener">redux-promise</a> 或 <a href="https://github.com/pburtchaell/redux-promise-middleware" target="_blank" rel="noopener">redux-promise-middleware</a> ，这样可以让你在 actions 中 dispatch Promises 而非 function。asynchronous（非同步）运作方式就如同下图所示：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/react-redux-diagram.png" alt="React Redux" title="React Redux"><br>5. bindActionCreators：<code>bindActionCreators(actionCreators, dispatch)</code>bindActionCreators 可以将 <code>actionCreators</code> 和 <code>dispatch</code> 绑定，并回传一个 Function 或 Object，让程式更简洁。但若是使用 react-redux 可以用 <code>connect</code> 让 dispatch 行为更容易管理<br>6. compose：<code>compose(...functions)</code>compose 可以将 function 由右到左合併并回传一个 Function，如官网范例所示：</p>
+<pre><code>import { createStore, combineReducers, applyMiddleware, compose } from &apos;redux&apos;
+import thunk from &apos;redux-thunk&apos;
+import DevTools from &apos;./containers/DevTools&apos;
+import reducer from &apos;../reducers/index&apos;
+
+const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(thunk),
+    DevTools.instrument()
+  )
+)
+</code></pre><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>以上介绍了 Redux 的基础概念，若是读者觉得还是有点抽象的话也没关系，在下一个章节我们将实际带大家开发一个整合 <code>React</code>、<code>Redux</code> 和 <code>ImmutableJS</code> 的 TodoApp。</p>
+<h3 id="延伸阅读-1"><a href="#延伸阅读-1" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><ol>
+<li><a href="http://redux.js.org/index.html" target="_blank" rel="noopener">Redux 官方网站</a></li>
+<li><a href="http://react-china.org/t/redux-single-source-of-truth/5564" target="_blank" rel="noopener">Redux架构实践——Single Source of Truth</a></li>
+<li><a href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0" target="_blank" rel="noopener">Presentational and Container Components</a></li>
+<li><a href="https://github.com/matthew-sun/blog/issues/18" target="_blank" rel="noopener">使用Redux管理你的React应用</a></li>
+<li><a href="http://www.slideshare.net/JonasOhlsson/using-redux" target="_blank" rel="noopener">Using redux</a></li>
+</ol>
+<hr>
+<h1 id="Redux-实战入门"><a href="#Redux-实战入门" class="headerlink" title="Redux 实战入门"></a>Redux 实战入门</h1><h3 id="前言-2"><a href="#前言-2" class="headerlink" title="前言"></a>前言</h3><p>上一节我们了解了 Redux 基本的概念和特性后，本章我们要实际动手用 Redux、React Redux 结合 ImmutableJS 开发一个简单的 Todo 应用。话不多说，那就让让我们开始吧！</p>
+<p>以下这张图表示了整个 React Redux App 的资料流程图（使用者与 View 互动 =&gt; dispatch 出 Action =&gt; Reducers 依据 action tyoe 分配到对应处理方式，回传新的 state =&gt; 透过 React Redux 传送给 React，React 重新绘製 View）：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/redux-flow.png" alt="React Redux" title="React Redux"></p>
+<h3 id="动手创作-React-Redux-ImmutableJS-TodoApp"><a href="#动手创作-React-Redux-ImmutableJS-TodoApp" class="headerlink" title="动手创作 React Redux ImmutableJS TodoApp"></a>动手创作 React Redux ImmutableJS TodoApp</h3><p>在开始创作之前我们先完成一些开发的前置作业，先透过以下指令在根目录产生 npm 设定档 <code>package.json</code>：</p>
+<pre><code>$ npm init
+</code></pre><p>安装相关套件（包含开发环境使用的套件）：</p>
+<pre><code>$ npm install --save react react-dom redux react-redux immutable redux-actions redux-immutable
+
+
+$ npm install --save-dev babel-core babel-eslint babel-loader babel-preset-es2015 babel-preset-react eslint eslint-config-airbnb eslint-loader eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react html-webpack-plugin webpack webpack-dev-server
+</code></pre><p>安装好后我们可以设计一下我们的资料夹结构，首先我们在根目录建立 <code>src</code>，放置 <code>script</code> 的 <code>source</code> 。在 <code>components</code> 资料夹中我们会放置所有 <code>components</code>（个别元件资料夹中会用 <code>index.js</code> 输出元件，让引入元件更简洁）、<code>containers</code>（负责和 store 互动取得 state），另外还有 <code>actions</code>、<code>constants</code>、<code>reducers</code>、<code>store</code>，其馀设定档则放置于根目录下。</p>
+<p>大致上的资料夹结构会长这样：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/redux-folder.png" alt="React Redux" title="React Redux"></p>
+<p>接下来我们参考上一章设定一下开发文档（<code>.babelrc</code>、<code>.eslintrc</code>、<code>webpack.config.js</code>）。这样我们就完成了开发环境的设定可以开始动手实作 <code>React Redux</code> 应用程式了！</p>
+<p>首先我们先用 Component 之眼感受一下我们应用程式，将它切成一个个 <code>Component</code>。在这边我们设计一个主要的 <code>Main</code> 包含两个子 Component：<code>TodoHeader</code>、<code>TodoList</code>。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/react-redux-demo.png" alt="React Redux" title="React Redux"></p>
+<p>首先设计 HTML Markup：</p>
+<pre><code>&lt;html lang=&quot;en&quot;&gt;
+
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Redux Todo&lt;/title&gt;
+
+
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+</code></pre><p>在撰写 <code>src/index.js</code> 之前，我们先说明整合 <code>react-redux</code> 的用法。从以下这张图可以看到 <code>react-redux</code> 是 React 和 Redux 间的桥梁，使用 <code>Provider</code>、<code>connect</code> 去连结 <code>store</code> 和 React View。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/using-redux.jpg" alt="React Redux" title="React Redux"></p>
+<p>事实上，整合了 <code>react-redux</code> 后，我们的 React App 就可以解决传统跨 Component 之前传递 state 的问题和困难。只要透过 <code>Provider</code> 就可以让每个 React App 中的 <code>Component</code> 取用 store 中的 state，非常方便（接下来我们也会更详细说明 Container/Component、<code>connect</code> 的用法）。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/redux-store.png" alt="React Redux" title="React Redux"></p>
+<p>以下是 <code>src/index.js</code> 完整程式码：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import { Provider } from &apos;react-redux&apos;;
+import Main from &apos;./components/Main&apos;;
+import store from &apos;./store&apos;;
+
+ReactDOM.render(
+  &lt;Provider store={store}&gt;
+    &lt;Main /&gt;
+  &lt;/Provider&gt;,
+  document.getElementById(&apos;app&apos;)
+);
+</code></pre><p>其中 <code>src/components/Main/Main.js</code> 是 Stateless Component，负责所有 View 的进入点。</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import TodoHeaderContainer from &apos;../../containers/TodoHeaderContainer&apos;;
+import TodoListContainer from &apos;../../containers/TodoListContainer&apos;;
+
+const Main = () =&gt; (
+  &lt;div&gt;
+    &lt;TodoHeaderContainer /&gt;
+    &lt;TodoListContainer /&gt;
+  &lt;/div&gt;
+);
+
+export default Main;
+</code></pre><p>接下来我们定义一下 <code>Actions</code> 的部份，由于是范例 App 所以相对简单，这边只定义一个 todoActions。在这边我们使用了 <a href="https://github.com/acdlite/redux-actions" target="_blank" rel="noopener">redux-actions</a>，它可以方便我们使用 Flux Standard Action 格式的 action。以下是 <code>src/actions/todoActions.js</code> 完整程式码：</p>
+<pre><code>import { createAction } from &apos;redux-actions&apos;;
+import {
+  CREATE_TODO,
+  DELETE_TODO,
+  CHANGE_TEXT,
+} from &apos;../constants/actionTypes&apos;;
+
+export const createTodo = createAction(&apos;CREATE_TODO&apos;);
+export const deleteTodo = createAction(&apos;DELETE_TODO&apos;);
+export const changeText = createAction(&apos;CHANGE_TEXT&apos;);
+</code></pre><p>我们在 <code>src/actions/index.js</code> 将所有 actions 输出</p>
+<pre><code>export * from &apos;./todoActions&apos;;
+</code></pre><p>另外我们把 constants 放到 <code>components</code> 资料夹中方便管理，以下是 <code>src/constants/actionTypes.js</code> 程式码：</p>
+<pre><code>export const CREATE_TODO = &apos;CREATE_TODO&apos;;
+export const DELETE_TODO = &apos;DELETE_TODO&apos;;
+export const CHANGE_TEXT = &apos;CHANGE_TEXT&apos;;
+
+/* 
+或是可以考虑使用 keyMirror，方便产生与 key 相同的常数
+import keyMirror from &apos;fbjs/lib/keyMirror&apos;;
+
+export default keyMirror({
+    ADD_ITEM: null,
+    DELETE_ITEM: null,
+    DELETE_ALL: null,
+    FILTER_ITEM: null
+});
+*/
+</code></pre><p>设定 Actions 后我们来讨论一下 Reducers 的部份。在讨论 Reducers 之前我们先来设定一下我们的前端的资料结构，在这边我们把所有资料结构（initialState）放到 <code>src/constants/models.js</code> 中。这边特别注意的是由于 Redux 中有一个重要特性是 <code>State is read-only</code>，也就是说更新当 reducers 进到 action 只会回传新的 state 不会更改到原有的 state。因此我们会在整个 Redux App 中使用 <code>ImmutableJS</code> 让整个资料流维持在 <code>Immutable</code> 的状态，也可以提昇程式开发上的效能和避免不可预期的副作用。</p>
+<p>以下是 <code>src/constants/models.js</code> 完整程式码，其设定了 TodoState 的资料结构并使用 <code>fromJS()</code> 转成 <code>Immutable</code>：</p>
+<pre><code>import Immutable from &apos;immutable&apos;;
+
+export const TodoState = Immutable.fromJS({
+  &apos;todos&apos;: [],
+  &apos;todo&apos;: {
+    id: &apos;&apos;,
+    text: &apos;&apos;,
+    updatedAt: &apos;&apos;,
+    completed: false,
+  }
+});
+</code></pre><p>接下来我们要讨论的是 Reducers 的部份，在 <code>todoReducers</code> 中我们会根据接收到的 action 进行 mapping 到对应的处理函式并传入夹带的 <code>payload</code> 资料（这边我们使用 <a href="https://github.com/acdlite/redux-actions" target="_blank" rel="noopener">redux-actions</a> 来进行 mapping，使用上比传统的 switch 更为简洁）。Reducers 接收到 action 的处理方式为 <code>(initialState, action) =&gt; newState</code>，最终会回传一个新的 state，而非更改原来的 state，所以这边我们使用 <code>ImmutableJS</code>。</p>
+<pre><code>import { handleActions } from &apos;redux-actions&apos;;
+import { TodoState } from &apos;../../constants/models&apos;;
+
+import {
+  CREATE_TODO,
+  DELETE_TODO,
+  CHANGE_TEXT,
+} from &apos;../../constants/actionTypes&apos;;
+
+ const todoReducers = handleActions({
+  CREATE_TODO: (state) =&gt; {
+    let todos = state.get(&apos;todos&apos;).push(state.get(&apos;todo&apos;));
+    return state.set(&apos;todos&apos;, todos)
+  },
+  DELETE_TODO: (state, { payload }) =&gt; (
+    state.set(&apos;todos&apos;, state.get(&apos;todos&apos;).splice(payload.index, 1))
+  ),
+  CHANGE_TEXT: (state, { payload }) =&gt; (
+    state.merge({ &apos;todo&apos;: payload })
+  )
+}, TodoState);
+
+export default todoReducers;
+
+
+import { handleActions } from &apos;redux-actions&apos;;
+import UiState from &apos;../../constants/models&apos;;
+
+export default handleActions({
+  SHOW: (state, { payload }) =&gt; (
+    state.set(&apos;todos&apos;, payload.todo)
+  ),
+}, UiState);
+</code></pre><p>虽然 Redux 本身仅会有一个 store，但 redux 本身有提供了 <code>combineReducers</code> 可以让我们切割我们 state 方便维护和管理。实上，state 的规划也是一们学问，通常需要不断地实作和工作团队讨论才能找到比较好的方式。不过这边要注意的是我们改使用了 <code>redux-immutable</code> 的 <code>combineReducers</code> 这样可以确保我们的 state 维持在 <code>Immutable</code> 的状态。</p>
+<p>由于 Redux 官方也没有特别明确或严谨的规范。在一般情况我会将 reducers 分为 <code>data</code> 和单纯和 UI 有关的 <code>ui</code> state。但由于这边是比较简单的例子，我们最终只使用到 <code>src/reducers/data/todoReducers.js</code>。</p>
+<pre><code>import { combineReducers } from &apos;redux-immutable&apos;;
+import ui from &apos;./ui/uiReducers&apos;;// import routes from &apos;./routes&apos;;
+import todo from &apos;./data/todoReducers&apos;;// import routes from &apos;./routes&apos;;
+
+const rootReducer = combineReducers({
+  todo,
+});
+
+export default rootReducer;
+</code></pre><p>还记得我们上面说明 React Redux 之前的桥梁时有提到的 store 吗？现在我们要更仔细地去设计 <code>store</code>，我们这边使用到了 redux 其中两个 API：applyMiddleware、createStore。分别可以产生 store 和挂载我们要使用的 middleware（这边我们只使用到 redux-logger 方便我们除错）。注意我们 initialState 也是维持在 <code>Immutable</code> 的状态。</p>
+<pre><code>import { createStore, applyMiddleware } from &apos;redux&apos;;
+import createLogger from &apos;redux-logger&apos;;
+import Immutable from &apos;immutable&apos;;
+import rootReducer from &apos;../reducers&apos;;
+
+const initialState = Immutable.Map();
+
+export default createStore(
+  rootReducer,
+  initialState,
+  applyMiddleware(createLogger({ stateTransformer: state =&gt; state.toJS() }))
+);
+</code></pre><p>透过 <code>src/store/index.js</code> 输出 configureStore：</p>
+<pre><code>export { default } from &apos;./configureStore&apos;;
+</code></pre><p>讲解完架构层面的议题，终于我们来到了 View 的部份。加油，距离我们终点也不远了！ 在开始讨论 <code>Component</code> 的部份之前我们先来研究一下</p>
+<p><a href="https://github.com/reactjs/react-redux" target="_blank" rel="noopener">react-redux</a> 所提供的 API <code>connect</code> 将 props 传给 Component，其用法如下：</p>
+<p><code>connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])</code></p>
+<p>在我们的范例 App 中我们只会先用到前两个参数，第三个参数会在之后的例子裡用到。第一个参数 mapStateToProps 是一个让开发者可以从 store 取出想要 state 并当做 props 往下传的功能，第二个参数则是将 dispatch 行为封装成函数顺著 props 可以方便往下传和呼叫。</p>
+<p>以下是 <code>src/components/TodoHeader/TodoHeader.js</code> 的部份：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import { connect } from &apos;react-redux&apos;;
+import TodoHeader from &apos;../../components/TodoHeader&apos;;
+
+// 将欲使用的 actions 引入
+import {
+  changeText,
+  createTodo,
+} from &apos;../../actions&apos;;
+
+const mapStateToProps = (state) =&gt; ({
+    // 从 store 取得 todo state
+    todo: state.getIn([&apos;todo&apos;, &apos;todo&apos;])
+});
+
+const mapDispatchToProps = (dispatch) =&gt; ({
+    // 当使用者在 input 输入资料值即会触发这个函数，发出 changeText action 并附上使用者输入内容 event.target.value
+    onChangeText: (event) =&gt; (
+      dispatch(changeText({ text: event.target.value }))
+    ),
+    // 当使用者按下送出时，发出 createTodo action 并清空 input 
+    onCreateTodo: () =&gt; {
+      dispatch(createTodo());
+      dispatch(changeText({ text: &apos;&apos; }));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(TodoHeader);
+
+// 开始建设 Component 并使用 connect 进来的 props 并绑定事件（onChange、onClick）。注意我们的 state 因为是使用 `ImmutableJS` 所以要用 `get()` 取值
+const TodoHeader = ({
+  onChangeText,
+  onCreateTodo,
+  todo,
+}) =&gt; (
+  &lt;div&gt;
+    &lt;h1&gt;TodoHeader&lt;/h1&gt;
+    &lt;input type=&quot;text&quot; value={todo.get(&apos;text&apos;)} onChange={onChangeText} /&gt;
+    &lt;button onClick={onCreateTodo}&gt;送出&lt;/button&gt;
+  &lt;/div&gt;
+);
+
+export default TodoHeader;
+</code></pre><p>以下是 <code>src/components/TodoList/TodoList.js</code> 的部份：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import { connect } from &apos;react-redux&apos;;
+import TodoList from &apos;../../components/TodoList&apos;;
+
+import {
+  deleteTodo,
+} from &apos;../../actions&apos;;
+
+const mapStateToProps = (state) =&gt; ({
+  todos: state.getIn([&apos;todo&apos;, &apos;todos&apos;])
+});
+
+// 由 Component 传进欲删除元素的 index
+const mapDispatchToProps = (dispatch) =&gt; ({
+  onDeleteTodo: (index) =&gt; () =&gt; (
+    dispatch(deleteTodo({ index }))
+  )
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(TodoList);
+
+// Component 部分值的注意的是 todos state 是透过 map function 去迭代出元素，由于要让 React JSX 可以渲染并保持传入触发 event state 的 immutable，所以需使用 toJS() 转换 component of array。
+const TodoList = ({
+  todos,
+  onDeleteTodo,
+}) =&gt; (
+  &lt;div&gt;
+    &lt;ul&gt;
+    {
+      todos.map((todo, index) =&gt; (
+        &lt;li key={index}&gt;
+          {todo.get(&apos;text&apos;)}
+          &lt;button onClick={onDeleteTodo(index)}&gt;X&lt;/button&gt;
+        &lt;/li&gt;
+      )).toJS()
+    }
+    &lt;/ul&gt;
+  &lt;/div&gt;
+);
+
+export default TodoList;
+</code></pre><p>若是一切顺利的话就可以在浏览器上看到自己努力的成果萝！（因为我们有使用 <code>redux-logger</code> 所以打开 console 会看到 action 和 state 的变化情形，但记得在 <code>production</code> 环境要拿掉）</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/react-redux-dev-demo.png" alt="React Redux" title="React Redux"></p>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>以上就是 Redux 实战入门，对于第一次自己动手写 Redux 的朋友可能会需要多练习几次，多体会整个架构。在接下来的章节我们将优化我们的 React Redux TodoApp，让它可以有更清晰好维护的架构。</p>
+<h3 id="延伸阅读-2"><a href="#延伸阅读-2" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><ol>
+<li><a href="http://redux.js.org/index.html" target="_blank" rel="noopener">Redux 官方网站</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-7.html" title="R07-Flux/Redux 入门实战教学">https://jaxsonwang.github.io/reactjs-getting-started-7.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/late-september-notes.html" rel="next" title="关于9月下旬的一些事">
+                <i class="fa fa-chevron-left"></i> 关于9月下旬的一些事
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/reactjs-getting-started-8.html" rel="prev" title="R08-Container 与 Presentational Components 入门">
+                R08-Container 与 Presentational Components 入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flux-基础概念与实战入门"><span class="nav-number">1.</span> <span class="nav-text">Flux 基础概念与实战入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flux-概念介绍"><span class="nav-number">1.2.</span> <span class="nav-text">Flux 概念介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flux-流程回顾"><span class="nav-number">1.3.</span> <span class="nav-text">Flux 流程回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flux-实战初体验"><span class="nav-number">1.4.</span> <span class="nav-text">Flux 实战初体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">2.</span> <span class="nav-text">延伸阅读</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux-基础概念"><span class="nav-number"></span> <span class="nav-text">Redux 基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-1"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flux-Redux-超级比一比"><span class="nav-number">2.</span> <span class="nav-text">Flux/Redux 超级比一比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-核心概念介绍"><span class="nav-number">2.1.</span> <span class="nav-text">Redux 核心概念介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-API-入门"><span class="nav-number">2.2.</span> <span class="nav-text">Redux API 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸阅读-1"><span class="nav-number">2.4.</span> <span class="nav-text">延伸阅读</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux-实战入门"><span class="nav-number"></span> <span class="nav-text">Redux 实战入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言-2"><span class="nav-number">0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动手创作-React-Redux-ImmutableJS-TodoApp"><span class="nav-number">0.2.</span> <span class="nav-text">动手创作 React Redux ImmutableJS TodoApp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">0.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸阅读-2"><span class="nav-number">0.4.</span> <span class="nav-text">延伸阅读</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="附录三、React 测试入门教学 前言测试是软体开发中非常重要的一个环节，本章我们将带领大家从撰写最简单的测试程式码到整合 Mocha + Chai 官方提供的测试工具和 Airbnb 所设计的 Enzyme 进行 React 测试。 Mocha 测试初体验Mocha 是目前颇为流行的 JavaScript 测试框架之一，其可以很方便使用于浏览器端和 Node 环境。  Mocha is a fe">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="附录三、React 测试入门教学">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-13.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="附录三、React 测试入门教学 前言测试是软体开发中非常重要的一个环节，本章我们将带领大家从撰写最简单的测试程式码到整合 Mocha + Chai 官方提供的测试工具和 Airbnb 所设计的 Enzyme 进行 React 测试。 Mocha 测试初体验Mocha 是目前颇为流行的 JavaScript 测试框架之一，其可以很方便使用于浏览器端和 Node 环境。  Mocha is a fe">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/mocha.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="附录三、React 测试入门教学">
+<meta name="twitter:description" content="附录三、React 测试入门教学 前言测试是软体开发中非常重要的一个环节，本章我们将带领大家从撰写最简单的测试程式码到整合 Mocha + Chai 官方提供的测试工具和 Airbnb 所设计的 Enzyme 进行 React 测试。 Mocha 测试初体验Mocha 是目前颇为流行的 JavaScript 测试框架之一，其可以很方便使用于浏览器端和 Node 环境。  Mocha is a fe">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/10/mocha.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-13.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>附录三、React 测试入门教学 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-13.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">附录三、React 测试入门教学
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-03 09:12:24" itemprop="dateCreated datePublished" datetime="2016-10-03T09:12:24+09:00">2016-10-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-13.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-13.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="附录三、React-测试入门教学"><a href="#附录三、React-测试入门教学" class="headerlink" title="附录三、React 测试入门教学"></a>附录三、React 测试入门教学</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/10/mocha.png" alt="React 测试入门教学"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>测试是软体开发中非常重要的一个环节，本章我们将带领大家从撰写最简单的测试程式码到整合 <code>Mocha</code> + <code>Chai</code> 官方提供的<a href="https://facebook.github.io/react/docs/test-utils.html" target="_blank" rel="noopener">测试工具</a>和 Airbnb 所设计的 <a href="https://github.com/airbnb/enzyme" target="_blank" rel="noopener">Enzyme</a> 进行 React 测试。</p>
+<h3 id="Mocha-测试初体验"><a href="#Mocha-测试初体验" class="headerlink" title="Mocha 测试初体验"></a>Mocha 测试初体验</h3><p><a href="https://mochajs.org/" target="_blank" rel="noopener">Mocha</a> 是目前颇为流行的 JavaScript 测试框架之一，其可以很方便使用于浏览器端和 Node 环境。</p>
+<blockquote>
+<p>Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases.</p>
+</blockquote>
+<p>除了 Mocha 外，尚有许多 JavaScript 单元测试工具可以选择，例如：<a href="http://jasmine.github.io/" target="_blank" rel="noopener">Jasmine</a>、<a href="http://karma-runner.github.io/1.0/index.html" target="_blank" rel="noopener">Karma</a> 等。但本章我们主要使用 <code>Mocha</code> + <code>Chai</code> 结合 React 官方测试工具和 Enzyme 进行讲解。</p>
+<p>在这边我们先介绍一些比较常用的 Mocha 使用方法，让大家熟悉测试的用法（若是已经熟悉撰写测试程式码的读者这部份可以跳过）：</p>
+<ol>
+<li><p>安装环境与套件 安装 <code>react</code> 和 <code>react-dom</code></p>
+<p> $ npm install –save react react-dom</p>
+</li>
+</ol>
+<p>可以在全域安装 mocha：</p>
+<pre><code>$ npm install --global mocha
+</code></pre><p>也可以在开发环境下本地端安装（同时安装了 babel、eslint、webpack 等相关套件，其中以 mocha、chai、babel 为主要必须）：</p>
+<pre><code>$ npm install --save-dev babel-core babel-loader babel-eslint babel-preset-react babel-preset-es2015 eslint eslint-config-airbnb eslint-loader eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react webpack webpack-dev-server html-webpack-plugin chai mocha
+</code></pre><ol start="2">
+<li>测试程式码 1. describe（test suite）：表示一组相关的测试。<code>describe</code> 为一个函数，第一个参数为 <code>test suite</code>的名称，第二个参数为实际执行的函数。</li>
+<li>it（test case）：表示一个单独测试，为测试裡最小单位。<code>it</code> 为一个函数，第一个参数为 <code>test case</code> 的描述名称，第二个参数为实际执行的函数。 在测试程式码中会包含一个或多个 <code>test suite</code>，而每个 <code>test suite</code> 则会包含一个或多个 <code>test case</code>。</li>
+<li>整合 assertion 函式库 <code>Chai</code>所谓的 assertion（断言），就是判断程式码的执行成果是否和预期一样，若是不一致则会发生错误。通常一个 test case 会拥有一个或多个 assertion。由于 Mocha 本身是一个测试框架，但不包含 assertion，所以我们使用 <a href="http://chaijs.com/" target="_blank" rel="noopener">Chai</a> 这个适用于浏览器端和 Node 端的 BDD / TDD assertion library。在 Chai 中共提供三种操作 assertion 介面风格：Expect、Assert、Should，在这边我们选择使用比较接近自然语言的 Expect。</li>
+</ol>
+<p>基本上，expect assertion 的写法都是类似：开头为 <code>expect</code> 方法 + <code>to</code> 或 <code>to.be</code> + 结尾 assertion 方法（例如：equal、a/an、ok、match）<br>4. Mocha 基本用法 mocha 若没指定要执行哪个档案，预设会执行 <code>test</code> 资料夹下第一层的测试程式码。若要让 <code>test</code> 资料夹中的子资料夹测试码也执行则要加上 <code>--recursive</code> 参数。</p>
+<p>包含子资料夹：</p>
+<pre><code>$ mocha --recursive
+</code></pre><p>指定一个档案</p>
+<pre><code>$ mocha file1.js
+</code></pre><p>也可以指定多个档案</p>
+<pre><code>$ mocha file1.js file2.js
+</code></pre><p>现在，我们来撰写一个简单的测试程式，亲身感受一下测试的感觉。以下是 <code>react-mocha-test-example/src/modules/add.js</code>，一个加法的函数：</p>
+<pre><code>const add = (x, y) =&gt; (
+  x + y
+);
+
+export default add;
+</code></pre><p>接著我们撰写测试这个函数的程式码，测试是否正确。以下是 <code>react-mocha-test-example/src/test/add.test.js</code>：</p>
+<pre><code>// test add.js
+import add from &apos;../src/modules/add&apos;;
+import { expect } from &apos;chai&apos;;
+
+// describe is test suite, it is test case
+describe(&apos;test add function&apos;, () =&gt; (
+  it(&apos;1 + 1 = 2&apos;, () =&gt; (
+    expect(add(1, 1)).to.be.equal(2)
+  ))
+));
+</code></pre><p>在开始执行 <code>mocha</code> 后由于我们使用了，ES6 的语法所以必须使用 bable 进行转译，否则会出现类似以下的错误：</p>
+<pre><code>import add from &apos;../src/modules/add&apos;;
+^^^^^^
+</code></pre><p>我们先行设定 <code>.bablerc</code>，我们在之前已经有安装 <code>babel</code> 相关套件和 <code>presets</code> 所以就会将 ES2015 语法转译。</p>
+<pre><code>{
+    &quot;presets&quot;: [
+      &quot;es2015&quot;,
+      &quot;react&quot;,
+     ],
+    &quot;plugins&quot;: []
+}
+</code></pre><p>此时，我们更改 <code>package.json</code> 中的 <code>scripts</code>，这样方便每次测试执行：</p>
+<p>若是使用本地端：</p>
+<pre><code>$ ./node_modules/mocha/bin/mocha --compilers js:babel-core/register
+</code></pre><p>若是使用全域：</p>
+<pre><code>$ mocha --compilers js:babel-core/register
+</code></pre><p>若是一切顺利，我们就可以看到执行测试成功的结果：</p>
+<p>“` $ mocha add.test.js</p>
+<p>test add function</p>
+<pre><code> ✓ 1 + 1 = 2  
+
+
+ 1 passing (181ms)  
+ “`
+
+1. Mocha 指令参数 在 Mocha 中有许多可以使用的好用参数，例如：`--recursive` 可以执行执行测试资料夹下的子资料夹程式码、`--reporter 格式` 更改测试报告格式（预设是 `spec`，也可以更改为 `tap`）、`--watch` 用来监控测试程式码，当有测试程式码更新就会重新执行、`--grep` 撷取符合条件的 test case。
+
+以上这些参数我们可以都整理在 `test` 资料夹下的 `mocha.opts` 档案中当作设定资料，此时再次执行 `npm run test` 就会把参数也使用进去。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--watch</span><br><span class="line">--reporter spec</span><br></pre></td></tr></table></figure>
+
+2. 非同步测试 在上面我们讨论的主要是同步的状况，但实际上在开发应用时往往会遇到非同步的情形。而在 Mocha 中每个 test case 最多允许执行 2000 毫秒，当时间超过就会显示错误。为了解决这个问题我们可以在 `package.json` 中更改：`&quot;test&quot;: &quot;mocha -t 5000 --compilers js:babel-core/register&quot;` 档案。
+
+为了模拟测试非同步的情境，所以我们必须先安装 [axios](https://github.com/mzabriskie/axios)。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save axios</span><br></pre></td></tr></table></figure>
+
+
+以下是 `react-mocha-test-example/src/test/async.test.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import axios from &apos;axios&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">    </span><br><span class="line">it(&apos;asynchronous return an object&apos;, function(done)&#123;</span><br><span class="line">  axios</span><br><span class="line">    .get(&apos;https://api.github.com/users/torvus&apos;)</span><br><span class="line">    .then(function (response) &#123;</span><br><span class="line">      expect(response).to.be.an(&apos;object&apos;);</span><br><span class="line">      done();</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(function (error) &#123;</span><br><span class="line">      console.log(error);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+由于测试环境是在 Node 中，所以我们必须先安装 [node-fetch](https://github.com/bitinn/node-fetch) 来展现 promise 的情境。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save node-fetch</span><br></pre></td></tr></table></figure>
+
+
+以下是 `react-mocha-test-example/src/test/promise.test.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import fetch from &apos;node-fetch&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">    </span><br><span class="line">it(&apos;asynchronous fetch promise&apos;, function() &#123;</span><br><span class="line">  return fetch(&apos;https://api.github.com/users/torvus&apos;)</span><br><span class="line">    .then(function(response) &#123; return response.json() &#125;)</span><br><span class="line">    .then(function(json) &#123; </span><br><span class="line">      expect(json).to.be.an(&apos;object&apos;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+3. 测试使用的 hook 在 Mocha 中的 test suite 中，有 before()、after()、beforeEach() 和 afterEach() 四种 hook，可以让你设计在特定时间点执行测试。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">describe(&apos;hooks&apos;, function() &#123;</span><br><span class="line">  before(function() &#123;</span><br><span class="line">    // 在 before 中的 test case 会在所有 test cases 前执行</span><br><span class="line">  &#125;);</span><br><span class="line">  after(function() &#123;</span><br><span class="line">    // 在 after 中的 test case 会在所有 test cases 后执行</span><br><span class="line">  &#125;);</span><br><span class="line">  beforeEach(function() &#123;</span><br><span class="line">    // 在 beforeEach 中的 test case 会在每个 test cases 前执行</span><br><span class="line">  &#125;);</span><br><span class="line">  afterEach(function() &#123;</span><br><span class="line">    // 在 afterEach 中的 test case 会在每个 test cases 后执行</span><br><span class="line">  &#125;);</span><br><span class="line">  // test cases</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+### 动手实作
+
+在上面我们已经先讲解了 `Mocha` + `Chai` 测试工具和基础的测试写法。现在接著我们要来探讨 React 中的测试用法。然而，要在 React 中测试 Component 以及 JSX 语法时，使用传统的测试工具并不方便，所以要整合 `Mocha` + `Chai` 官方提供的[测试工具](https://facebook.github.io/react/docs/test-utils.html)和 Airbnb 所设计的 [Enzyme](https://github.com/airbnb/enzyme)（由于官方的测试工具使用起来不太方便所以有第三方针对其进行封装）进行测试。
+
+#### 使用官方测试工具
+
+我们知道在 React 一个重要的特色为 Virtual DOM 所以在官方的测试工具中有提供测试 Virtual DOM 的方法：Shallow Rendering（createRenderer），以及测试真实 DOM 的方法：DOM Rendering（renderIntoDocument）。
+
+1. Shallow Rendering（createRenderer） Shallow Rendering 系指将一个 Virtual DOM 渲染成子 Component，但是只渲染第一层，不渲染所有子元件，因此处理速度快且不需要 DOM 环境。Shallow rendering 在单元测试非常有用，由于只测试一个特定的 component，而重要的不是它的 children。这也意味著改变一个 child component 不会影响 parent component 的测试。
+
+以下是 `react-addons-test-utils-example/src/test/shallowRender.test.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import TestUtils from &apos;react-addons-test-utils&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">import Main from &apos;../src/components/Main&apos;;</span><br><span class="line">    </span><br><span class="line">function shallowRender(Component) &#123;</span><br><span class="line">  const renderer = TestUtils.createRenderer();</span><br><span class="line">  renderer.render();</span><br><span class="line">  return renderer.getRenderOutput();</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">describe(&apos;Shallow Rendering&apos;, function () &#123;</span><br><span class="line">  it(&apos;Main title should be h1&apos;, function () &#123;</span><br><span class="line">    const todoItem = shallowRender(Main);</span><br><span class="line">    expect(todoItem.props.children[0].type).to.equal(&apos;h1&apos;);</span><br><span class="line">    expect(todoItem.props.children[0].props.children).to.equal(&apos;Todos&apos;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+以下是 `react-addons-test-utils-example/src/test/shallowRenderProps.test.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import TestUtils from &apos;react-addons-test-utils&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">import TodoList from &apos;../src/components/TodoList&apos;;</span><br><span class="line">    </span><br><span class="line">const shallowRender = (Component, props) =&gt; &#123;</span><br><span class="line">  const renderer = TestUtils.createRenderer();</span><br><span class="line">  renderer.render();</span><br><span class="line">  return renderer.getRenderOutput();</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">describe(&apos;Shallow Props Rendering&apos;, () =&gt; &#123;</span><br><span class="line">  it(&apos;TodoList props check&apos;, () =&gt; &#123;</span><br><span class="line">    const todos = [&#123; id: 0, text: &apos;reading&apos;&#125;, &#123; id: 1, text: &apos;coding&apos;&#125;];</span><br><span class="line">    const todoList = shallowRender(TodoList, &#123;todos: todos&#125;);</span><br><span class="line">    expect(todoList.props.children.type).to.equal(&apos;ul&apos;);</span><br><span class="line">    expect(todoList.props.children.props.children[0].props.children).to.equal(&apos;reading&apos;);</span><br><span class="line">    expect(todoList.props.children.props.children[1].props.children).to.equal(&apos;coding&apos;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+2. DOM Rendering（renderIntoDocument） 注意，因为 Mocha 运行在 Node 环境中，所以你不会存取到 DOM。所以我们要使用 JSDOM 来模拟真实 DOM 环境。同时我在这边引入 `react-dom`，这样我们就可以使用 findDOMNode 来选取元素。事实上，findDOMNode 方法的最大优势是提供比 TestUtils 更好的 CSS 选择器，方便开发者选择元素。
+
+以下是 `react-addons-test-utils-example/src/test/setup.test.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import jsdom from &apos;jsdom&apos;;</span><br><span class="line">    </span><br><span class="line">if (typeof document === &apos;undefined&apos;) &#123;</span><br><span class="line">  global.document = jsdom.jsdom(&apos;&apos;);</span><br><span class="line">  global.window = document.defaultView;</span><br><span class="line">  global.navigator = global.window.navigator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+以下是 `react-addons-test-utils-example/src/components/TodoHeader/TodoHeader.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">    </span><br><span class="line">class TodoHeader extends React.Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.toggleButton = this.toggleButton.bind(this);</span><br><span class="line">    this.state = &#123;</span><br><span class="line">      isActivated: false,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  toggleButton() &#123;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      isActivated: !this.state.isActivated,      </span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      </span><br><span class="line">        Add</span><br><span class="line">      </span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">export default TodoHeader;</span><br></pre></td></tr></table></figure>
+
+
+需要留意的是若是 stateless components 使用 TestUtils.renderIntoDocument，要将 renderIntoDocument 包在 `` 内，使用 `findDOMNode(TodoHeaderApp).children[0]` 取得，不然会回传 null。更进一步细节可以[参考这裡](https://github.com/facebook/react/issues/4839)。不过由于我们是使用 `class-based` Component 所以不会遇到这个问题。
+
+以下是 `react-addons-test-utils-example/src/test/renderIntoDocument.test.js`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import TestUtils from &apos;react-addons-test-utils&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">import &#123; findDOMNode &#125; from &apos;react-dom&apos;;</span><br><span class="line">import TodoHeader from &apos;../src/components/TodoHeader&apos;;</span><br><span class="line">    </span><br><span class="line">describe(&apos;Simulate Event&apos;, function () &#123;</span><br><span class="line">  it(&apos;When click the button, it will be toggle&apos;, function () &#123;</span><br><span class="line">    const TodoHeaderApp = TestUtils.renderIntoDocument();</span><br><span class="line">    const TodoHeaderDOM = findDOMNode(TodoHeaderApp);</span><br><span class="line">    const button = TodoHeaderDOM.querySelector(&apos;button&apos;);</span><br><span class="line">    TestUtils.Simulate.click(button);</span><br><span class="line">    let todoHeaderButtonAfterClick = TodoHeaderDOM.querySelector(&apos;button&apos;).disabled;</span><br><span class="line">    expect(todoHeaderButtonAfterClick).to.equal(true);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+这种渲染 DOM 的测试方式类似于 JavaScript 或 jQuery 的 DOM 操作。首先要先找到欲操作的目标节点，而后触发想要执行的动作，在官方测试工具中拥有许多可以[协助选取节点的方法](https://facebook.github.io/react/docs/test-utils.html#scryrenderedcomponentswithtype)。然而由于其在使用上不够简洁，也因此我们接下来将介绍由 Airbnb 所设计的 [Enzyme](https://github.com/airbnb/enzyme)进行 React 测试。
+
+#### 使用 Enzyme 函式库进行测试
+
+[Enzyme](https://github.com/airbnb/enzyme) 优势是在于针对官方测试工具封装成了类似 jQuery API 的选取元素的方式。根据官方网站介绍 Enzyme 将更容易地去操作选取 React Component：
+
+&gt; Enzyme is a JavaScript Testing utility for React that makes it easier to assert, manipulate, and traverse your React Components’ output. Enzyme is unopinionated regarding which test runner or assertion library you use, and should be compatible with all major test runners and assertion libraries out there.
+
+在 Enzyme 中选取元素使用 `find()`：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">component.find(&apos;.className&apos;); // 使用 class 选取</span><br><span class="line">component.find(&apos;#idName&apos;); // 使用 id 选取</span><br><span class="line">component.find(&apos;h1&apos;); // 使用元素选取</span><br></pre></td></tr></table></figure>
+
+
+接下来我们介绍 Enzyme 三个主要的 API 方法：
+
+1. Shallow Rendering shallow 方法事实上就是官方测试工具的 shallow rendering 封装。同样是只渲染第一层，不渲染所有子元件。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import TestUtils from &apos;react-addons-test-utils&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">import &#123; shallow &#125; from &apos;enzyme&apos;;</span><br><span class="line">import Main from &apos;../../src/components/Main&apos;;</span><br><span class="line">    </span><br><span class="line">describe(&apos;Enzyme Shallow Rendering&apos;, () =&gt; &#123;</span><br><span class="line">  it(&apos;Main title should be Todos&apos;, () =&gt; &#123;</span><br><span class="line">    const main = shallow();</span><br><span class="line">    // 判断 h1 文字是否如预期</span><br><span class="line">    expect(main.find(&apos;h1&apos;).text()).to.equal(&apos;Todos&apos;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+2. Static Rendering render 方法是将 React 元件渲染成静态的 HTML 字串，并利用 Cheerio 函式库（这点和 shallow 不同）分析其结构返回物件。虽然底层是不同的处理引擎但使用上 API 封装起来和 Shallow 却是一致的。需要注意的是 Static Rendering 非只渲染一层，需要注意是否需要 mock props 传递。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import TestUtils from &apos;react-addons-test-utils&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">import &#123; render &#125; from &apos;enzyme&apos;;</span><br><span class="line">import Main from &apos;../../src/components/Main&apos;;</span><br><span class="line">    </span><br><span class="line">describe(&apos;Enzyme Staic Rendering&apos;, () =&gt; &#123;</span><br><span class="line">  it(&apos;Main title should be Todos&apos;, () =&gt; &#123;</span><br><span class="line">    const todos = [&#123; id: 0, text: &apos;reading&apos;&#125;, &#123; id: 1, text: &apos;coding&apos;&#125;];</span><br><span class="line">    const main = render();</span><br><span class="line">    expect(main.find(&apos;h1&apos;).text()).to.equal(&apos;Todos&apos;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+3. Full Rendering mount 方法 React 元件载入真实 DOM 节点。同样因为牵涉到 DOM 也要使用 JSDOM。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import TestUtils from &apos;react-addons-test-utils&apos;;</span><br><span class="line">import &#123; expect &#125; from &apos;chai&apos;;</span><br><span class="line">import &#123; findDOMNode &#125; from &apos;react-dom&apos;;</span><br><span class="line">import &#123; mount &#125; from &apos;enzyme&apos;;</span><br><span class="line">import TodoHeader from &apos;../../src/components/TodoHeader&apos;;</span><br><span class="line">    </span><br><span class="line">describe(&apos;Enzyme Mount&apos;, () =&gt; &#123;</span><br><span class="line">  it(&apos;Click Button&apos;, () =&gt; &#123;</span><br><span class="line">    let todoHeaderDOM = mount();</span><br><span class="line">    // 取得 button 并模拟 click</span><br><span class="line">    let button = todoHeaderDOM.find(&apos;button&apos;).at(0);</span><br><span class="line">    button.simulate(&apos;click&apos;);</span><br><span class="line">    // 检查 prop(key) 是否正确</span><br><span class="line">    expect(button.prop(&apos;disabled&apos;)).to.equal(true);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+最后我们可以在 `react-addons-test-utils-example` 资料夹下执行：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm test</span><br></pre></td></tr></table></figure>
+
+
+若一切顺利就可以看到测试通过的讯息！
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Enzyme Mount</span><br><span class="line">  ✓ Click Button (44ms)</span><br><span class="line">    </span><br><span class="line">Enzyme Shallow Rendering</span><br><span class="line">  ✓ Main title should be Todos</span><br><span class="line">    </span><br><span class="line">Enzyme Staic Rendering</span><br><span class="line">  ✓ Main title should be Todos</span><br><span class="line">    </span><br><span class="line">Simulate Event</span><br><span class="line">  ✓ When click the button, it will be toggle</span><br><span class="line">    </span><br><span class="line">Shallow Rendering</span><br><span class="line">  ✓ Main title should be h1</span><br><span class="line">    </span><br><span class="line">Shallow Props Rendering</span><br><span class="line">  ✓ TodoList props check</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">6 passing (279ms)</span><br></pre></td></tr></table></figure>
+
+
+事实上 Enzyme 还提供更多的 API 可以使用，若是读者想了解更多 Enzyme API 可以 [参考官方文件](http://airbnb.io/enzyme/docs/api/index.html)。
+
+### 总结
+
+以上我们从 `Mocha` + `Chai` 的使用方式介绍到 React 官方提供的[测试工具](https://facebook.github.io/react/docs/test-utils.html) 和 Airbnb 所设计的 [Enzyme](https://github.com/airbnb/enzyme)，相信读者对于测试程式码已经有初步的了解，若尚未掌握的读者不妨跟著上面的范例再重新走过一遍，接著我们要进到最后的 `GraphQL/Relay`的介绍。
+
+### 延伸阅读
+
+1. [React 测试入门教程](http://www.ruanyifeng.com/blog/2016/02/react-testing-tutorial.html)
+2. [测试框架 Mocha 实例教程](http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html)
+3. [Test Utilities](https://facebook.github.io/react/docs/test-utils.html)
+4. [JavaScript Testing utilities for React](https://github.com/airbnb/enzyme)
+5. [持续集成是什么？](http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html)
+6. [Let’s test React components with TDD, Mocha, Chai, and jsdom](https://medium.freecodecamp.com/simple-react-testing-d9e25ec87e2)
+7. [Unit Testing React-Native Components with Enzyme Part 1](https://kyrisu.com/2016/01/31/unit-testing-react-native-components-with-enzyme-part-1/)
+8. [What React Stateless Components Are Missing](http://jaketrent.com/post/react-stateless-components-missing/)
+9. [0.14-rc1: findDOMNode(statelessComponent) doesn’t work with TestUtils.renderIntoDocument #4839](https://github.com/facebook/react/issues/4839)
+10. [Writing Redux Tests](http://redux.js.org/docs/recipes/WritingTests.html)
+11. [【译】展望2016，React.js 最佳实践 (中英对照版)](http://blog.jimmylv.info/2016-01-22-React.js-Best-Practices-for-2016/)
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-13.html" title="附录三、React 测试入门教学">https://jaxsonwang.github.io/reactjs-getting-started-13.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/reactjs-getting-started-12.html" rel="next" title="附录二、用 React Native + Firebase 开发跨平台行动应用程式">
+                <i class="fa fa-chevron-left"></i> 附录二、用 React Native + Firebase 开发跨平台行动应用程式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/reactjs-getting-started-14.html" rel="prev" title="附录四、GraphQL/Relay 初体验">
+                附录四、GraphQL/Relay 初体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#附录三、React-测试入门教学"><span class="nav-number">1.</span> <span class="nav-text">附录三、React 测试入门教学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mocha-测试初体验"><span class="nav-number">1.0.2.</span> <span class="nav-text">Mocha 测试初体验</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

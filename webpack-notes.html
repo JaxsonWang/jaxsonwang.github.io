@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="webpack 是什么 一项技术、一个工具的出现，肯定是为了解决问题的。那么，webpack 是为了解决什么问题？答案是：文件依赖管理。浏览器端的 Js, 出于安全的考虑，对本地文件没有操作权限，不能引用其它 js, css 等文件。而 webpack 就是用来解决这个问题的，让你的项目可以很好地分文件、分模块，而且它对外部文件的引入同时支持 cmd, amd 和 commondJs 这三种形式，">
+<meta name="keywords" content="Web前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack 从入门到上线">
+<meta property="og:url" content="https://jaxsonwang.github.io/webpack-notes.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="webpack 是什么 一项技术、一个工具的出现，肯定是为了解决问题的。那么，webpack 是为了解决什么问题？答案是：文件依赖管理。浏览器端的 Js, 出于安全的考虑，对本地文件没有操作权限，不能引用其它 js, css 等文件。而 webpack 就是用来解决这个问题的，让你的项目可以很好地分文件、分模块，而且它对外部文件的引入同时支持 cmd, amd 和 commondJs 这三种形式，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://segmentfault.com/img/bVzLhA">
+<meta property="og:image" content="https://segmentfault.com/img/bVB25D">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack 从入门到上线">
+<meta name="twitter:description" content="webpack 是什么 一项技术、一个工具的出现，肯定是为了解决问题的。那么，webpack 是为了解决什么问题？答案是：文件依赖管理。浏览器端的 Js, 出于安全的考虑，对本地文件没有操作权限，不能引用其它 js, css 等文件。而 webpack 就是用来解决这个问题的，让你的项目可以很好地分文件、分模块，而且它对外部文件的引入同时支持 cmd, amd 和 commondJs 这三种形式，">
+<meta name="twitter:image" content="https://segmentfault.com/img/bVzLhA">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/webpack-notes.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Webpack 从入门到上线 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/webpack-notes.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Webpack 从入门到上线
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-24 11:30:02" itemprop="dateCreated datePublished" datetime="2016-08-24T11:30:02+09:00">2016-08-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/webpack-notes.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/webpack-notes.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="webpack-是什么"><a href="#webpack-是什么" class="headerlink" title="webpack 是什么"></a>webpack 是什么</h2><p><img src="https://segmentfault.com/img/bVzLhA" alt></p>
+<p>一项技术、一个工具的出现，肯定是为了解决问题的。那么，webpack 是为了解决什么问题？答案是：<strong>文件依赖管理</strong>。浏览器端的 Js, 出于安全的考虑，对本地文件没有操作权限，不能引用其它 js, css 等文件。而 webpack 就是用来解决这个问题的，让你的项目可以很好地分文件、分模块，而且它对外部文件的引入同时支持 cmd, amd 和 commondJs 这三种形式，够有诚意。<br>或许你要说了，解决文件依赖，早在 require.js 和 sea.js 的时候，都已经解决了呀！那么，webpack 在这方面，有哪些新的突破：</p>
+<ol>
+<li>支持引用各种拓展名的文件</li>
+<li>能够在不依赖 gulp 或 grunt 的情况下直接产出打包文件</li>
+<li>支持实时编译，浏览器同步刷新</li>
+</ol>
+<p>这个时候，是不是很想唱一下王力宏的《唯一》：确定你就是我的唯一！<br>OK，进入正题。</p>
+<h2 id="安装与运行"><a href="#安装与运行" class="headerlink" title="安装与运行"></a>安装与运行</h2><p>目前，我们的项目目录结构是这样的：</p>
+<pre><code>webpack_demo
+|&lt;span class=&quot;hljs-comment&quot;&gt;--src&lt;/span&gt;
+|  |&lt;span class=&quot;hljs-comment&quot;&gt;--pages&lt;/span&gt;
+|  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--index&lt;/span&gt;
+|  |  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--index.js&lt;/span&gt;
+|&lt;span class=&quot;hljs-comment&quot;&gt;--views_dev&lt;/span&gt;
+|  |&lt;span class=&quot;hljs-comment&quot;&gt;--index.html&lt;/span&gt;
+|&lt;span class=&quot;hljs-comment&quot;&gt;--webpack.config.js&lt;/span&gt;
+|&lt;span class=&quot;hljs-comment&quot;&gt;--package.json&lt;/span&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">    ### 安装</span><br><span class="line">    </span><br><span class="line">    在项目的根目录执行：</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">$ npm init // 生成项目依赖文件配置 package.json  </span><br><span class="line">$ npm install webpack -g // 全局安装webpack  </span><br><span class="line">$ touch webpack.config.js // 在项目根目录下，新建 webpack.config.js 文件</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>然后，在以下3个文件，输入内容：</p>
+<ol>
+<li>页面 HTML 文件 <code>// views_dev/index.html &lt;span class=&quot;hljs-doctype&quot;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;html&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;head&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;hljs-attribute&quot;&gt;charset&lt;/span&gt;=&lt;span class=&quot;hljs-value&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;title&lt;/span&gt;&gt;&lt;/span&gt;首页&lt;span class=&quot;hljs-tag&quot;&gt;&lt;/&lt;span class=&quot;hljs-title&quot;&gt;title&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;/&lt;span class=&quot;hljs-title&quot;&gt;head&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;body&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;div&lt;/span&gt;&gt;&lt;/span&gt;哈喽，world&lt;span class=&quot;hljs-tag&quot;&gt;&lt;/&lt;span class=&quot;hljs-title&quot;&gt;div&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;&lt;span class=&quot;hljs-title&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;hljs-attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;hljs-value&quot;&gt;&quot;../asset/dev/main.js&quot;&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;/&lt;span class=&quot;hljs-title&quot;&gt;script&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;/&lt;span class=&quot;hljs-title&quot;&gt;body&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&lt;/&lt;span class=&quot;hljs-title&quot;&gt;html&lt;/span&gt;&gt;&lt;/span&gt;</code></li>
+<li>页面引用的 js 文件 <code>// src/pages/&lt;span class=&quot;hljs-keyword&quot;&gt;index&lt;/span&gt;/&lt;span class=&quot;hljs-keyword&quot;&gt;index&lt;/span&gt;.js console.&lt;span class=&quot;hljs-keyword&quot;&gt;log&lt;/span&gt;(&lt;span class=&quot;hljs-string&quot;&gt;&#39;I am in index/index.js, haha4&#39;&lt;/span&gt;);</code></li>
+<li>webpack 打包配置 <code>&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.js&lt;/span&gt;&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = { &lt;span class=&quot;hljs-comment&quot;&gt;// 入口：要进行处理的实例（js）&lt;/span&gt; entry: &lt;span class=&quot;hljs-string&quot;&gt;&#39;./src/pages/index/index.js&#39;&lt;/span&gt;, &lt;span class=&quot;hljs-comment&quot;&gt;// 出口：输出配置&lt;/span&gt; output: { &lt;span class=&quot;hljs-comment&quot;&gt;// 输出到哪个目录&lt;/span&gt; path: &lt;span class=&quot;hljs-string&quot;&gt;&#39;./asset/dev/&#39;&lt;/span&gt;, &lt;span class=&quot;hljs-comment&quot;&gt;// 静态资源的引用路径&lt;/span&gt; publicpath: &lt;span class=&quot;hljs-string&quot;&gt;&#39;/asset/dev/&#39;&lt;/span&gt;, &lt;span class=&quot;hljs-comment&quot;&gt;// 实例最终输出的名字&lt;/span&gt; filename: &lt;span class=&quot;hljs-string&quot;&gt;&#39;[name].js&#39;&lt;/span&gt; } };</code></li>
+</ol>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p><strong>运行 webpack 命令</strong>，进行打包。</p>
+<p><code>&lt;span class=&quot;hljs-variable&quot;&gt;$ &lt;/span&gt;webpack</code></p>
+<p>然后，搞定了，此时在浏览器中打开 <code>views_dev/index.html</code>，你会发现，打包成功了！</p>
+<p><img src="https://segmentfault.com/img/bVB25D" alt></p>
+<p>好的，你入门了，哈哈！接下去，我会详细介绍单个页面打包、多个页面打包，以及最后的发布上线。Now, go ~</p>
+<h2 id="单个页面打包"><a href="#单个页面打包" class="headerlink" title="单个页面打包"></a>单个页面打包</h2><p>这里，你将学到：</p>
+<ol>
+<li>引入其它 js 文件。是的，你将学会 <strong>模块化</strong>。</li>
+<li>引入其它类型的文件，以 css 为例。</li>
+<li>实时编译 + 浏览器同步刷新。爽！</li>
+</ol>
+<p>现在，我们的项目目录，是这样：</p>
+<pre><code>webpack_demo
+|&lt;span class=&quot;hljs-comment&quot;&gt;--src&lt;/span&gt;
+|  |&lt;span class=&quot;hljs-comment&quot;&gt;--pages&lt;/span&gt;
+|  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--index&lt;/span&gt;
+|  |  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--index.js&lt;/span&gt;
+|  |  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--test.js&lt;/span&gt;
+|  |  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--index.css&lt;/span&gt;
+|  |&lt;span class=&quot;hljs-comment&quot;&gt;--plugins&lt;/span&gt;
+|  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--dialog&lt;/span&gt;
+|  |  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--dialog.css&lt;/span&gt;
+|  |  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--dialog.js&lt;/span&gt;
+|&lt;span class=&quot;hljs-comment&quot;&gt;--views_dev&lt;/span&gt;
+|  |&lt;span class=&quot;hljs-comment&quot;&gt;--index.html&lt;/span&gt;
+|&lt;span class=&quot;hljs-comment&quot;&gt;--webpack.config.js&lt;/span&gt;
+|&lt;span class=&quot;hljs-comment&quot;&gt;--package.json&lt;/span&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">    ### 引入其它 js 文件</span><br><span class="line">    </span><br><span class="line">    1. 通过相对路径  </span><br><span class="line">     现在，我们要在 `src/pages/index.js` 里面引入 `src/pages/test.js` 文件。这样做就可以了：`&lt;span class=&quot;hljs-reserved&quot;&gt;var&lt;/span&gt; Test = &lt;span class=&quot;hljs-built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;hljs-string&quot;&gt;&apos;./test.js&apos;&lt;/span&gt;);`</span><br><span class="line">    </span><br><span class="line">    你也许会问，此时，`var Test` 这个变量，得到的是什么？换个说法，怎么控制 `test.js` 被导出到外部的内容。答案是：通过`module.exports`. 例如：</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">// index/test.jsvar str = &quot;I am in test.js&quot;;  </span><br><span class="line">module.exports = str;</span><br></pre></td></tr></table></figure>
+</code></pre><p>那么，<code>require(&#39;./test.js&#39;)</code> 的值就是 “I am in test.js” 这个字符串。<code>module.exports</code> 可以导出任何值。比如，我们要导出 Object.</p>
+<pre><code>&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  aa: &lt;span class=&quot;hljs-string&quot;&gt;&apos;axxx&apos;&lt;/span&gt;,
+  b: &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;{}
+};<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 通过别名或模块  </span><br><span class="line"> 如果只能使用相对路径，那 `webpack` 就太不靠谱了。因为将有可能出现这样 `../../../../libs/libs-tost/toast.js`, 啊，想死！那么，怎么通过别名引入文件呢？假如，我们想引入 `src/plugins/dialog/dialog.js` 这个弹窗。- 在 `webpack.config.js` 中，配置别名</span><br></pre></td></tr></table></figure>
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.js&lt;/span&gt;&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+    resolve: {
+        &lt;span class=&quot;hljs-comment&quot;&gt;// 定义别名&lt;/span&gt;
+        alias: {
+            plugins: &lt;span class=&quot;hljs-string&quot;&gt;&apos;D:/your/path/webpack_demo/src/plugins&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-comment&quot;&gt;// 别名可以是目录&lt;/span&gt;
+            myDialog: &lt;span class=&quot;hljs-string&quot;&gt;&apos;D:/your/path/webpack_demo/src/plugins/dialog/dialog.js&apos;&lt;/span&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// 也可以是文件&lt;/span&gt;
+        }
+    }
+}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    - 可以使用了 `&lt;span class=&quot;hljs-comment&quot;&gt;// src/index/index.js&lt;/span&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;var&lt;/span&gt; Dialog = &lt;span class=&quot;hljs-built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;hljs-string&quot;&gt;&apos;plugins/dialog/dialog.js&apos;&lt;/span&gt;); &lt;span class=&quot;hljs-comment&quot;&gt;// 方式一&lt;/span&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;var&lt;/span&gt; Diaglog = &lt;span class=&quot;hljs-built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;hljs-string&quot;&gt;&apos;myDialog&apos;&lt;/span&gt;); &lt;span class=&quot;hljs-comment&quot;&gt;// 方式二&lt;/span&gt;`</span><br><span class="line">    </span><br><span class="line">    说明：`require(TagPath)` 的 `TagPath` 如果以单词开头，将被认为是模块匹配，它会去找 `node_modules` 和`resolve.alias` 下的模块（或别名）。以方式一为例，它的`TagPath` 是以 `plugins` 开头（注意下：`/plugins` 和`./plugins` 都不叫以单词开头），所以可以顺利匹配到 `resolve.alias.plugins`. 在实际应用中，你经常会看到`require(&apos;jquery&apos;)`, `require(&apos;vue&apos;)`, `require(&apos;react&apos;)`, 这些就是匹配到 `node_modules` 下已安装的模块。</span><br><span class="line">    </span><br><span class="line">    ### 引入其它类型的文件</span><br><span class="line">    </span><br><span class="line">    `webpack` 的强大之处是，它允许你引入任何文件，比如：css, jpg, png. 那么，问题来了，对于不同的文件，它要怎么知道该如何分开处理呢？</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">// webpack.config.jsmodule.exports = &#123;  </span><br><span class="line">module: &#123;  </span><br><span class="line">loaders: \[&#123;  </span><br><span class="line">test: /.css$/,  </span><br><span class="line">loader: &apos;style!css&apos;  </span><br><span class="line">&#125;, &#123;  </span><br><span class="line">test: /.js$/,  </span><br><span class="line">loader: &apos;babel&apos;  </span><br><span class="line">&#125;\]  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</code></pre><p>上面的配置是说，对于拓展名是 <code>.css</code> 的文件，使用加载器 <code>style!css</code>（这边中间有一个感叹号，意思是：先是用 css 加载器处理，然后使用 style 加载器处理）。完整的写法是：<code>style-loader!css-loader</code>, 其中，<code>-loader</code>可以省略。而这里的，<code>style-loader</code> 和<code>css-loader</code> 就需要你 npm 安装下了。</p>
+<pre><code>$ &lt;span class=&quot;hljs-built_in&quot;&gt;npm&lt;/span&gt; i style-loader -D
+$ &lt;span class=&quot;hljs-built_in&quot;&gt;npm&lt;/span&gt; i css-loader -D<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">    对于其它拓展名的处理，也是用同样的方式来处理。</span><br><span class="line">    </span><br><span class="line">    ### 释放双手：自动编译 + 浏览器同步刷新</span><br><span class="line">    </span><br><span class="line">    你肯定希望，这样的功能。那么，开始吧，喝杯咖啡！</span><br><span class="line">    </span><br><span class="line">    1. 自动编译  </span><br><span class="line">     如果你只是想支持自动编译，那么很简单。只要运行 `$ webpack -w` 就可以开启它的自动编译功能。</span><br><span class="line">    2. 用 webpack-dev-server 实现：自动编译 + 浏览器同步刷新 - 首先，你需要安装 `webpack-dev-server` 这个包。 `$ &lt;span class=&quot;hljs-built_in&quot;&gt;npm&lt;/span&gt; i webpack-dev-server -D`</span><br><span class="line">    - 然后，我简单介绍下它：[webpack-dev-server 文档](https://webpack.github.io/docs/webpack-dev-server.html)- 运行时，它会启动一个本地 Node 服务器，默认端口8080. 即：localhost:8080. 并且自动识别当前目录下的`webpack.config.js` 文件，来作为 `webpack` 配置文件。</span><br><span class="line">    - 产出的编译后文件，不在 output.path 里，而在它自己定义的内存。</span><br><span class="line">    - 行内参数说明： - inline: 使用命令行模式。</span><br><span class="line">    - content-base: 指定网站的根地址，如果你想指定为项目根目录，那么 `--content-base ./`</span><br><span class="line">    - hot: 开启热替换。一般用在 React 和 Vue 当中，我们这里不用。</span><br><span class="line">    </span><br><span class="line">    好了，那么，启动它吧：</span><br><span class="line">    </span><br><span class="line">    `$ webpack-dev-server --inline --content-&lt;span class=&quot;hljs-keyword&quot;&gt;base&lt;/span&gt; ./`</span><br><span class="line">    </span><br><span class="line">    然后，你在浏览器中，访问 `http://localhost:8080/views_dev/index.html` 就会发现，你修改代码的时候，实时编译，并且浏览器同步刷新了。（不过，要补充一下，触发 webpack 重新编译时，才能同步刷新浏览器。意味着，你修改`views_dev/*.html` 的 HTML 文件时，浏览器，不会被刷新，因为它不会触发 webpack 重新编译。）</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ## 多页面打包</span><br><span class="line">    </span><br><span class="line">    现在，我们加一点点配置，让它支持多个页面打包。之前，它是这样的：</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">module.exports = &#123;  </span><br><span class="line">// 入口：要进行处理的实例（js）  </span><br><span class="line">entry: &apos;./src/pages/index/index.js&apos;,  </span><br><span class="line">// 出口：输出配置  </span><br><span class="line">output: &#123;  </span><br><span class="line">// 输出到哪个目录  </span><br><span class="line">path: &apos;./asset/dev/&apos;,  </span><br><span class="line">// 静态资源的引用路径  </span><br><span class="line">publicpath: &apos;/asset/dev/&apos;,  </span><br><span class="line">// 实例最终输出的名字  </span><br><span class="line">filename: &apos;\[name\].js&apos;  </span><br><span class="line">&#125;,  </span><br><span class="line">// 其它配置...  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</code></pre><p>现在，我们需要改下 <code>entry</code> 的配置，如下：</p>
+<pre><code>&lt;span class=&quot;hljs-tag&quot;&gt;entry&lt;/span&gt;: &lt;span class=&quot;hljs-rules&quot;&gt;{
+    &lt;span class=&quot;hljs-rule&quot;&gt;&lt;span class=&quot;hljs-attribute&quot;&gt;index&lt;/span&gt;:&lt;span class=&quot;hljs-value&quot;&gt;&lt;span class=&quot;hljs-string&quot;&gt;&apos;./src/pages/index/index.js&apos;&lt;/span&gt;,
+    list: &lt;span class=&quot;hljs-string&quot;&gt;&apos;./src/pages/list/index.js&apos;&lt;/span&gt;,
+    common: [
+        &lt;span class=&quot;hljs-string&quot;&gt;&apos;./src/base/base.js&apos;&lt;/span&gt;,
+        &lt;span class=&quot;hljs-string&quot;&gt;&apos;./src/base/base.css&apos;&lt;/span&gt;
+    ]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面的配置意思是，会独立打包3个实体。分别是 index, list, common. 知识点如下：</span><br><span class="line"></span><br><span class="line">1. 它支持多个文件打包在一起，如这里的 `common` 的配置。我们一般，用来放公共基础包。</span><br><span class="line">2. 我们看到 `output.filename = [name].js`，这里的 `[name]` 取自于 entry 的 key 值。意味着，他们最终打包的输出是：</span><br></pre></td></tr></table></figure>
+
+webpack_demo
+|&lt;span class=&quot;hljs-comment&quot;&gt;--asset&lt;/span&gt;
+|  |&lt;span class=&quot;hljs-comment&quot;&gt;--dev&lt;/span&gt;
+|  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--index.js&lt;/span&gt;
+|  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--list.js&lt;/span&gt;
+|  |  |&lt;span class=&quot;hljs-comment&quot;&gt;--common.js&lt;/span&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">## 上线</span><br><span class="line"></span><br><span class="line">发布上线，需要做什么呢？也许是这样：</span><br><span class="line"></span><br><span class="line">1. 把静态资源生成到一个独立的目录下</span><br><span class="line">2. 压缩</span><br><span class="line">3. 加上 md5</span><br><span class="line">4. html 和 css 中，引用的静态资源需要替换。</span><br><span class="line"></span><br><span class="line">哈哈，或许你还能想到很多。我就上面4步来说下实现方式。开始之前，我们一般会这么做：新建一个 webpack 的配置文件，用来做上线发布的配置。比如，我们同样放在根目录下，命名 `webpack.config.build.js`. 此时，你可以这样做：</span><br><span class="line"></span><br><span class="line">`$ webpack -p &lt;span class=&quot;hljs-comment&quot;&gt;--config webpack.config.build.js&lt;/span&gt;`</span><br><span class="line"></span><br><span class="line">这里的 `-p` 是 production 模式的意思，它会对 css, js 文件进行压缩。后面 `--config` 就是指定此次运行的配置文件。</span><br><span class="line"></span><br><span class="line">然后，我们来解决上面的4个要求：</span><br><span class="line"></span><br><span class="line">1. 把静态资源生成到一个独立的目录下 + md5 + css引用的资源替换</span><br></pre></td></tr></table></figure>
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.build.js&lt;/span&gt;&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+    output: {
+        path: &lt;span class=&quot;hljs-string&quot;&gt;&apos;./asset/build/&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-comment&quot;&gt;// 文件编译输出路径改成 build&lt;/span&gt;
+        publicpath: &lt;span class=&quot;hljs-string&quot;&gt;&apos;http://yourweb.com/asset/build/&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-comment&quot;&gt;// 这里替换成线上实际地址，可以修改 css 中对图片资源的引用路径。&lt;/span&gt;
+        filename: &lt;span class=&quot;hljs-string&quot;&gt;&apos;[name]_[hash:5].js&apos;&lt;/span&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// 生成的文件名字，加上了5位的 hash值。当然了，位数和加hash的位置，你可以自己定义，比如 &apos;[name].js?[hash]&apos;.&lt;/span&gt;
+    },
+    &lt;span class=&quot;hljs-comment&quot;&gt;// 其它配置...&lt;/span&gt;
+};```
+2. 压缩。用 `webpack -p` 解决了。
+3. 替换 HTML 中静态资源的路径。可以用 webpack 的插件，`html-webpack-plugin` 来做。或者，你对 gulp 还是比较熟悉的话，用 `gulp-prefix` 来实现。这里就不详细写配置了。
+
+然后，恭喜你看完了！
+
+
+
+本文转载：Segmentfault社区
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/webpack-notes.html" title="Webpack 从入门到上线">https://jaxsonwang.github.io/webpack-notes.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web前端/" rel="tag"># Web前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/recently-some-things.html" rel="next" title="关于最近一些的事">
+                <i class="fa fa-chevron-left"></i> 关于最近一些的事
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/gradle-build-environment-under-linux-configuration.html" rel="prev" title="Linux下配置Gradle编译环境">
+                Linux下配置Gradle编译环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-是什么"><span class="nav-number">1.</span> <span class="nav-text">webpack 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与运行"><span class="nav-number">2.</span> <span class="nav-text">安装与运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行"><span class="nav-number">2.2.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单个页面打包"><span class="nav-number">3.</span> <span class="nav-text">单个页面打包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

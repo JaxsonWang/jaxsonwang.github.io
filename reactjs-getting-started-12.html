@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="附录二、用 React Native + Firebase 开发跨平台行动应用程式 前言跨平台（Wirte once, Run Everywhere）一直以来是软体工程的圣杯。过去一段时间市场上有许多尝试跨平台开发原生行动装置（Native Mobile App）的解决方案，尝试运用 HTML、CSS　和 JavaScript 等网页前端技术达到跨平台的效果，例如：运用 jQuery Mobile">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="附录二、用 React Native + Firebase 开发跨平台行动应用程式">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-12.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="附录二、用 React Native + Firebase 开发跨平台行动应用程式 前言跨平台（Wirte once, Run Everywhere）一直以来是软体工程的圣杯。过去一段时间市场上有许多尝试跨平台开发原生行动装置（Native Mobile App）的解决方案，尝试运用 HTML、CSS　和 JavaScript 等网页前端技术达到跨平台的效果，例如：运用 jQuery Mobile">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/react-native-logo.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/folder-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/android-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/android-2.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/android-3.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/android-4.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/demo-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/demo-2.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/folder-2.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/firebase-landing.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/firebase-init.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/firebase-dashboard.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/firebase-database-0.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/flexbox-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/flexbox-flex-direction.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/justify-content.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/align-items.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/demo-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/firebase-database-2.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="附录二、用 React Native + Firebase 开发跨平台行动应用程式">
+<meta name="twitter:description" content="附录二、用 React Native + Firebase 开发跨平台行动应用程式 前言跨平台（Wirte once, Run Everywhere）一直以来是软体工程的圣杯。过去一段时间市场上有许多尝试跨平台开发原生行动装置（Native Mobile App）的解决方案，尝试运用 HTML、CSS　和 JavaScript 等网页前端技术达到跨平台的效果，例如：运用 jQuery Mobile">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/10/react-native-logo.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-12.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>附录二、用 React Native + Firebase 开发跨平台行动应用程式 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-12.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">附录二、用 React Native + Firebase 开发跨平台行动应用程式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-02 09:07:50" itemprop="dateCreated datePublished" datetime="2016-10-02T09:07:50+09:00">2016-10-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-12.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-12.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="附录二、用-React-Native-Firebase-开发跨平台行动应用程式"><a href="#附录二、用-React-Native-Firebase-开发跨平台行动应用程式" class="headerlink" title="附录二、用 React Native + Firebase 开发跨平台行动应用程式"></a>附录二、用 React Native + Firebase 开发跨平台行动应用程式</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/10/react-native-logo.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>跨平台（<code>Wirte once, Run Everywhere</code>）一直以来是软体工程的圣杯。过去一段时间市场上有许多尝试跨平台开发原生行动装置（Native Mobile App）的解决方案，尝试运用 HTML、CSS　和 JavaScript 等网页前端技术达到跨平台的效果，例如：运用 <a href="https://jquerymobile.com/" target="_blank" rel="noopener">jQuery Mobile</a>、<a href="http://ionicframework.com/" target="_blank" rel="noopener">Ionic</a> 和 <a href="http://framework7.io/" target="_blank" rel="noopener">Framework7</a> 等 Mobile UI 框架（Framework）结合 JavaScript 框架并搭配 <a href="https://en.wikipedia.org/wiki/Apache_Cordova" target="_blank" rel="noopener">Cordova/PhoneGap</a> 进行跨平台行动装置开发。然而，因为这些解决方案通常都是运行在 <code>WebView</code> 之上，导致效能和体验要真正趋近于原生应用程式（Native App）还有一段路要走。</p>
+<p>不过，随著 Facebook 工程团队开发的 <a href="https://facebook.github.io/react-native/" target="_blank" rel="noopener">React Native</a> 横空出世，想尝试跨平台解决方案的开发者又有了新的选择。</p>
+<h3 id="React-Native-特色"><a href="#React-Native-特色" class="headerlink" title="React Native 特色"></a>React Native 特色</h3><p>在正式开始开发 React Native App 之前我们先来介绍一下 React Native 的主要特色：</p>
+<ol>
+<li>使用 JavaScript（ES6+）和 <a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React</a> 打造跨平台原生应用程式（Learn once, write anywhere）</li>
+<li>使用 Native Components，更贴近原生使用者体验</li>
+<li>在 JavaScript 和 Native 之间的操作为非同步（Asynchronous）执行，并可用 Chrome 开发者工具除错，支援 <code>Hot Reloading</code></li>
+<li>使用 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes" target="_blank" rel="noopener">Flexbox</a> 进行排版和布局</li>
+<li>良好的可扩展性（Extensibility），容易整合 Web 生态系标准（XMLHttpRequest、 navigator.geolocation 等）或是原生的元件或函式库（Objective-C、Java 或 Swift）</li>
+<li>Facebook 已使用 React Native 于自家 Production App 且将持续维护，另外也有持续蓬勃发展的技术社群</li>
+<li>让 Web 开发者可以使用熟悉的技术切入 Native App 开发</li>
+<li>2015/3 释出 iOS 版本，2015/9 释出 Android 版本</li>
+<li>目前更新速度快，平均每两週发佈新的版本。社群也还持续在寻找最佳实践，关于版本进展可以<a href="https://facebook.github.io/react-native/versions.html" target="_blank" rel="noopener">参考这个文件</a></li>
+<li>支援的作业系统为 &gt;= Android 4.1 (API 16) 和 &gt;= iOS 7.0</li>
+</ol>
+<h3 id="React-Native-初体验"><a href="#React-Native-初体验" class="headerlink" title="React Native 初体验"></a>React Native 初体验</h3><p>在了解了 React Native 特色后，我们准备开始开发我们的 React Native 应用程式！由于我们的范例可以让程式跨平台共用，所以你可以使用 iOS 和 Android 平台运行。不过若是想在 iOS 平台开发需要先准备 Mac OS 和安装 <a href="https://developer.apple.com/xcode/" target="_blank" rel="noopener">Xcode</a> 开发工具，若是你准备使用 Android 平台的话建议先行安装 <a href="https://developer.android.com/studio/index.html" target="_blank" rel="noopener">Android Studio</a> 和 <a href="https://www.genymotion.com/" target="_blank" rel="noopener">Genymotion 模拟器</a>。在我们范例我们使用笔者使用的 MacO OS 作业系统并使用 Android 平台为主要范例，若有其他作业系统需求的读者可以参考 <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">官方安装说明</a>。</p>
+<p>一开始请先安装 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node</a>、<a href="https://facebook.github.io/watchman/" target="_blank" rel="noopener">Watchman</a> 和 React Native command line 工具：</p>
+<pre><code>// 若你使用 Mac OS 你可以使用官网安装方式或是使用 homebrew 安装
+$ brew install node
+// watchman 可以监看档案是否有修改
+$ brew install watchman
+
+
+// 安装 React Native command line 工具
+$ npm install -g react-native-cli
+</code></pre><p>由于我们是要开发 Android 平台，所以必须安装：</p>
+<ol>
+<li>安装 JDK</li>
+<li>安装 Android SDK</li>
+<li>设定一些环境变数</li>
+</ol>
+<p>以上可以透过 <a href="https://developer.android.com/studio/install.html" target="_blank" rel="noopener">Install Android Studio</a> 官网和 <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">官方安装说明</a> 步骤完成。</p>
+<p>现在，我们先透过一个简单的 <code>HelloWorldApp</code>，让大家感受一下 React Native 专案如何开发。</p>
+<p>首先，我们先初始化一个 React Native Project：</p>
+<pre><code>$ react-native init HelloWorldApp
+</code></pre><p>初始的资料夹结构长相：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/folder-1.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>接下来请先安装注册 <a href="https://www.genymotion.com/" target="_blank" rel="noopener">Genymotion</a>，Genymotion 是一个透过电脑模拟 Android 系统的好用开发模拟器环境。安装完后可以打开并选择欲使用的萤幕大小和 API 版本的 Android 系统。建立装置后就可以启动我们的装置：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/android-1.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>若你是使用 Mac OS 作业系统的话可以执行 <code>run-ios</code>，若是使用 Android 平台则使用 <code>run-android</code> 启动你的 App。在这边我们先使用 Android 平台进行开发（若你希望实机测试，请将电脑接上你的 Android 手机，记得确保 menu 中的 ip 位置要和电脑网路 相同。若是遇到连不到程式 server 且手机为 Android 5.0+ 系统，可以执行 <code>adb reverse tcp:8081 tcp:8081</code>，详细情形可以<a href="https://facebook.github.io/react-native/docs/running-on-device-android.html#using-adb-reverse" target="_blank" rel="noopener">参考官网说明</a>）：</p>
+<pre><code>$ react-native run-android
+</code></pre><p>如果一切顺利的话就可以在模拟器中看到初始画面：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/android-2.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>接著打开 <code>index.android.js</code> 就可以看到以下程式码：</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View
+} from &apos;react-native&apos;;
+
+// 元件式的开发方式和 React 如出一辙，但要注意的是在 React Native 中我们不使用 HTML 元素而是使用 React Native 元件进行开发，这也符合 Learn once, write anywhere 的原则。
+class HelloWorldApp extends Component {
+  render() {
+    return (
+      &lt;View style={styles.container}&gt;
+        &lt;Text style={styles.welcome}&gt;
+          Welcome to React Native!
+        &lt;/Text&gt;
+        &lt;Text style={styles.instructions}&gt;
+          To get started, edit index.android.js
+        &lt;/Text&gt;
+        &lt;Text style={styles.instructions}&gt;
+          Double tap R on your keyboard to reload,{&apos;\n&apos;}
+          Shake or press menu button for dev menu
+        &lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+
+// 在 React Native 中 styles 是使用 JavaScript 形式来撰写，与一般 CSS 比较不同的是他使用驼峰式的属性命名：
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &apos;center&apos;,
+    alignItems: &apos;center&apos;,
+    backgroundColor: &apos;#F5FCFF&apos;,
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: &apos;center&apos;,
+    margin: 10,
+  },
+  instructions: {
+    textAlign: &apos;center&apos;,
+    color: &apos;#333333&apos;,
+    marginBottom: 5,
+  },
+});
+
+// 告诉 React Native App 你的进入点：
+AppRegistry.registerComponent(&apos;HelloWorldApp&apos;, () =&gt; HelloWorldApp);
+</code></pre><p>由于 React Native 有支援 <code>Hot Reloading</code>，若我们更改了档案内容，我们可以使用打开模拟器 Menu 重新刷新页面，此时就可以在看到原本的 <code>Welcome to React Native!</code> 文字已经改成 <code>Welcome to React Native Rock!!!!</code></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/android-3.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/android-4.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>嗯，有没有感觉在开发网页的感觉？</p>
+<h3 id="动手实作"><a href="#动手实作" class="headerlink" title="动手实作"></a>动手实作</h3><p>相信看到这裡读者们一定等不及想大展身手，使用 React Native 开发你第一个 App。俗话说学习一项新技术最好的方式就是做一个 TodoApp。所以，接下来的文章，笔者将带大家使用 React Native 结合 Redux/ImmutableJS 和 Firebase 开发一个记录和删除名言佳句（Mottos）的 Mobile App！</p>
+<h4 id="专案成果截图"><a href="#专案成果截图" class="headerlink" title="专案成果截图"></a>专案成果截图</h4><p><img src="https://res.i95.me/wp-content/uploads/2016/10/demo-1.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/demo-2.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<h4 id="环境安装与设定"><a href="#环境安装与设定" class="headerlink" title="环境安装与设定"></a>环境安装与设定</h4><p>相关套件安装：</p>
+<pre><code>$ npm install --save redux react-redux immutable redux-immutable redux-actions uuid firebase
+
+
+$ npm install --save-dev babel-core babel-eslint babel-loader babel-preset-es2015 babel-preset-react babel-preset-react-native eslint-plugin-react-native  eslint eslint-config-airbnb eslint-loader eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react redux-logger
+</code></pre><p>安装完相关工具后我们可以初始化我们专案：</p>
+<pre><code>// 注意专案不能使用 - 或 _ 命名
+$ react-native init ReactNativeFirebaseMotto
+$ cd ReactNativeFirebaseMotto
+</code></pre><p>我们先准备一下我们资料夹架构，将它设计成：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/folder-2.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<h4 id="Firebase-简介与设定"><a href="#Firebase-简介与设定" class="headerlink" title="Firebase 简介与设定"></a>Firebase 简介与设定</h4><p>在这个专案中我们会使用到 <a href="https://firebase.google.com/" target="_blank" rel="noopener">Firebase</a> 这个 <code>Back-End as Service</code>的服务，也就是说我们不用自己建立后端程式资料库，只要使用 Firebase 所提供的 API 就好像有了一个 NoSQL 资料库一样，当然 Firebase 不单只有提供资料储存的功能，但限于篇幅我们这边将只介绍资料储存的功能。</p>
+<ol>
+<li>首先我们进到 Firebase 首页 <img src="https://res.i95.me/wp-content/uploads/2016/10/firebase-landing.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></li>
+<li>登入后点选建立专案，依照自己想取的专案名称命名<img src="https://res.i95.me/wp-content/uploads/2016/10/firebase-init.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></li>
+<li>选择将 Firebase 加入你的网路应用程式的按钮可以取得 App ID 的 config 资料，待会我们将会使用到<img src="https://res.i95.me/wp-content/uploads/2016/10/firebase-dashboard.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></li>
+<li><p>点选左边选单中的 Database 并点选 Realtime Database Tab 中的规则<img src="https://res.i95.me/wp-content/uploads/2016/10/firebase-database-0.png" alt="用 React Native + Firebase 开发跨平台行动应用程式">设定改为，在范例中为求简单，我们先不用验证方式即可操作：</p>
+<p>{<br> “rules”: {<br>   “.read”: true,<br>   “.write”: true<br> }<br>}</p>
+</li>
+</ol>
+<p>Firebase 在使用上有许多优点，其中一个使用 Back-End As Service 的好处是你可以专注在应用程式的开发便免花过多时间处理后端基础建设的部份，更可以让 Back-End 共用在不同的 client side 中。此外 Firebase 在和 React 整合上也十分容易，你可以想成 Firebase 负责资料的储存，透过 API 和 React 元件互动，Redux 负责接收管理 client state，若是监听到 Firebase 后端资料更新后同步更新 state 并重新 render 页面。</p>
+<h4 id="使用-Flexbox-进行-UI-布局设计"><a href="#使用-Flexbox-进行-UI-布局设计" class="headerlink" title="使用 Flexbox 进行 UI 布局设计"></a>使用 Flexbox 进行 UI 布局设计</h4><p>在 React Native 中是使用 <code>Flexbox</code> 进行排版，若读者对于 Flexbox 尚不熟悉，建议可以<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener">参考这篇文章</a>，若有需要游戏化的学习工具，也非常推荐这两个教学小游戏：<a href="http://www.flexboxdefense.com/" target="_blank" rel="noopener">FlexDefense</a>、<a href="http://flexboxfroggy.com/" target="_blank" rel="noopener">FLEXBOX FROGGY</a>。</p>
+<p>事实上我们可以将 Flexbox 视为一个箱子，最外层是 <code>flex containers</code>、内层包的是 <code>flex items</code>，在属性上也有分是针对<code>flex containers</code> 还是针对是 <code>flex items</code> 设计的。在方向性上由左而右是 <code>main axis</code>，而上到下是 <code>cross axis</code>。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/flexbox-1.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>在 Flexbox 有许多属性值，其中最重要的当数 <code>justifyContent</code> 和 <code>alignItems</code> 以及 <code>flexDirection</code>（注意 React Native Style 都是驼峰式写法），所以我们这边主要介绍这三个属性：</p>
+<p>Flex Direction 负责决定整个 <code>flex containers</code> 的方向，预设为 <code>row</code> 也可以改为 <code>column</code> 、 <code>row-reverse</code> 和 <code>column-reverse</code>。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/flexbox-flex-direction.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>Justify Content 负责决定整个 <code>flex containers</code> 内的 items 的水平摆设，主要属性值有：<code>flex-start</code>、<code>flex-end</code>、<code>center</code>、<code>space-between</code>、<code>space-around</code>。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/justify-content.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>Align Items 负责决定整个 <code>flex containers</code> 内的 items 的垂直摆设，主要属性值有：<code>flex-start</code>、<code>flex-end</code>、<code>center</code>、<code>stretch</code>、<code>baseline</code>。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/align-items.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<h3 id="动手实作-1"><a href="#动手实作-1" class="headerlink" title="动手实作"></a>动手实作</h3><p>有了前面的准备，现在我们终于要开始进入核心的应用程式开发了！</p>
+<p>首先我们先设定好整个 App 的进入档 <code>index.android.js</code>，在这个档案中我们设定了初始化的设定和主要元件 <code>&lt;Main /&gt;</code>：</p>
+<pre><code>/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from &apos;react&apos;;
+import {
+  AppRegistry,
+  Text,
+  View
+} from &apos;react-native&apos;;
+import Main from &apos;./src/components/Main&apos;;
+
+class ReactNativeFirebaseMotto extends Component {
+  render() {
+    return (
+      &lt;Main /&gt;
+    );
+  }
+}
+
+AppRegistry.registerComponent(&apos;ReactNativeFirebaseMotto&apos;, () =&gt; ReactNativeFirebaseMotto);
+</code></pre><p>在 <code>src/components/Main/Main.js</code> 中我们设定好整个 Component 的布局和并将 <code>Firebase</code> 引入并初始化，将操作 Firebase 资料库的参考往下传，根节点我们命名为 <code>items</code>，所以之后所有新增的 motto 都会在这个根节点之下并拥有特定的 key 值。在 Main 我们同样规划了整个布局，包括：<code>&lt;ToolBar /&gt;</code>、<code>&lt;MottoListContainer /&gt;</code>、<code>&lt;ActionButtonContainer /&gt;</code>、<code>&lt;InputModalContainer /&gt;</code>。</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactNative from &apos;react-native&apos;;
+import { Provider } from &apos;react-redux&apos;; 
+import ToolBar from &apos;../ToolBar&apos;;
+import MottoListContainer from &apos;../../containers/MottoListContainer&apos;;
+import ActionButtonContainer from &apos;../../containers/ActionButtonContainer&apos;;
+import InputModalContainer from &apos;../../containers/InputModalContainer&apos;;
+import ListItem from &apos;../ListItem&apos;;
+import * as firebase from &apos;firebase&apos;;
+// 将 Firebase 的 config 值引入
+import { firebaseConfig } from &apos;../../constants/config&apos;;
+// 引用 Redux store
+import store from &apos;../../store&apos;;
+const { View, Text } = ReactNative;
+
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+// Create a reference with .ref() instead of new Firebase(url)
+const rootRef = firebaseApp.database().ref();
+const itemsRef = rootRef.child(&apos;items&apos;);
+
+// 将 Redux 的 store 透过 Provider 往下传
+const Main = () =&gt; (
+  &lt;Provider store={store}&gt;
+    &lt;View&gt;
+      &lt;ToolBar style={styles.toolBar} /&gt;
+      &lt;MottoListContainer itemsRef={itemsRef} /&gt;
+      &lt;ActionButtonContainer /&gt;
+      &lt;InputModalContainer itemsRef={itemsRef} /&gt;
+    &lt;/View&gt;
+  &lt;/Provider&gt;
+);
+
+export default Main;
+</code></pre><p>设定完了基本的布局方式后我们来设定 Actions 和其使用的常数，<code>src/actions/mottoActions.js</code>：</p>
+<pre><code>export const GET_MOTTOS = &apos;GET_MOTTOS&apos;;
+export const CREATE_MOTTO = &apos;CREATE_MOTTO&apos;;
+export const SET_IN_MOTTO = &apos;SET_IN_MOTTO&apos;;
+export const TOGGLE_MODAL = &apos;TOGGLE_MODAL&apos;;
+</code></pre><p>我们在 constants 资料夹中也设定了我们整个 data 的资料结构，以下是 <code>src/constants/models.js</code>：</p>
+<pre><code>import Immutable from &apos;immutable&apos;;
+
+export const MottoState = Immutable.fromJS({
+  mottos: [],
+  motto: {
+    id : &apos;&apos;,
+    text: &apos;&apos;,
+    updatedAt: &apos;&apos;,
+  }
+});
+
+export const UiState = Immutable.fromJS({
+  isModalVisible: false,
+});
+</code></pre><p>还记得我们提到的 Firebase config 吗？这边我们把相关的设定档放在<code>src/configs/config.js</code>中：</p>
+<pre><code>export const firebaseConfig = {
+  apiKey: &quot;apiKey&quot;,
+  authDomain: &quot;authDomain&quot;,
+  databaseURL: &quot;databaseURL&quot;,
+  storageBucket: &quot;storageBucket&quot;,
+};
+</code></pre><p>在我们应用程式中同样使用了 <code>redux</code> 和 <code>redux-actions</code>。在这个范例中我们设计了：GET_MOTTOS、CREATE_MOTTO、SET_IN_MOTTO 三个操作 motto 的 action，分别代表从 Firebase 取出资料、新增资料和 set 资料。以下是 <code>src/actions/mottoActions.js</code>：</p>
+<pre><code>import { createAction } from &apos;redux-actions&apos;;
+import {
+  GET_MOTTOS,
+  CREATE_MOTTO,
+  SET_IN_MOTTO,
+} from &apos;../constants/actionTypes&apos;;
+
+export const getMottos = createAction(&apos;GET_MOTTOS&apos;);
+export const createMotto = createAction(&apos;CREATE_MOTTO&apos;);
+export const setInMotto = createAction(&apos;SET_IN_MOTTO&apos;);
+</code></pre><p>同样地，由于我们设计了当使用者想新增 motto 时会跳出 modal，所以我们可以设定一个 <code>TOGGLE_MODAL</code> 负责开关 modal 的 state。以下是 <code>src/actions/uiActions.js</code>：</p>
+<pre><code>import { createAction } from &apos;redux-actions&apos;;
+import {
+  TOGGLE_MODAL,
+} from &apos;../constants/actionTypes&apos;;
+
+export const toggleModal = createAction(&apos;TOGGLE_MODAL&apos;);
+</code></pre><p>以下是 <code>src/actions/index.js</code>，用来汇出我们的 actions：</p>
+<pre><code>export * from &apos;./uiActions&apos;;
+export * from &apos;./mottoActions&apos;;
+</code></pre><p>设定完我们的 actions 后我们来设定 reducers，在这边我们同样使用 <code>redux-actions</code> 整合 <code>ImmutableJS</code>，</p>
+<pre><code>import { handleActions } from &apos;redux-actions&apos;;
+// 引入 initialState 
+import { 
+  MottoState
+} from &apos;../../constants/models&apos;;
+
+import {
+  GET_MOTTOS,
+  CREATE_MOTTO,
+  SET_IN_MOTTO,
+} from &apos;../../constants/actionTypes&apos;;
+
+// 透过 set 和 seIn 可以产生 newState
+const mottoReducers = handleActions({
+  GET_MOTTOS: (state, { payload }) =&gt; (
+    state.set(
+      &apos;mottos&apos;,
+      payload.mottos
+    )
+  ),  
+  CREATE_MOTTO: (state) =&gt; (
+    state.set(
+      &apos;mottos&apos;,
+      state.get(&apos;mottos&apos;).push(state.get(&apos;motto&apos;))
+    )
+  ),
+  SET_IN_MOTTO: (state, { payload }) =&gt; (
+    state.setIn(
+      payload.path,
+      payload.value
+    )
+  )
+}, MottoState);
+
+export default mottoReducers;
+</code></pre><p>以下是 <code>src/reducers/uiState.js</code>：</p>
+<pre><code>import { handleActions } from &apos;redux-actions&apos;;
+import { 
+  UiState,
+} from &apos;../../constants/models&apos;;
+
+import {
+  TOGGLE_MODAL,
+} from &apos;../../constants/actionTypes&apos;;
+
+// modal 的显示与否
+const uiReducers = handleActions({
+  TOGGLE_MODAL: (state) =&gt; (
+    state.set(
+      &apos;isModalVisible&apos;,
+      !state.get(&apos;isModalVisible&apos;)
+    )
+  ),  
+}, UiState);
+
+export default uiReducers;
+</code></pre><p>以下是 <code>src/reducers/index.js</code>，将所有 reducers combine 在一起：</p>
+<pre><code>import { combineReducers } from &apos;redux-immutable&apos;;
+import ui from &apos;./ui/uiReducers&apos;;
+import motto from &apos;./data/mottoReducers&apos;;
+
+const rootReducer = combineReducers({
+  ui,
+  motto,
+});
+
+export default rootReducer;
+</code></pre><p>透过 <code>src/store/configureStore.js</code>将 reducers 和 initialState 以及要使用的 middleware 整合成 store：</p>
+<pre><code>import { createStore, applyMiddleware } from &apos;redux&apos;;
+import createLogger from &apos;redux-logger&apos;;
+import Immutable from &apos;immutable&apos;;
+import rootReducer from &apos;../reducers&apos;;
+
+const initialState = Immutable.Map();
+
+export default createStore(
+  rootReducer,
+  initialState,
+  applyMiddleware(createLogger({ stateTransformer: state =&gt; state.toJS() }))
+);
+</code></pre><p>设定完资料层的架构后，我们又重新回到 View 的部份，我们开始依序设定我们的 Component 和 Container。首先，我们先设计我们的标题列 ToolBar，以下是 <code>src/components/ToolBar/ToolBar.js</code>：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactNative from &apos;react-native&apos;;
+import styles from &apos;./toolBarStyles&apos;;
+const { View, Text } = ReactNative;
+
+const ToolBar = () =&gt; (
+  &lt;View style={styles.toolBarContainer}&gt;
+    &lt;Text style={styles.toolBarText}&gt;Startup Mottos&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+export default ToolBar;
+</code></pre><p>以下是 <code>src/components/ToolBar/toolBarStyles.js</code>，将底色设定为黄色，文字置中：</p>
+<pre><code>import { StyleSheet } from &apos;react-native&apos;;
+
+export default StyleSheet.create({
+  toolBarContainer: {
+    height: 40,
+    justifyContent: &apos;center&apos;,
+    alignItems: &apos;center&apos;,
+    flexDirection: &apos;column&apos;,
+    backgroundColor: &apos;#ffeb3b&apos;,
+  },
+  toolBarText: {
+    fontSize: 20,
+    color: &apos;#212121&apos;
+  }
+});
+</code></pre><p>以下是 <code>src/components/MottoList/MottoList.js</code>，这个 Component 中稍微複杂一些，主要是使用到了 React Native 中的 ListView Component 将资料阵列传进 dataSource，透过 renderRow 把一个个 row 给 render 出来，过程中我们透过 <code>!Immutable.is(r1.get(&#39;id&#39;), r2.get(&#39;id&#39;))</code> 去判断整个 ListView 画面是否需要 loading 新的 item 进来，这样就可以提高整个 ListView 的效能。</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import ReactNative from &apos;react-native&apos;;
+import Immutable from &apos;immutable&apos;;
+import ListItem from &apos;../ListItem&apos;;
+import styles from &apos;./mottoStyles&apos;;
+const { View, Text, ListView } = ReactNative;
+
+class MottoList extends Component {
+  constructor(props) {
+    super(props);
+    this.renderListItem = this.renderListItem.bind(this);
+    this.listenForItems = this.listenForItems.bind(this);
+    this.ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) =&gt; !Immutable.is(r1.get(&apos;id&apos;), r2.get(&apos;id&apos;)),
+    })
+  }
+  renderListItem(item) {
+    return (
+      &lt;ListItem item={item} onDeleteMotto={this.props.onDeleteMotto} itemsRef={this.props.itemsRef} /&gt;
+    );
+  }  
+  listenForItems(itemsRef) {
+    itemsRef.on(&apos;value&apos;, (snap) =&gt; {
+      if(snap.val() === null) {
+        this.props.onGetMottos(Immutable.fromJS([]));
+      } else {
+        this.props.onGetMottos(Immutable.fromJS(snap.val()));  
+      }     
+    });
+  }
+  componentDidMount() {
+    this.listenForItems(this.props.itemsRef);
+  }
+  render() {
+    return (
+      &lt;View&gt;
+        &lt;ListView
+          style={styles.listView}
+          dataSource={this.ds.cloneWithRows(this.props.mottos.toArray())}
+          renderRow={this.renderListItem}
+          enableEmptySections={true}
+        /&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+
+export default MottoList;
+</code></pre><p>以下是 <code>src/components/MottoList/mottoListStyles.js</code>，我们使用到了 Dimensions，可以根据萤幕的高度来设定整个 ListView 高度：</p>
+<pre><code>import { StyleSheet, Dimensions } from &apos;react-native&apos;;
+const { height } = Dimensions.get(&apos;window&apos;);
+export default StyleSheet.create({
+  listView: {
+    flex: 1,
+    flexDirection: &apos;column&apos;,
+    height: height - 105,
+  },
+});
+</code></pre><p>以下是 <code>src/components/ListItem/ListItem.js</code>，我们从 props 收到了上层传进来的 motto item，显示出 motto 文字内容。当我们点击 <code>&lt;TouchableHighlight&gt;</code> 时就会删除该 motto。</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactNative from &apos;react-native&apos;;
+import styles from &apos;./listItemStyles&apos;;
+const { View, Text, TouchableHighlight } = ReactNative;
+
+const ListItem = (props) =&gt; {
+  return (
+    &lt;View style={styles.listItemContainer}&gt;
+      &lt;Text style={styles.listItemText}&gt;{props.item.get(&apos;text&apos;)}&lt;/Text&gt;
+      &lt;TouchableHighlight onPress={props.onDeleteMotto(props.item.get(&apos;id&apos;), props.itemsRef)}&gt;
+        &lt;Text&gt;Delete&lt;/Text&gt;
+      &lt;/TouchableHighlight&gt;
+    &lt;/View&gt;
+  )
+};
+
+export default ListItem;
+</code></pre><p>以下是 <code>src/components/ListItem/listItemStyles.js</code>：</p>
+<pre><code>import { StyleSheet } from &apos;react-native&apos;;
+
+export default StyleSheet.create({
+  listItemContainer: {
+    flex: 1,
+    flexDirection: &apos;row&apos;,
+    padding: 10,
+    margin: 5,
+  },
+  listItemText: {
+    flex: 10,
+    fontSize: 18,
+    color: &apos;#212121&apos;,
+  }
+});
+</code></pre><p>以下是 <code>src/components/ActionButton/ActionButton.js</code>，当点击了按钮则会触发 onToggleModal 方法，出现新增 motto 的 modal：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactNative from &apos;react-native&apos;;
+import styles from &apos;./actionButtonStyles&apos;;
+const { View, Text, Modal, TextInput, TouchableHighlight } = ReactNative;  
+
+const ActionButton = (props) =&gt; (
+  &lt;TouchableHighlight onPress={props.onToggleModal}&gt;
+    &lt;View style={styles.buttonContainer}&gt;
+        &lt;Text style={styles.buttonText}&gt;Add Motto&lt;/Text&gt;
+    &lt;/View&gt;
+  &lt;/TouchableHighlight&gt;
+);
+
+export default ActionButton;
+</code></pre><p>以下是 <code>src/components/ActionButton/actionButtonStyles.js</code>：</p>
+<pre><code>import { StyleSheet } from &apos;react-native&apos;;
+
+export default StyleSheet.create({
+  buttonContainer: {
+    height: 40,
+    justifyContent: &apos;center&apos;,
+    alignItems: &apos;center&apos;,
+    flexDirection: &apos;column&apos;,
+    backgroundColor: &apos;#66bb6a&apos;,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: &apos;#e8f5e9&apos;
+  }
+});
+</code></pre><p>以下是 <code>src/components/InputModal/InputModal.js</code>，其主要负责 Modal Component 的设计，当输入内容会触发 onChangeMottoText 发出 action，注意的是当按下送出键，同时会把 Firebase 的参考 itemsRef 送入 onCreateMotto 中，方便透过 API 去即时新增到 Firebase Database，并更新 client state 和重新渲染了 View：</p>
+<pre><code>import React from &apos;react&apos;;
+import ReactNative from &apos;react-native&apos;;
+import styles from &apos;./inputModelStyles&apos;;
+const { View, Text, Modal, TextInput, TouchableHighlight } = ReactNative;
+const InputModal = (props) =&gt; (
+  &lt;View&gt;
+    &lt;Modal
+      animationType={&quot;slide&quot;}
+      transparent={false}
+      visible={props.isModalVisible}
+      onRequestClose={props.onToggleModal}
+      &gt;
+     &lt;View&gt;
+      &lt;View&gt;
+        &lt;Text style={styles.modalHeader}&gt;Please Keyin your Motto!&lt;/Text&gt;
+        &lt;TextInput
+          onChangeText={props.onChangeMottoText}
+        /&gt;
+        &lt;View style={styles.buttonContainer}&gt;      
+          &lt;TouchableHighlight 
+            onPress={props.onToggleModal}
+            style={[styles.cancelButton]}
+          &gt;
+            &lt;Text
+              style={styles.buttonText}
+            &gt;
+              Cancel
+            &lt;/Text&gt;
+          &lt;/TouchableHighlight&gt;
+          &lt;TouchableHighlight 
+            onPress={props.onCreateMotto(props.itemsRef)}
+            style={[styles.submitButton]}
+          &gt;
+            &lt;Text
+              style={styles.buttonText}
+            &gt;
+              Submit
+            &lt;/Text&gt;
+          &lt;/TouchableHighlight&gt;  
+        &lt;/View&gt;
+      &lt;/View&gt;
+     &lt;/View&gt;
+    &lt;/Modal&gt;
+  &lt;/View&gt;
+);
+
+export default InputModal;
+</code></pre><p>以下是 <code>src/components/InputModal/inputModalStyles.js</code>：</p>
+<pre><code>import { StyleSheet } from &apos;react-native&apos;;
+
+export default StyleSheet.create({
+  modalHeader: {
+    flex: 1,
+    height: 30,
+    padding: 10,
+    flexDirection: &apos;row&apos;,
+    backgroundColor: &apos;#ffc107&apos;,
+    fontSize: 20,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: &apos;row&apos;,
+  },
+  button: {
+    borderRadius: 5,
+  },
+  cancelButton: {
+    flex: 1,
+    height: 40,
+    alignItems: &apos;center&apos;,
+    justifyContent: &apos;center&apos;,
+    backgroundColor: &apos;#eceff1&apos;,
+    margin: 5,
+  },
+  submitButton: {
+    flex: 1,
+    height: 40,
+    alignItems: &apos;center&apos;,
+    justifyContent: &apos;center&apos;,
+    backgroundColor: &apos;#4fc3f7&apos;,
+    margin: 5,
+  },
+  buttonText: {
+    fontSize: 20,
+  }
+});
+</code></pre><p>设定完了 Component，我们来探讨一下 Container 的部份。以下是 <code>src/containers/ActionButtonContainer/ActionButtonContainer.js</code>：</p>
+<pre><code>import { connect } from &apos;react-redux&apos;;
+import ActionButton from &apos;../../components/ActionButton&apos;;
+import {
+  toggleModal,
+} from &apos;../../actions&apos;;
+
+export default connect(
+  (state) =&gt; ({}),
+  (dispatch) =&gt; ({
+    onToggleModal: () =&gt; (
+      dispatch(toggleModal())
+    )
+  })
+)(ActionButton);
+</code></pre><p>以下是 <code>src/containers/InputModalContainer/InputModalContainer.js</code>：</p>
+<pre><code>import { connect } from &apos;react-redux&apos;;
+import InputModal from &apos;../../components/InputModal&apos;;
+import Immutable from &apos;immutable&apos;;
+
+import {
+  toggleModal,
+  setInMotto,
+  createMotto,
+} from &apos;../../actions&apos;;
+import uuid from &apos;uuid&apos;;
+
+export default connect(
+  (state) =&gt; ({
+    isModalVisible: state.getIn([&apos;ui&apos;, &apos;isModalVisible&apos;]),
+    motto: state.getIn([&apos;motto&apos;, &apos;motto&apos;]),
+  }),
+  (dispatch) =&gt; ({
+    onToggleModal: () =&gt; (
+      dispatch(toggleModal())
+    ),
+    onChangeMottoText: (text) =&gt; (
+      dispatch(setInMotto({ path: [&apos;motto&apos;, &apos;text&apos;], value: text }))
+    ),
+    // 新增 motto 是透过 itemsRef 将新增的 motto push 进去，新增后要把本地端的 motto 清空，并关闭 modal：
+    onCreateMotto: (motto) =&gt; (itemsRef) =&gt; () =&gt; {
+      itemsRef.push({ id: uuid.v4(), text: motto.get(&apos;text&apos;), updatedAt: Date.now() });
+      dispatch(setInMotto({ path: [&apos;motto&apos;], value: Immutable.fromJS({ id: &apos;&apos;, text: &apos;&apos;, updatedAt: &apos;&apos; })}));
+      dispatch(toggleModal());
+    }
+  }),
+  (stateToProps, dispatchToProps, ownProps) =&gt; {
+    const { motto } = stateToProps;
+    const { onCreateMotto } = dispatchToProps;
+    return Object.assign({}, stateToProps, dispatchToProps, ownProps, {
+      onCreateMotto: onCreateMotto(motto),
+    });
+  },
+)(InputModal);
+</code></pre><p>以下是 <code>src/containers/MottoListContainer/MottoListContainer.js</code>：</p>
+<pre><code>import { connect } from &apos;react-redux&apos;;
+import MottoList from &apos;../../components/MottoList&apos;;
+import Immutable from &apos;immutable&apos;;
+import uuid from &apos;uuid&apos;;
+
+import {
+  createMotto,
+  getMottos,
+  changeMottoTitle,
+} from &apos;../../actions&apos;;
+
+export default connect(
+  (state) =&gt; ({
+    mottos: state.getIn([&apos;motto&apos;, &apos;mottos&apos;]),
+  }),
+  (dispatch) =&gt; ({
+    onCreateMotto: () =&gt; (
+      dispatch(createMotto())
+    ),
+    onGetMottos: (mottos) =&gt; (
+      dispatch(getMottos({ mottos }))
+    ),
+    onChangeMottoTitle: (title) =&gt; (
+      dispatch(changeMottoTitle({ value: title }))
+    ),
+    // 判断点击的是哪一个 item 取出其 key，透过 itemsRef 将其移除
+    onDeleteMotto: (mottos) =&gt; (id, itemsRef) =&gt; () =&gt; {
+      mottos.forEach((value, key) =&gt; {
+        if(value.get(&apos;id&apos;) === id) {
+          itemsRef.child(key).remove();
+        }
+      });
+    }
+  }),
+  (stateToProps, dispatchToProps, ownProps) =&gt; {
+    const { mottos } = stateToProps;
+    const { onDeleteMotto } = dispatchToProps;
+    return Object.assign({}, stateToProps, dispatchToProps, ownProps, {
+      onDeleteMotto: onDeleteMotto(mottos),
+    });
+  }
+)(MottoList);
+</code></pre><p>最后我们可以透过启动模拟器后使用以下指令开启我们 App！</p>
+<pre><code>$ react-native run-android
+</code></pre><p>最后的成果：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/demo-1.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<p>同时你可以在 Firebase 后台进行观察，当呼叫 Firebase API 进行资料更动时，Firebase Realtime Database 就会即时更新：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/firebase-database-2.png" alt="用 React Native + Firebase 开发跨平台行动应用程式"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>恭喜你！你已经完成了你的第一个 React Native App，若你希望将你开发的应用程式签章后上架，请参考<a href="https://facebook.github.io/react-native/docs/signed-apk-android.html" target="_blank" rel="noopener">官方的说明文件</a>，当你完成签章打包等流程后，我们可以获得 .apk 档，这时就可以上架到市集让隔壁班心仪的女生，啊不是，是广大的 Android 使用者使用你的 App 啦！当然，由于我们的程式码可以 100% 共用于 iOS 和 Android 端，所以你也可以同步上架到 Apple Store！</p>
+<h3 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><ol>
+<li><a href="https://facebook.github.io/react-native/" target="_blank" rel="noopener">React Native 官方网站</a></li>
+<li><a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React 官方网站</a></li>
+<li><a href="http://redux.js.org/index.html" target="_blank" rel="noopener">Redux 官方文件</a></li>
+<li><a href="https://medium.com/react-id/ionic-framework-hybrid-app-vs-react-native-4facdd93f690#.eh74uqqlk" target="_blank" rel="noopener">Ionic Framework vs React Native</a></li>
+<li><a href="https://www.sitepoint.com/how-to-build-a-todo-app-using-react-redux-and-immutable-js/" target="_blank" rel="noopener">How to Build a Todo App Using React, Redux, and Immutable.js</a></li>
+<li><a href="https://reactjsnews.com/your-first-redux-app" target="_blank" rel="noopener">Your First Immutable React &amp; Redux App</a></li>
+<li><a href="https://www.toptal.com/react/react-redux-and-immutablejs" target="_blank" rel="noopener">React, Redux and Immutable.js: Ingredients for Efficient Web Applications</a></li>
+<li><a href="http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html" target="_blank" rel="noopener">Full-Stack Redux Tutorial</a></li>
+<li><a href="http://react-china.org/t/redux-immutable/2431" target="_blank" rel="noopener">redux与immutable实例</a></li>
+<li><a href="https://github.com/gajus/redux-immutable" target="_blank" rel="noopener">gajus/redux-immutable</a></li>
+<li><a href="https://github.com/acdlite/redux-actions" target="_blank" rel="noopener">acdlite/redux-actions</a></li>
+<li><a href="https://github.com/acdlite/flux-standard-action" target="_blank" rel="noopener">Flux Standard Action</a></li>
+<li><a href="https://medium.com/front-end-hacking/react-native-immutable-listview-example-78662fa64a15#.1b3jtjghp" target="_blank" rel="noopener">React Native ImmutableJS ListView Example</a></li>
+<li><a href="https://github.com/FaridSafi/react-native-gifted-listview/issues/39" target="_blank" rel="noopener">React Native 0.23.1 warning: ‘In next release empty section headers will be rendered’</a></li>
+<li><a href="https://js.coach/" target="_blank" rel="noopener">js.coach</a></li>
+<li><a href="https://github.com/rnpm/rnpm" target="_blank" rel="noopener">React Native Package Manager</a></li>
+<li><a href="https://github.com/crazycodeboy/RNStudyNotes" target="_blank" rel="noopener">React Native 学习笔记</a></li>
+<li><a href="https://firebase.googleblog.com/2016/01/the-beginners-guide-to-react-native-and_84.html" target="_blank" rel="noopener">The beginners guide to React Native and Firebase</a></li>
+<li><a href="https://www.sitepoint.com/authentication-in-react-native-with-firebase/" target="_blank" rel="noopener">Authentication in React Native with Firebase</a></li>
+<li><a href="https://github.com/bruz/react-native-redux-groceries" target="_blank" rel="noopener">bruz/react-native-redux-groceries</a></li>
+<li><a href="https://devdactic.com/react-native-firebase-todo/" target="_blank" rel="noopener">Building a Simple ToDo App With React Native and Firebase</a></li>
+<li><a href="http://stackoverflow.com/questions/37403747/firebase-permission-denied" target="_blank" rel="noopener">Firebase Permission Denied</a></li>
+<li><a href="https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html" target="_blank" rel="noopener">Best Practices: Arrays in Firebase</a></li>
+<li><a href="https://pilloxa.gitlab.io/posts/safer-passwords-in-gradle/" target="_blank" rel="noopener">Avoiding plaintext passwords in gradle</a></li>
+<li><a href="https://facebook.github.io/react-native/docs/signed-apk-android.html" target="_blank" rel="noopener">Generating Signed APK</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-12.html" title="附录二、用 React Native + Firebase 开发跨平台行动应用程式">https://jaxsonwang.github.io/reactjs-getting-started-12.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/reactjs-getting-started-11.html" rel="next" title="附录一、React ES5、ES6+ 常见用法对照表">
+                <i class="fa fa-chevron-left"></i> 附录一、React ES5、ES6+ 常见用法对照表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/reactjs-getting-started-13.html" rel="prev" title="附录三、React 测试入门教学">
+                附录三、React 测试入门教学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#附录二、用-React-Native-Firebase-开发跨平台行动应用程式"><span class="nav-number">1.</span> <span class="nav-text">附录二、用 React Native + Firebase 开发跨平台行动应用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Native-特色"><span class="nav-number">1.0.2.</span> <span class="nav-text">React Native 特色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Native-初体验"><span class="nav-number">1.0.3.</span> <span class="nav-text">React Native 初体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动手实作"><span class="nav-number">1.0.4.</span> <span class="nav-text">动手实作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#专案成果截图"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">专案成果截图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境安装与设定"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">环境安装与设定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Firebase-简介与设定"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">Firebase 简介与设定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-Flexbox-进行-UI-布局设计"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">使用 Flexbox 进行 UI 布局设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动手实作-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">动手实作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.0.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸阅读"><span class="nav-number">1.0.7.</span> <span class="nav-text">延伸阅读</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

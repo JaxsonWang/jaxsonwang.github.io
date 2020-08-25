@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在ES6出现之前，人们常常疑惑JavaScript中的工厂模式和构造函数模式到底有什么区别。ES6中提出了class关键字，许多人认为这解决了构造函数模式中的诸多问题。事实上，问题并没有得到解决。下面就让我们来看看工厂模式、构造函数模式和class的一些重要区别。 首先，让我们看看这三种方式的例子： // class class ClassCar {   drive () {     consol">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的工厂方法、构造函数与class">
+<meta property="og:url" content="https://jaxsonwang.github.io/javascript-factory-functions-vs-constructor-functions-vs-classes.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="在ES6出现之前，人们常常疑惑JavaScript中的工厂模式和构造函数模式到底有什么区别。ES6中提出了class关键字，许多人认为这解决了构造函数模式中的诸多问题。事实上，问题并没有得到解决。下面就让我们来看看工厂模式、构造函数模式和class的一些重要区别。 首先，让我们看看这三种方式的例子： // class class ClassCar {   drive () {     consol">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript中的工厂方法、构造函数与class">
+<meta name="twitter:description" content="在ES6出现之前，人们常常疑惑JavaScript中的工厂模式和构造函数模式到底有什么区别。ES6中提出了class关键字，许多人认为这解决了构造函数模式中的诸多问题。事实上，问题并没有得到解决。下面就让我们来看看工厂模式、构造函数模式和class的一些重要区别。 首先，让我们看看这三种方式的例子： // class class ClassCar {   drive () {     consol">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/javascript-factory-functions-vs-constructor-functions-vs-classes.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaScript中的工厂方法、构造函数与class | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/javascript-factory-functions-vs-constructor-functions-vs-classes.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript中的工厂方法、构造函数与class
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-08 11:13:01" itemprop="dateCreated datePublished" datetime="2016-10-08T11:13:01+09:00">2016-10-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/javascript-factory-functions-vs-constructor-functions-vs-classes.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/javascript-factory-functions-vs-constructor-functions-vs-classes.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在ES6出现之前，人们常常疑惑JavaScript中的工厂模式和构造函数模式到底有什么区别。ES6中提出了<em><code>class</code><em>关键字，许多人认为这解决了构造函数模式中的诸多问题。事实上，问题并没有得到解决。下面就让我们来看看工厂模式、构造函数模式和</em><code>class</code></em>的一些重要区别。</p>
+<p>首先，让我们看看这三种方式的例子：</p>
+<pre><code>// class
+class ClassCar {
+  drive () {
+    console.log(&apos;Vroom!&apos;);
+  }
+}
+
+const car1 = new ClassCar();
+console.log(car1.drive());
+
+// constructor（构造函数模式）
+function ConstructorCar () {}
+
+ConstructorCar.prototype.drive = function () {
+  console.log(&apos;Vroom!&apos;);
+};
+
+const car2 = new ConstructorCar();
+console.log(car2.drive());
+
+// factory （工厂模式）
+const proto = {
+  drive () {
+    console.log(&apos;Vroom!&apos;);
+  }
+};
+
+function factoryCar () {
+  return Object.create(proto);
+}
+
+const car3 = factoryCar();
+console.log(car3.drive());
+</code></pre><p>这些方式都将方法存储于共享的原型中，然后通过构造函数的闭包有选择的支持私有数据。换句话说，他们几乎拥有相同的特性，所以通常来说也能交替使用。</p>
+<blockquote>
+<p>在JavaScript中，任何函数都能返回一个新的对象。当这个函数不是构造函数或<em><code>class</code></em>时，它就叫做工厂函数。</p>
+</blockquote>
+<p>ES6中的<em><code>class</code></em>其实是构造函数的语法糖，所以它具有构造函数的一切优点和缺点：</p>
+<pre><code>class Foo {}
+
+
+console.log(typeof Foo); // function
+</code></pre><h3 id="构造函数和class的优点"><a href="#构造函数和class的优点" class="headerlink" title="构造函数和class的优点"></a>构造函数和<em><code>class</code></em>的优点</h3><ul>
+<li>大多数书本都教了<em><code>class</code></em>或者构造函数。</li>
+<li><em><code>this</code></em>指向新的对象。</li>
+<li>一些人喜欢<em><code>myFoo = new Foo()</code></em>这种写法。</li>
+<li>构造函数和<em><code>class</code></em>存在许多微小的优化，不过除非你已经定量的分析了代码，并且这些优化确实对程序的性能很重要，否则这不应该被列入考虑范围。</li>
+</ul>
+<h3 id="构造函数和class的缺点"><a href="#构造函数和class的缺点" class="headerlink" title="构造函数和class的缺点"></a>构造函数和<em><code>class</code></em>的缺点</h3><h4 id="1-需要new"><a href="#1-需要new" class="headerlink" title="1.需要new"></a>1.需要<code>new</code></h4><p>在ES6之前，漏写<em><code>new</code></em>是一个普遍的bug。为了对付它，许多人使用了以下方式：</p>
+<pre><code>function Foo() {
+  if (!(this instanceof Foo)) { return new Foo(); }
+}
+</code></pre><p>在ES6（ES2015）中，如果你试图不使用<em><code>new</code><em>来调用class构造函数，将抛出错误。只有用工厂模式包裹class，才有可能避免必须使用</em><code>new</code><em>。对于未来版本的JavaScript，有人提出建议，希望能够定制忽略</em><code>new</code></em>时class构造函数的行为。不过这种方式依然增加了使用class时的开销（这也意味着会有更少的人使用它）。</p>
+<h4 id="2-调用API时，实例化的细节被泄露（从new的角度展开）"><a href="#2-调用API时，实例化的细节被泄露（从new的角度展开）" class="headerlink" title="2. 调用API时，实例化的细节被泄露（从new的角度展开）"></a>2. 调用API时，实例化的细节被泄露（从<code>new</code>的角度展开）</h4><p>构造函数的调用方法与构造函数的实现方式紧密耦合。当你需要其具有工厂方法的灵活性时，重构起来将会是<strong>巨大的变化</strong>。将class放入工厂方法进行重构是非常常见的，它甚至被写入了Martin Fowler, Kent Beck, John Brant, William Opdyke, 和 Don Roberts的 <a href="http://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/ref=as_li_ss_tl?ie=UTF8&amp;linkCode=ll1&amp;tag=eejs-20&amp;linkId=7cca2e0acb03cf4b88c1f888c43aa24d" target="_blank" rel="noopener">“Refactoring: Improving the Design of Existing Code”</a> 。</p>
+<h4 id="3-构造函数模式违背了开／闭原则"><a href="#3-构造函数模式违背了开／闭原则" class="headerlink" title="3. 构造函数模式违背了开／闭原则"></a>3. 构造函数模式违背了开／闭原则</h4><p>由于对<em><code>new</code></em>的要求，构造函数违背了开／闭原则：即一个API应该对扩展开放，对改装关闭。</p>
+<p>我的意见是，既然从类到工厂方法的重构是非常常见的，那么应该将不应该造成任何破坏作为所有构造函数进行扩展时的标准。</p>
+<p>如果你开放了一个构造函数或者类，而用户使用了这个构造函数，在这之后，如果需要增加这个方法的灵活性，（例如，换成使用对象池的方式进行实现，或者跨执行上下文的实例化，或者使用替代原型来拥有更多的继承灵活性），都需要用户同时进行重构。</p>
+<p>不幸的是，在JavaScript中，从构造函数或者类切换到工厂方法需要进行<strong>巨大的改变</strong>：</p>
+<pre><code>// Original Implementation:
+// 原始实现：
+
+// class Car {
+//   drive () {
+//     console.log(&apos;Vroom!&apos;);
+//   }
+// }
+
+// const AutoMaker = { Car };
+
+// Factory refactored implementation:
+// 工厂函数重构实现：
+const AutoMaker = {
+  Car (bundle) {
+    return Object.create(this.bundle[bundle]);
+  },
+
+  bundle: {
+    premium: {
+      drive () {
+        console.log(&apos;Vrooom!&apos;);
+      },
+      getOptions: function () {
+        return [&apos;leather&apos;, &apos;wood&apos;, &apos;pearl&apos;];
+      }
+    }
+  }
+};
+
+// The refactored factory expects:
+// 重构后的方法希望这样调用
+const newCar = AutoMaker.Car(&apos;premium&apos;);
+newCar.drive(); // &apos;Vrooom!&apos;
+
+// But since it&apos;s a library, lots of callers
+// in the wild are still doing this:
+// 但是由于这是一个库，许多用户依然这样使用
+const oldCar = new AutoMaker.Car();
+
+// Which of course throws:
+// TypeError: Cannot read property &apos;undefined&apos; of
+// undefined at new AutoMaker.Car
+// 这样的话，就会抛出：
+// TypeError: Cannot read property &apos;undefined&apos; of
+// undefined at new AutoMaker.Car
+</code></pre><p>在上面的例子中，我们首先提供了一个类，但是接下来希望提供不同的汽车种类。于是，工厂方法为不同的汽车种类使用了不同的原型。我曾经使用这种技术来存储不同的播放器接口，然后通过要处理的文件格式选择合适的原型。</p>
+<h4 id="4-使用构造函数会导致instanceof具有欺骗性"><a href="#4-使用构造函数会导致instanceof具有欺骗性" class="headerlink" title="4. 使用构造函数会导致instanceof具有欺骗性"></a>4. 使用构造函数会导致<code>instanceof</code>具有欺骗性</h4><p>与工厂方法相比，构造函数带来的巨大变化就是<em><code>instanceof</code><em>的表现。人们有时使用</em><code>instanceof</code><em>进行类型检查。这种方式其实是经常会出问题的，我建议你避免使用</em><code>instanceof</code></em>。</p>
+<blockquote>
+<p><code>instanceof</code>会撒谎。</p>
+</blockquote>
+<pre><code>// instanceof is a prototype identity check.
+// NOT a type check.
+
+// instanceof是一个原型检查
+// 而不是类型检查
+
+// That means it lies across execution contexts,
+// when prototypes are dynamically reassigned,
+// and when you throw confusing cases like this
+// at it:
+
+function foo() {}
+const bar = { a: &apos;a&apos;};
+
+foo.prototype = bar;
+
+// Is bar an instance of foo? Nope!
+console.log(bar instanceof foo); // false
+
+// Ok... since bar is not an instance of foo,
+// baz should definitely not be an instance of foo, right?
+const baz = Object.create(bar);
+
+// ...Wrong.
+console.log(baz instanceof foo); // true. oops.
+</code></pre><p><em><code>instanceof</code><em>进行类型检查的方式和强类型语言不一样，它会将对象的</em><code>[[Prototype]]</code><em>对象和</em><code>Constructor.prototype</code></em>属性进行一致性检查。</p>
+<p>例如，当执行上下文发生变化时，<em><code>instanceof</code><em>会发生错误。当</em><code>Constructor.prototype</code><em>变化了之后，</em><code>instanceof</code></em>一样不会正常工作。</p>
+<p>当你从一个class或构造函数开始（这将会返回指向 <em><code>Constructor.prototype</code></em>的<em><code>this</code></em>），然后转而探索另外一个对象（没有指向 <em><code>Constructor.prototype</code></em>），这同样会导致instanceof的失败。这种情况在将构造函数转换为工厂函数时会出现。</p>
+<p>简而言之，<em><code>instanceof</code></em>是另外一种将构造函数转换为工厂函数时会发生的<strong>巨大变化</strong>。</p>
+<h3 id="使用class的优点"><a href="#使用class的优点" class="headerlink" title="使用class的优点"></a>使用class的优点</h3><ul>
+<li>方便的，自包含的语法。</li>
+<li>是JavaScript中使用类的一种单一、规范的方式。在ES6之前，在一些流行的库中已经出现了其实现方式。</li>
+<li>对于有基于类的语言的背景的人来说，会更加熟悉。</li>
+</ul>
+<h3 id="使用class的缺点"><a href="#使用class的缺点" class="headerlink" title="使用class的缺点"></a>使用class的缺点</h3><p>除了具有构造函数的缺点外，还有：</p>
+<ul>
+<li>用户可能会尝试使用extends关键字来创建导致问题的多层级的类。</li>
+</ul>
+<p>多层级的类将会导致许多在面向对象程序设计中广为人知的问题，包括<strong>脆弱的基类问题，香蕉猴子雨林问题，必要性重复问题</strong>等等。不幸的是，class可以用来extends就像球可以用来扔，椅子可以用来坐一样自然。想了解更多内容，请阅读<a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3" target="_blank" rel="noopener">“The Two Pillars of JavaScript: Prototypal OO”</a> and <a href="https://medium.com/javascript-scene/inside-the-dev-team-death-spiral-6a7ea255467b" target="_blank" rel="noopener">“Inside the Dev Team Death Spiral”</a>.</p>
+<p>值得指出的是，构造函数和工厂函数都有可能导致有问题的层次继承，但通过<em><code>extends</code>_关键字，class提供了一个让你犯错的功能可见性。换句话说，它鼓励你思考不灵活的的而且通常是错误的<em>is-a</em>关系，而不是更加灵活的_has-a</em> 或者 <em>can-do</em>组件化关系。</p>
+<blockquote>
+<p>功能可见性是让你能够执行一定动作的机会。例如，旋钮可以用来旋转，杠杆可以用来拉，按钮可以用来按，等等。</p>
+</blockquote>
+<h3 id="使用工厂方法的优点"><a href="#使用工厂方法的优点" class="headerlink" title="使用工厂方法的优点"></a>使用工厂方法的优点</h3><p>工厂方法比构造函数或类都要灵活，并且它不会诱惑人们使用<em><code>extends</code></em>来构造太深的继承层级。你可以使用多种方法来继承工厂函数。特别的，如果想了解组合式工厂方法，请查看<a href="https://github.com/stampit-org/stamp-specification" target="_blank" rel="noopener">Stamp Specification</a>。</p>
+<h4 id="1-返回任意对象与使用任意原型"><a href="#1-返回任意对象与使用任意原型" class="headerlink" title="1. 返回任意对象与使用任意原型"></a>1. 返回任意对象与使用任意原型</h4><p>例如，你可以通过同一API轻松的创建多种类型的对象，例如，一个能够针对不同类型视频实例化播放器的媒体播放器，活着能够出发DOM事件或web socket事件的事件库。</p>
+<p>工厂函数还能跨越之行上下文来实例化对象，充分利用对象池，并且允许更灵活的原型模型继承。</p>
+<h4 id="2-没有重构的忧虑"><a href="#2-没有重构的忧虑" class="headerlink" title="2. 没有重构的忧虑"></a>2. 没有重构的忧虑</h4><p>你永远不需要从一个工厂转换到一个构造函数，所以重构将永远不会是一个问题。</p>
+<h4 id="3-没有new"><a href="#3-没有new" class="headerlink" title="3. 没有new"></a>3. 没有<em><code>new</code></em></h4><p>关于要不要使用<em><code>new</code><em>只有一个选择，那就是不要用。（这将会使</em><code>this</code></em>表现不好，原因见下一点）。</p>
+<h4 id="4-标准的this行为"><a href="#4-标准的this行为" class="headerlink" title="4. 标准的this行为"></a>4. 标准的<em><code>this</code></em>行为</h4><p><em><code>this</code></em>和它通常的表现一样，所以你可以用它来获取其父级对象。例如，在<em><code>player.create()</code></em>中，<em><code>this</code></em>指向player，正如其他方法调用那样。<em><code>call()</code></em> 和<em><code>apply()</code><em>也会同样的指向</em><code>this</code></em>。</p>
+<h4 id="5-不会有欺骗性的instanceof问题"><a href="#5-不会有欺骗性的instanceof问题" class="headerlink" title="5. 不会有欺骗性的instanceof问题"></a>5. 不会有欺骗性的<em><code>instanceof</code></em>问题</h4><h4 id="6-有些人喜欢myFoo-createFoo-这种写法"><a href="#6-有些人喜欢myFoo-createFoo-这种写法" class="headerlink" title="6. 有些人喜欢myFoo = createFoo()这种写法"></a>6. 有些人喜欢<code>myFoo = createFoo()</code>这种写法</h4><h3 id="工厂方法的缺点"><a href="#工厂方法的缺点" class="headerlink" title="工厂方法的缺点"></a>工厂方法的缺点</h3><ul>
+<li>不会创建一个指向<em><code>Factory.prototype</code><em>的链接——但这其实是件好事，因为这样你就不会得到一个具有欺骗性的</em><code>instanceof</code><em>。相反，</em><code>instanceof</code></em>会一直失败。详情见工厂方法的优点。</li>
+<li><em><code>this</code></em>不会指向工厂方法中的新对象。详情见工厂方法的优点。</li>
+<li>在经过微优化的基准中，工厂方法可能会稍微比构造函数模式慢一些。如果这对你有影响，请务必在你程序的上下文中进行测试。</li>
+</ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>在我看来，<em><code>class</code><em>或许有简单的语法形式，但这不能弥补它引诱粗心的用户在类继承中犯错的事实。对于未来它也是有风险的，因为你有可能会想将其升级成为一个工厂函数，而由于</em><code>new</code></em>关键字，你的所有调用都将和构造函数紧密耦合，于是从class向工厂方法迁移将会是一个巨大的改变。</p>
+<p>你也许会想可以只重构调用部分，不过在大的团队中，或者你使用的class是公共API的一部分，你就有可能要破坏不在你掌控中的代码。换句话说，不能假设只重构调用部分永远是一个可选项。</p>
+<p>关于工厂方法，有趣的事情在于它们不仅更加强大和灵活，而且是鼓励整个团队，以及所有API用户使用简单、灵活和安全的模式的最简单的方法。</p>
+<p>关于工厂函数的好处，特别是关于对象组合的能力，还有许多内容可以详述。想要了解更多内容，以及这种方式与类继承的区别，请阅读<a href="https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9" target="_blank" rel="noopener">“3 Different Kinds of Prototypal Inheritance”</a>.</p>
+<hr>
+<p>For more training in in prototypal inheritance techniques, factory functions, and object composition, be sure to check out <a href="https://ericelliottjs.com/product/webcast-monday-oct-19th-the-two-pillars-of-js-composition-with-prototypes/" target="_blank" rel="noopener">“The Two Pillars of JS: Composition with Prototypes”</a> — free for members. Not a member yet?</p>
+<h3 id="Learn-JavaScript-with-Eric-Elliott"><a href="#Learn-JavaScript-with-Eric-Elliott" class="headerlink" title="Learn JavaScript with Eric Elliott"></a><a href="https://ericelliottjs.com/product/webcast-monday-oct-19th-the-two-pillars-of-js-composition-with-prototypes/" target="_blank" rel="noopener">Learn JavaScript with Eric Elliott</a></h3><hr>
+<p><em><strong>Eric Elliott</strong></em>* is the author of _<a href="http://pjabook.com/" target="_blank" rel="noopener"><em>“Programming JavaScript Applications”</em></a>_ (O’Reilly), and _<a href="http://ericelliottjs.com/product/lifetime-access-pass/" target="_blank" rel="noopener"><em>“Learn JavaScript with Eric Elliott”</em></a>_. He has contributed to software experiences for <strong><strong>Adobe Systems</strong></strong>, <strong><strong>Zumba Fitness</strong></strong>, <strong><strong>The Wall Street Journal, ESPN</strong></strong>, <strong><strong>BBC</strong></strong>, and top recording artists including <strong><strong>Usher</strong></strong>, <strong><strong>Frank Ocean</strong></strong>,<strong><strong>Metallica</strong></strong>, and many more.*</p>
+<p><em>He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.<em>在ES6出现之前，人们常常疑惑JavaScript中的工厂模式和构造函数模式到底有什么区别。ES6中提出了</em><code>class</code><em>关键字，许多人认为这解决了构造函数模式中的诸多问题。事实上，问题并没有得到解决。下面就让我们来看看工厂模式、构造函数模式和</em><code>class</code></em>的一些重要区别。</p>
+<p>首先，让我们看看这三种方式的例子：</p>
+<pre><code>// class
+class ClassCar {
+  drive () {
+    console.log(&apos;Vroom!&apos;);
+  }
+}
+
+const car1 = new ClassCar();
+console.log(car1.drive());
+
+// constructor（构造函数模式）
+function ConstructorCar () {}
+
+ConstructorCar.prototype.drive = function () {
+  console.log(&apos;Vroom!&apos;);
+};
+
+const car2 = new ConstructorCar();
+console.log(car2.drive());
+
+// factory （工厂模式）
+const proto = {
+  drive () {
+    console.log(&apos;Vroom!&apos;);
+  }
+};
+
+function factoryCar () {
+  return Object.create(proto);
+}
+
+const car3 = factoryCar();
+console.log(car3.drive());
+</code></pre><p>这些方式都将方法存储于共享的原型中，然后通过构造函数的闭包有选择的支持私有数据。换句话说，他们几乎拥有相同的特性，所以通常来说也能交替使用。</p>
+<blockquote>
+<p>在JavaScript中，任何函数都能返回一个新的对象。当这个函数不是构造函数或<em><code>class</code></em>时，它就叫做工厂函数。</p>
+</blockquote>
+<p>ES6中的<em><code>class</code></em>其实是构造函数的语法糖，所以它具有构造函数的一切优点和缺点：</p>
+<pre><code>class Foo {}
+
+
+console.log(typeof Foo); // function
+</code></pre><h3 id="构造函数和class的优点-1"><a href="#构造函数和class的优点-1" class="headerlink" title="构造函数和class的优点"></a>构造函数和<em><code>class</code></em>的优点</h3><ul>
+<li>大多数书本都教了<em><code>class</code></em>或者构造函数。</li>
+<li><em><code>this</code></em>指向新的对象。</li>
+<li>一些人喜欢<em><code>myFoo = new Foo()</code></em>这种写法。</li>
+<li>构造函数和<em><code>class</code></em>存在许多微小的优化，不过除非你已经定量的分析了代码，并且这些优化确实对程序的性能很重要，否则这不应该被列入考虑范围。</li>
+</ul>
+<h3 id="构造函数和class的缺点-1"><a href="#构造函数和class的缺点-1" class="headerlink" title="构造函数和class的缺点"></a>构造函数和<em><code>class</code></em>的缺点</h3><h4 id="1-需要new-1"><a href="#1-需要new-1" class="headerlink" title="1.需要new"></a>1.需要<code>new</code></h4><p>在ES6之前，漏写<em><code>new</code></em>是一个普遍的bug。为了对付它，许多人使用了以下方式：</p>
+<pre><code>function Foo() {
+  if (!(this instanceof Foo)) { return new Foo(); }
+}
+</code></pre><p>在ES6（ES2015）中，如果你试图不使用<em><code>new</code><em>来调用class构造函数，将抛出错误。只有用工厂模式包裹class，才有可能避免必须使用</em><code>new</code><em>。对于未来版本的JavaScript，有人提出建议，希望能够定制忽略</em><code>new</code></em>时class构造函数的行为。不过这种方式依然增加了使用class时的开销（这也意味着会有更少的人使用它）。</p>
+<h4 id="2-调用API时，实例化的细节被泄露（从new的角度展开）-1"><a href="#2-调用API时，实例化的细节被泄露（从new的角度展开）-1" class="headerlink" title="2. 调用API时，实例化的细节被泄露（从new的角度展开）"></a>2. 调用API时，实例化的细节被泄露（从<code>new</code>的角度展开）</h4><p>构造函数的调用方法与构造函数的实现方式紧密耦合。当你需要其具有工厂方法的灵活性时，重构起来将会是<strong>巨大的变化</strong>。将class放入工厂方法进行重构是非常常见的，它甚至被写入了Martin Fowler, Kent Beck, John Brant, William Opdyke, 和 Don Roberts的 <a href="http://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/ref=as_li_ss_tl?ie=UTF8&amp;linkCode=ll1&amp;tag=eejs-20&amp;linkId=7cca2e0acb03cf4b88c1f888c43aa24d" target="_blank" rel="noopener">“Refactoring: Improving the Design of Existing Code”</a> 。</p>
+<h4 id="3-构造函数模式违背了开／闭原则-1"><a href="#3-构造函数模式违背了开／闭原则-1" class="headerlink" title="3. 构造函数模式违背了开／闭原则"></a>3. 构造函数模式违背了开／闭原则</h4><p>由于对<em><code>new</code></em>的要求，构造函数违背了开／闭原则：即一个API应该对扩展开放，对改装关闭。</p>
+<p>我的意见是，既然从类到工厂方法的重构是非常常见的，那么应该将不应该造成任何破坏作为所有构造函数进行扩展时的标准。</p>
+<p>如果你开放了一个构造函数或者类，而用户使用了这个构造函数，在这之后，如果需要增加这个方法的灵活性，（例如，换成使用对象池的方式进行实现，或者跨执行上下文的实例化，或者使用替代原型来拥有更多的继承灵活性），都需要用户同时进行重构。</p>
+<p>不幸的是，在JavaScript中，从构造函数或者类切换到工厂方法需要进行<strong>巨大的改变</strong>：</p>
+<pre><code>// Original Implementation:
+// 原始实现：
+
+// class Car {
+//   drive () {
+//     console.log(&apos;Vroom!&apos;);
+//   }
+// }
+
+// const AutoMaker = { Car };
+
+// Factory refactored implementation:
+// 工厂函数重构实现：
+const AutoMaker = {
+  Car (bundle) {
+    return Object.create(this.bundle[bundle]);
+  },
+
+  bundle: {
+    premium: {
+      drive () {
+        console.log(&apos;Vrooom!&apos;);
+      },
+      getOptions: function () {
+        return [&apos;leather&apos;, &apos;wood&apos;, &apos;pearl&apos;];
+      }
+    }
+  }
+};
+
+// The refactored factory expects:
+// 重构后的方法希望这样调用
+const newCar = AutoMaker.Car(&apos;premium&apos;);
+newCar.drive(); // &apos;Vrooom!&apos;
+
+// But since it&apos;s a library, lots of callers
+// in the wild are still doing this:
+// 但是由于这是一个库，许多用户依然这样使用
+const oldCar = new AutoMaker.Car();
+
+// Which of course throws:
+// TypeError: Cannot read property &apos;undefined&apos; of
+// undefined at new AutoMaker.Car
+// 这样的话，就会抛出：
+// TypeError: Cannot read property &apos;undefined&apos; of
+// undefined at new AutoMaker.Car
+</code></pre><p>在上面的例子中，我们首先提供了一个类，但是接下来希望提供不同的汽车种类。于是，工厂方法为不同的汽车种类使用了不同的原型。我曾经使用这种技术来存储不同的播放器接口，然后通过要处理的文件格式选择合适的原型。</p>
+<h4 id="4-使用构造函数会导致instanceof具有欺骗性-1"><a href="#4-使用构造函数会导致instanceof具有欺骗性-1" class="headerlink" title="4. 使用构造函数会导致instanceof具有欺骗性"></a>4. 使用构造函数会导致<code>instanceof</code>具有欺骗性</h4><p>与工厂方法相比，构造函数带来的巨大变化就是<em><code>instanceof</code><em>的表现。人们有时使用</em><code>instanceof</code><em>进行类型检查。这种方式其实是经常会出问题的，我建议你避免使用</em><code>instanceof</code></em>。</p>
+<blockquote>
+<p><code>instanceof</code>会撒谎。</p>
+</blockquote>
+<pre><code>// instanceof is a prototype identity check.
+// NOT a type check.
+
+// instanceof是一个原型检查
+// 而不是类型检查
+
+// That means it lies across execution contexts,
+// when prototypes are dynamically reassigned,
+// and when you throw confusing cases like this
+// at it:
+
+function foo() {}
+const bar = { a: &apos;a&apos;};
+
+foo.prototype = bar;
+
+// Is bar an instance of foo? Nope!
+console.log(bar instanceof foo); // false
+
+// Ok... since bar is not an instance of foo,
+// baz should definitely not be an instance of foo, right?
+const baz = Object.create(bar);
+
+// ...Wrong.
+console.log(baz instanceof foo); // true. oops.
+</code></pre><p><em><code>instanceof</code><em>进行类型检查的方式和强类型语言不一样，它会将对象的</em><code>[[Prototype]]</code><em>对象和</em><code>Constructor.prototype</code></em>属性进行一致性检查。</p>
+<p>例如，当执行上下文发生变化时，<em><code>instanceof</code><em>会发生错误。当</em><code>Constructor.prototype</code><em>变化了之后，</em><code>instanceof</code></em>一样不会正常工作。</p>
+<p>当你从一个class或构造函数开始（这将会返回指向 <em><code>Constructor.prototype</code></em>的<em><code>this</code></em>），然后转而探索另外一个对象（没有指向 <em><code>Constructor.prototype</code></em>），这同样会导致instanceof的失败。这种情况在将构造函数转换为工厂函数时会出现。</p>
+<p>简而言之，<em><code>instanceof</code></em>是另外一种将构造函数转换为工厂函数时会发生的<strong>巨大变化</strong>。</p>
+<h3 id="使用class的优点-1"><a href="#使用class的优点-1" class="headerlink" title="使用class的优点"></a>使用class的优点</h3><ul>
+<li>方便的，自包含的语法。</li>
+<li>是JavaScript中使用类的一种单一、规范的方式。在ES6之前，在一些流行的库中已经出现了其实现方式。</li>
+<li>对于有基于类的语言的背景的人来说，会更加熟悉。</li>
+</ul>
+<h3 id="使用class的缺点-1"><a href="#使用class的缺点-1" class="headerlink" title="使用class的缺点"></a>使用class的缺点</h3><p>除了具有构造函数的缺点外，还有：</p>
+<ul>
+<li>用户可能会尝试使用extends关键字来创建导致问题的多层级的类。</li>
+</ul>
+<p>多层级的类将会导致许多在面向对象程序设计中广为人知的问题，包括<strong>脆弱的基类问题，香蕉猴子雨林问题，必要性重复问题</strong>等等。不幸的是，class可以用来extends就像球可以用来扔，椅子可以用来坐一样自然。想了解更多内容，请阅读<a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3" target="_blank" rel="noopener">“The Two Pillars of JavaScript: Prototypal OO”</a> and <a href="https://medium.com/javascript-scene/inside-the-dev-team-death-spiral-6a7ea255467b" target="_blank" rel="noopener">“Inside the Dev Team Death Spiral”</a>.</p>
+<p>值得指出的是，构造函数和工厂函数都有可能导致有问题的层次继承，但通过<em><code>extends</code>_关键字，class提供了一个让你犯错的功能可见性。换句话说，它鼓励你思考不灵活的的而且通常是错误的<em>is-a</em>关系，而不是更加灵活的_has-a</em> 或者 <em>can-do</em>组件化关系。</p>
+<blockquote>
+<p>功能可见性是让你能够执行一定动作的机会。例如，旋钮可以用来旋转，杠杆可以用来拉，按钮可以用来按，等等。</p>
+</blockquote>
+<h3 id="使用工厂方法的优点-1"><a href="#使用工厂方法的优点-1" class="headerlink" title="使用工厂方法的优点"></a>使用工厂方法的优点</h3><p>工厂方法比构造函数或类都要灵活，并且它不会诱惑人们使用<em><code>extends</code></em>来构造太深的继承层级。你可以使用多种方法来继承工厂函数。特别的，如果想了解组合式工厂方法，请查看<a href="https://github.com/stampit-org/stamp-specification" target="_blank" rel="noopener">Stamp Specification</a>。</p>
+<h4 id="1-返回任意对象与使用任意原型-1"><a href="#1-返回任意对象与使用任意原型-1" class="headerlink" title="1. 返回任意对象与使用任意原型"></a>1. 返回任意对象与使用任意原型</h4><p>例如，你可以通过同一API轻松的创建多种类型的对象，例如，一个能够针对不同类型视频实例化播放器的媒体播放器，活着能够出发DOM事件或web socket事件的事件库。</p>
+<p>工厂函数还能跨越之行上下文来实例化对象，充分利用对象池，并且允许更灵活的原型模型继承。</p>
+<h4 id="2-没有重构的忧虑-1"><a href="#2-没有重构的忧虑-1" class="headerlink" title="2. 没有重构的忧虑"></a>2. 没有重构的忧虑</h4><p>你永远不需要从一个工厂转换到一个构造函数，所以重构将永远不会是一个问题。</p>
+<h4 id="3-没有new-1"><a href="#3-没有new-1" class="headerlink" title="3. 没有new"></a>3. 没有<em><code>new</code></em></h4><p>关于要不要使用<em><code>new</code><em>只有一个选择，那就是不要用。（这将会使</em><code>this</code></em>表现不好，原因见下一点）。</p>
+<h4 id="4-标准的this行为-1"><a href="#4-标准的this行为-1" class="headerlink" title="4. 标准的this行为"></a>4. 标准的<em><code>this</code></em>行为</h4><p><em><code>this</code></em>和它通常的表现一样，所以你可以用它来获取其父级对象。例如，在<em><code>player.create()</code></em>中，<em><code>this</code></em>指向player，正如其他方法调用那样。<em><code>call()</code></em> 和<em><code>apply()</code><em>也会同样的指向</em><code>this</code></em>。</p>
+<h4 id="5-不会有欺骗性的instanceof问题-1"><a href="#5-不会有欺骗性的instanceof问题-1" class="headerlink" title="5. 不会有欺骗性的instanceof问题"></a>5. 不会有欺骗性的<em><code>instanceof</code></em>问题</h4><h4 id="6-有些人喜欢myFoo-createFoo-这种写法-1"><a href="#6-有些人喜欢myFoo-createFoo-这种写法-1" class="headerlink" title="6. 有些人喜欢myFoo = createFoo()这种写法"></a>6. 有些人喜欢<code>myFoo = createFoo()</code>这种写法</h4><h3 id="工厂方法的缺点-1"><a href="#工厂方法的缺点-1" class="headerlink" title="工厂方法的缺点"></a>工厂方法的缺点</h3><ul>
+<li>不会创建一个指向<em><code>Factory.prototype</code><em>的链接——但这其实是件好事，因为这样你就不会得到一个具有欺骗性的</em><code>instanceof</code><em>。相反，</em><code>instanceof</code></em>会一直失败。详情见工厂方法的优点。</li>
+<li><em><code>this</code></em>不会指向工厂方法中的新对象。详情见工厂方法的优点。</li>
+<li>在经过微优化的基准中，工厂方法可能会稍微比构造函数模式慢一些。如果这对你有影响，请务必在你程序的上下文中进行测试。</li>
+</ul>
+<h3 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h3><p>在我看来，<em><code>class</code><em>或许有简单的语法形式，但这不能弥补它引诱粗心的用户在类继承中犯错的事实。对于未来它也是有风险的，因为你有可能会想将其升级成为一个工厂函数，而由于</em><code>new</code></em>关键字，你的所有调用都将和构造函数紧密耦合，于是从class向工厂方法迁移将会是一个巨大的改变。</p>
+<p>你也许会想可以只重构调用部分，不过在大的团队中，或者你使用的class是公共API的一部分，你就有可能要破坏不在你掌控中的代码。换句话说，不能假设只重构调用部分永远是一个可选项。</p>
+<p>关于工厂方法，有趣的事情在于它们不仅更加强大和灵活，而且是鼓励整个团队，以及所有API用户使用简单、灵活和安全的模式的最简单的方法。</p>
+<p>关于工厂函数的好处，特别是关于对象组合的能力，还有许多内容可以详述。想要了解更多内容，以及这种方式与类继承的区别，请阅读<a href="https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9" target="_blank" rel="noopener">“3 Different Kinds of Prototypal Inheritance”</a>.</p>
+<hr>
+<p>For more training in in prototypal inheritance techniques, factory functions, and object composition, be sure to check out <a href="https://ericelliottjs.com/product/webcast-monday-oct-19th-the-two-pillars-of-js-composition-with-prototypes/" target="_blank" rel="noopener">“The Two Pillars of JS: Composition with Prototypes”</a> — free for members. Not a member yet?</p>
+<h3 id="Learn-JavaScript-with-Eric-Elliott-1"><a href="#Learn-JavaScript-with-Eric-Elliott-1" class="headerlink" title="Learn JavaScript with Eric Elliott"></a><a href="https://ericelliottjs.com/product/webcast-monday-oct-19th-the-two-pillars-of-js-composition-with-prototypes/" target="_blank" rel="noopener">Learn JavaScript with Eric Elliott</a></h3><hr>
+<p><em><strong>Eric Elliott</strong></em>* is the author of _<a href="http://pjabook.com/" target="_blank" rel="noopener"><em>“Programming JavaScript Applications”</em></a>_ (O’Reilly), and _<a href="http://ericelliottjs.com/product/lifetime-access-pass/" target="_blank" rel="noopener"><em>“Learn JavaScript with Eric Elliott”</em></a>_. He has contributed to software experiences for <strong><strong>Adobe Systems</strong></strong>, <strong><strong>Zumba Fitness</strong></strong>, <strong><strong>The Wall Street Journal, ESPN</strong></strong>, <strong><strong>BBC</strong></strong>, and top recording artists including <strong><strong>Usher</strong></strong>, <strong><strong>Frank Ocean</strong></strong>,<strong><strong>Metallica</strong></strong>, and many more.*</p>
+<p><em>He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.</em></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/javascript-factory-functions-vs-constructor-functions-vs-classes.html" title="JavaScript中的工厂方法、构造函数与class">https://jaxsonwang.github.io/javascript-factory-functions-vs-constructor-functions-vs-classes.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/working-with-data-in-react-properties-state.html" rel="next" title="React 数据阵营之 State 与 Props">
+                <i class="fa fa-chevron-left"></i> React 数据阵营之 State 与 Props
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/programmers-show-off-their-wealth.html" rel="prev" title="为什么很少见人傻钱多的程序员炫富？">
+                为什么很少见人傻钱多的程序员炫富？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数和class的优点"><span class="nav-number">1.</span> <span class="nav-text">构造函数和class的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数和class的缺点"><span class="nav-number">2.</span> <span class="nav-text">构造函数和class的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-需要new"><span class="nav-number">2.1.</span> <span class="nav-text">1.需要new</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-调用API时，实例化的细节被泄露（从new的角度展开）"><span class="nav-number">2.2.</span> <span class="nav-text">2. 调用API时，实例化的细节被泄露（从new的角度展开）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-构造函数模式违背了开／闭原则"><span class="nav-number">2.3.</span> <span class="nav-text">3. 构造函数模式违背了开／闭原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-使用构造函数会导致instanceof具有欺骗性"><span class="nav-number">2.4.</span> <span class="nav-text">4. 使用构造函数会导致instanceof具有欺骗性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用class的优点"><span class="nav-number">3.</span> <span class="nav-text">使用class的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用class的缺点"><span class="nav-number">4.</span> <span class="nav-text">使用class的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用工厂方法的优点"><span class="nav-number">5.</span> <span class="nav-text">使用工厂方法的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-返回任意对象与使用任意原型"><span class="nav-number">5.1.</span> <span class="nav-text">1. 返回任意对象与使用任意原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-没有重构的忧虑"><span class="nav-number">5.2.</span> <span class="nav-text">2. 没有重构的忧虑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-没有new"><span class="nav-number">5.3.</span> <span class="nav-text">3. 没有new</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-标准的this行为"><span class="nav-number">5.4.</span> <span class="nav-text">4. 标准的this行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-不会有欺骗性的instanceof问题"><span class="nav-number">5.5.</span> <span class="nav-text">5. 不会有欺骗性的instanceof问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-有些人喜欢myFoo-createFoo-这种写法"><span class="nav-number">5.6.</span> <span class="nav-text">6. 有些人喜欢myFoo = createFoo()这种写法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法的缺点"><span class="nav-number">6.</span> <span class="nav-text">工厂方法的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">7.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learn-JavaScript-with-Eric-Elliott"><span class="nav-number">8.</span> <span class="nav-text">Learn JavaScript with Eric Elliott</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数和class的优点-1"><span class="nav-number">9.</span> <span class="nav-text">构造函数和class的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数和class的缺点-1"><span class="nav-number">10.</span> <span class="nav-text">构造函数和class的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-需要new-1"><span class="nav-number">10.1.</span> <span class="nav-text">1.需要new</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-调用API时，实例化的细节被泄露（从new的角度展开）-1"><span class="nav-number">10.2.</span> <span class="nav-text">2. 调用API时，实例化的细节被泄露（从new的角度展开）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-构造函数模式违背了开／闭原则-1"><span class="nav-number">10.3.</span> <span class="nav-text">3. 构造函数模式违背了开／闭原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-使用构造函数会导致instanceof具有欺骗性-1"><span class="nav-number">10.4.</span> <span class="nav-text">4. 使用构造函数会导致instanceof具有欺骗性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用class的优点-1"><span class="nav-number">11.</span> <span class="nav-text">使用class的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用class的缺点-1"><span class="nav-number">12.</span> <span class="nav-text">使用class的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用工厂方法的优点-1"><span class="nav-number">13.</span> <span class="nav-text">使用工厂方法的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-返回任意对象与使用任意原型-1"><span class="nav-number">13.1.</span> <span class="nav-text">1. 返回任意对象与使用任意原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-没有重构的忧虑-1"><span class="nav-number">13.2.</span> <span class="nav-text">2. 没有重构的忧虑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-没有new-1"><span class="nav-number">13.3.</span> <span class="nav-text">3. 没有new</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-标准的this行为-1"><span class="nav-number">13.4.</span> <span class="nav-text">4. 标准的this行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-不会有欺骗性的instanceof问题-1"><span class="nav-number">13.5.</span> <span class="nav-text">5. 不会有欺骗性的instanceof问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-有些人喜欢myFoo-createFoo-这种写法-1"><span class="nav-number">13.6.</span> <span class="nav-text">6. 有些人喜欢myFoo = createFoo()这种写法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法的缺点-1"><span class="nav-number">14.</span> <span class="nav-text">工厂方法的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论-1"><span class="nav-number">15.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learn-JavaScript-with-Eric-Elliott-1"><span class="nav-number">16.</span> <span class="nav-text">Learn JavaScript with Eric Elliott</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

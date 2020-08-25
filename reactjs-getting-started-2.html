@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言俗话说工欲善其事，必先利其器。写程式也是一样，搭建好开发环境后可以让自己在后续开发上更加顺利。因此本章接下来将讨论 React 开发环境的两种主要方式：CDN-based、 webpack（这边我们就先不讨论 TypeScript 的开发方式）。至于 browserify 搭配 Gulp 的方法则会放在补充资料中，让读者阅读完本章后可以开始 React 开发之旅！ JavaScript 模组">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R02-React 开发环境设置与 Webpack 入门教学">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-2.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="前言俗话说工欲善其事，必先利其器。写程式也是一样，搭建好开发环境后可以让自己在后续开发上更加顺利。因此本章接下来将讨论 React 开发环境的两种主要方式：CDN-based、 webpack（这边我们就先不讨论 TypeScript 的开发方式）。至于 browserify 搭配 Gulp 的方法则会放在补充资料中，让读者阅读完本章后可以开始 React 开发之旅！ JavaScript 模组">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-webpack-browserify.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/react.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/hello-world.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/09/webpack-module-bundler.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R02-React 开发环境设置与 Webpack 入门教学">
+<meta name="twitter:description" content="前言俗话说工欲善其事，必先利其器。写程式也是一样，搭建好开发环境后可以让自己在后续开发上更加顺利。因此本章接下来将讨论 React 开发环境的两种主要方式：CDN-based、 webpack（这边我们就先不讨论 TypeScript 的开发方式）。至于 browserify 搭配 Gulp 的方法则会放在补充资料中，让读者阅读完本章后可以开始 React 开发之旅！ JavaScript 模组">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/09/react-webpack-browserify.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-2.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>R02-React 开发环境设置与 Webpack 入门教学 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R02-React 开发环境设置与 Webpack 入门教学
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-22 22:02:59" itemprop="dateCreated datePublished" datetime="2016-09-22T22:02:59+09:00">2016-09-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-2.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-2.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://res.i95.me/wp-content/uploads/2016/09/react-webpack-browserify.png" alt="React 开发环境设置与 Webpack 入门教学"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>俗话说工欲善其事，必先利其器。写程式也是一样，搭建好开发环境后可以让自己在后续开发上更加顺利。因此本章接下来将讨论 React 开发环境的两种主要方式：CDN-based、 <a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a>（这边我们就先不讨论 <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a> 的开发方式）。至于 <a href="https://webpack.github.io/" target="_blank" rel="noopener">browserify</a> 搭配 <a href="http://gulpjs.com/" target="_blank" rel="noopener">Gulp</a> 的方法则会放在补充资料中，让读者阅读完本章后可以开始 React 开发之旅！</p>
+<h3 id="JavaScript-模组化"><a href="#JavaScript-模组化" class="headerlink" title="JavaScript 模组化"></a>JavaScript 模组化</h3><p>随著网站开发的複杂度提昇，许多现代化的网站已不是单纯的网站而已，更像是个富有互动性的网页应用程式（Web App）。为了应付现代化网页应用程式开发的需求，解决一些像是全域变数污染、低维护性等问题，JavaScript 在模组化上也有长足的发展。过去一段时间读者们或许听过像是 <code>Webpack</code>、<code>Browserify</code>、<code>module bundlers</code>、<code>AMD</code>、<code>CommonJS</code>、<code>UMD</code>、<code>ES6 Module</code> 等有关 JavaScript 模组化开发的专有名词或工具，在前面一个章节我们也简单介绍了关于 JavaScript 模组化的简单观念和规范介绍。若是读者对于 JavaScript 模组化开发尚不熟悉的话推荐可以参考 <a href="http://huangxuan.me/2015/07/09/js-module-7day/" target="_blank" rel="noopener">这篇文章</a> 和 <a href="https://medium.freecodecamp.com/javascript-modules-a-beginner-s-guide-783f7d7a5fcc#.oa2n5s5zt" target="_blank" rel="noopener">这篇文章</a> 当作入门。</p>
+<p>总的来说，使用模组化开发 JavaScript 应用程式主要有以下三种好处：</p>
+<ol>
+<li>提昇维护性（Maintainability）</li>
+<li>命名空间（Namespacing）</li>
+<li>提供可重用性（Reusability）</li>
+</ol>
+<p>而在 React 应用程式开发上更推荐使用像是 <code>Webpack</code> 这样的 <code>module bundlers</code> 来组织我们的应用程式，但对于一般读者来说 <code>Webpack</code> 强大而完整的功能相对複杂。为了让读者先熟悉 <code>React</code> 核心观念（我们假设读者已经有使用 <code>JavaScript</code> 或 <code>jQuery</code> 的基本经验），我们将从使用 <code>CDN</code> 引入 <code>&lt;script&gt;</code> 的方式开始介绍：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/react.png" alt="React 开发环境设置与 Webpack 入门教学"> 使用 CDN-based 的开发方式缺点是较难维护我们的程式码（当引入函式库一多就会有很多 <code>&lt;script/&gt;</code>）且会容易遇到版本相容性问题，不太适合开发大型应用程式，但因为简单易懂，适合教学上使用。</p>
+<p>以下是 React <a href="https://facebook.github.io/react/index.html" target="_blank" rel="noopener">官方首页的范例</a>，以下使用 <code>React v15.2.1</code>：</p>
+<ol>
+<li>理解 <code>React</code> 是 <code>Component</code> 导向的应用程式设计</li>
+<li>引入 <code>react.js</code>、<code>react-dom.js</code>（react 0.14 后将 react-dom 从 react 核心分离，更符合 react 跨平台抽象化的定位）以及 <code>babel-core-browser</code> 版 script（可以想成 <code>babel</code> 是翻译机，翻译浏览器看不懂的 <code>JSX</code> 或 <code>ES6+</code> 语法成为浏览器看的懂得的 <code>JavaScript</code>。为了提昇效率，通常我们都会在伺服器端做转译，这点在 production 环境尤为重要）</li>
+<li>在 <code></code> 撰写 React Component 要插入（mount）指定节点的地方：<code>&lt;div id=&quot;example&quot;&gt;&lt;/div&gt;</code></li>
+<li>透过 <code>babel</code> 进行语言翻译 <code>React JSX</code> 语法，<code>babel</code> 会将其转为浏览器看的懂得 <code>JavaScript</code>。其代表意义是：<code>ReactDOM.render(欲 render 的 Component 或 HTML 元素, 欲插入的位置)</code>。所以我们可以在浏览器上打开我们的 <code>hello.html</code>，就可以看到 <code>Hello, world!</code> 。That’s it，我们第一个 <code>React</code> 应用程式就算完成了！</li>
+</ol>
+<pre><code>&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;title&gt;Hello React!&lt;/title&gt;
+&lt;!-- 以下引入 react.js, react-dom.js（react 0.14 后将 react-dom 从 react 核心分离，更符合 react 跨平台抽象化的定位）以及 babel-core browser 版 --&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js&quot;&gt;&lt;/script&gt;
+
+
+&lt;!-- 这边的 id=&quot;example&quot; 的 &lt;div&gt; 为 React Component 要插入的地方 --&gt;
+&lt;div id=&quot;example&quot;&gt;&lt;/div&gt;
+&lt;!-- 以下就是包在 babel（透过进行语言翻译）中的 React JSX 语法，babel 会将其转为浏览器看的懂得 JavaScript --&gt;
+&lt;script type=&quot;text/babel&quot;&gt;
+  ReactDOM.render(
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+    document.getElementById(&apos;example&apos;)
+  );
+&lt;/script&gt;
+</code></pre><p>在浏览器浏览最后成果：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/09/hello-world.png" alt="React 开发环境设置与 Webpack 入门教学"></p>
+<h3 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h3><p><img src="https://res.i95.me/wp-content/uploads/2016/09/webpack-module-bundler.png" alt="React 开发环境设置与 Webpack 入门教学"></p>
+<p>上面我们先简单介绍了 CDN-based 的开发方式让大家先对于 React 有个基本印象，但由于 CDN-based 的开发方式有不少缺点。所以接下来的 Webpack 将会是我们接下来范例的主要使用的开发工具。</p>
+<p><a href="https://webpack.github.io/" target="_blank" rel="noopener">Webpack</a> 是一个模组打包工具（module bundler），以下列出 Webpack 的几项主要功能：</p>
+<ul>
+<li>将 CSS、图片与其他资源打包</li>
+<li>打包之前预处理（Less、CoffeeScript、JSX、ES6 等）档案</li>
+<li>依 entry 文件不同，把 .js 分拆为多个 .js 档案</li>
+<li>整合丰富的 Loader 可以使用（Webpack 本身仅能处理 JavaScript 模组，其馀档案如：CSS、Image 需要载入不同 Loader 进行处理）</li>
+</ul>
+<p>接下来我们一样透过 Hello World 实例来介绍如何用 Webpack 设置 React 开发环境：</p>
+<ol>
+<li>依据你的作业系统安装 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node</a> 和 <a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a>（目前版本的 Node 都会内建 NPM）</li>
+<li><p>透过 NPM 安装 Webpack（可以 global 或 local project 安装，这边我们使用 local）、webpack loader、webpack-dev-server Webpack 中的 loader 类似于 browserify 内的 transforms，但 Webpack 在使用上比较多元，除了 JavaScript loader 外也有 CSS Style 和图片的 loader。此外，<code>webpack-dev-server</code> 则可以启动开发用 server，方便我们测试</p>
+<p> // 按指示初始化 NPM 设定档 package.json<br> $ npm init<br> // –save-dev 是可以让你将安装套件的名称和版本资讯存放到 package.json，方便日后使用<br> $ npm install –save-dev babel-core babel-eslint babel-loader babel-preset-es2015 babel-preset-react html-webpack-plugin webpack webpack-dev-server</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>在根目录设定 <code>webpack.config.js</code>事实上，<code>webpack.config.js</code> 有点类似于 <code>gulp</code> 中的 <code>gulpfile.js</code> 功用，主要是设定 <code>webpack</code> 的相关设定</p>
+<p> // 这边使用 HtmlWebpackPlugin，将 bundle 好的 <script> 插入到 body。${<strong>dirname} 为 ES6 语法对应到 </strong>dirname<br> const HtmlWebpackPlugin = require(‘html-webpack-plugin’);</p>
+<p> const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({<br>   template: <code>${__dirname}/app/index.html</code>,<br>   filename: ‘index.html’,<br>   inject: ‘body’,<br> });</p>
+<p> module.exports = {<br>   // 档案起始点从 entry 进入，因为是阵列所以也可以是多个档案<br>   entry: [</p>
+<pre><code>&apos;./app/index.js&apos;,
+</code></pre><p>   ],<br>   // output 是放入产生出来的结果的相关参数<br>   output: {</p>
+<pre><code>path: `${__dirname}/dist`,
+filename: &apos;index_bundle.js&apos;,
+</code></pre><p>   },<br>   module: {</p>
+<pre><code>  // loaders 则是放欲使用的 loaders，在这边是使用 babel-loader 将所有 .js（这边用到正则式）相关档案（排除了 npm 安装的套件位置 node_modules）转译成浏览器可以阅读的 JavaScript。preset 则是使用的 babel 转译规则，这边使用 react、es2015
+loaders: [
+  {
+    test: /.js$/,
+    exclude: /node_modules/,
+    loader: &apos;babel-loader&apos;,
+    query: {
+      presets: [&apos;es2015&apos;, &apos;react&apos;],
+    },
+  },
+],
+</code></pre><p>   },<br>   // devServer 则是 webpack-dev-server 设定<br>   devServer: {</p>
+<pre><code>inline: true,
+port: 8008,
+</code></pre><p>   },<br>   // plugins 放置所使用的外挂<br>   plugins: [HTMLWebpackPluginConfig],<br> };</p>
+</li>
+</ol>
+<ol start="4">
+<li>在根目录设定 `.babelrc<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">    `&#123;  </span><br><span class="line">    &quot;presets&quot;: [  </span><br><span class="line">    &quot;es2015&quot;,  </span><br><span class="line">    &quot;react&quot;,  </span><br><span class="line">    ],  </span><br><span class="line">    &quot;plugins&quot;: []  </span><br><span class="line">    &#125;`</span><br><span class="line"></span><br><span class="line">`````5. 安装 react 和 react-dom ```</span><br><span class="line">     $ npm install --save react react-dom</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">6.  撰写 Component（记得把 `index.html` 以及 `index.js` 放到 `app` 资料夹底下喔！） `index.html````  </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"> ````&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">     &lt;title&gt;React Setup&lt;/title&gt;</span><br><span class="line">     &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css&quot;&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">     &lt;!-- 欲插入 React Component 的位置 --&gt;</span><br><span class="line">     &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    `index.js`</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">`import React from &apos;react&apos;;  </span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;`</span><br><span class="line"></span><br><span class="line">```class App extends React.Component &#123;  </span><br><span class="line">constructor(props) &#123;  </span><br><span class="line">super(props);  </span><br><span class="line">this.state = &#123;  </span><br><span class="line">&#125;;  </span><br><span class="line">&#125;  </span><br><span class="line">render() &#123;  </span><br><span class="line">return (  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">Hello, World!</span><br><span class="line">=============</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">);  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(, document.getElementById(&apos;app&apos;));</span><br><span class="line"></span><br><span class="line">    7. 在终端机使用 `webpack` 进行成果展示，webpack 相关指令： - webpack：会在开发模式下开始一次性的建置</span><br><span class="line">    - webpack -p：会建置 production 的程式码</span><br><span class="line">    - webpack –watch：会监听程式码的修改，当储存时有异动时会更新档案</span><br><span class="line">    - webpack -d：加入 source maps 档案</span><br><span class="line">    - webpack –progress –colors：加上处理进度与颜色 如果不想每次都打一长串的指令码的话可以使用 `package.json` 中的 `scripts` 设定</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">`&quot;scripts&quot;: &#123;  </span><br><span class="line">&quot;dev&quot;: &quot;webpack-dev-server --devtool eval --progress --colors --content-base build&quot;  </span><br><span class="line">&#125;`</span><br><span class="line"></span><br><span class="line"> ``然后在终端机执行：</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">$ npm run dev</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    当我们此时我们可以打开浏览器输入 `http://localhost:8008` ，就可以看到 `Hello, world!` 了！</span><br><span class="line">    </span><br><span class="line">    ### 总结</span><br><span class="line">    </span><br><span class="line">    以上就是 React 开发环境设置与 Webpack 入门教学，看到这边的读者不妨自己动手设定开发环境，体验一下 React 开发环境的感觉，毕竟若是只有阅读文字的话很容易就会忘记喔！若你不想在环境设定上花太多时间的话，不妨参考 Facebook 开发社群推出的 [create-react-app](https://github.com/facebookincubator/create-react-app)，可以快速上手，使用 Webpack、[Babel](https://babeljs.io/)、[ESLint](http://eslint.org/) 开发 React 应用程式。接下来的章节我们将持续延伸 React/JSX/Component 的介绍。</span><br><span class="line">    </span><br><span class="line">    ### 延伸阅读</span><br><span class="line">    </span><br><span class="line">    1. [JavaScript 模块化七日谈](http://huangxuan.me/2015/07/09/js-module-7day/)</span><br><span class="line">    2. [前端模块化开发那点历史](https://github.com/seajs/seajs/issues/588)</span><br><span class="line">    3. [Webpack 中文指南](http://zhaoda.net/webpack-handbook/index.html)</span><br><span class="line">    4. [WEBPACK DEV SERVER](http://webpack.github.io/docs/webpack-dev-server.html)`` ``` ```` `</span><br></pre></td></tr></table></figure></li>
+</ol>
+</script></p></li></ol>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-2.html" title="R02-React 开发环境设置与 Webpack 入门教学">https://jaxsonwang.github.io/reactjs-getting-started-2.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/reactjs-getting-started-1.html" rel="next" title="R01-前端工程简介和 React 生态系简介">
+                <i class="fa fa-chevron-left"></i> R01-前端工程简介和 React 生态系简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/wechat-applications-open-era.html" rel="prev" title="微信应用号时代正式开启！">
+                微信应用号时代正式开启！ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-模组化"><span class="nav-number">2.</span> <span class="nav-text">JavaScript 模组化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack"><span class="nav-number">3.</span> <span class="nav-text">Webpack</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

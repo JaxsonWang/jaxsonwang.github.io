@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1. Java中的原始数据类型都有哪些，它们的大小及对应的封装类是什么？  boolean boolean数据类型非true即false。这个数据类型表示1 bit，但是它的大小并没有精确定义。 《Java虚拟机规范》中如是说：“虽然定义了boolean这种数据类型，但是只对它提供了非常有限的支持。在Java虚拟机中没有任何供boolean值专用的字节码指令，Java语言表达式所操作的boolea">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试知识点总结">
+<meta property="og:url" content="https://jaxsonwang.github.io/java-interview-questions.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="1. Java中的原始数据类型都有哪些，它们的大小及对应的封装类是什么？  boolean boolean数据类型非true即false。这个数据类型表示1 bit，但是它的大小并没有精确定义。 《Java虚拟机规范》中如是说：“虽然定义了boolean这种数据类型，但是只对它提供了非常有限的支持。在Java虚拟机中没有任何供boolean值专用的字节码指令，Java语言表达式所操作的boolea">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2397836-998c32bf72ba921c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试知识点总结">
+<meta name="twitter:description" content="1. Java中的原始数据类型都有哪些，它们的大小及对应的封装类是什么？  boolean boolean数据类型非true即false。这个数据类型表示1 bit，但是它的大小并没有精确定义。 《Java虚拟机规范》中如是说：“虽然定义了boolean这种数据类型，但是只对它提供了非常有限的支持。在Java虚拟机中没有任何供boolean值专用的字节码指令，Java语言表达式所操作的boolea">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2397836-998c32bf72ba921c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/java-interview-questions.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java面试知识点总结 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/java-interview-questions.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面试知识点总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-23 21:08:34" itemprop="dateCreated datePublished" datetime="2016-10-23T21:08:34+09:00">2016-10-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/生活杂记/" itemprop="url" rel="index"><span itemprop="name">生活杂记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/java-interview-questions.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-interview-questions.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>1. Java中的原始数据类型都有哪些，它们的大小及对应的封装类是什么？</strong></p>
+<ul>
+<li><strong>boolean</strong> boolean数据类型非true即false。这个数据类型表示1 bit，但是它的大小并没有精确定义。 《Java虚拟机规范》中如是说：“虽然定义了boolean这种数据类型，但是只对它提供了非常有限的支持。在Java虚拟机中没有任何供boolean值专用的字节码指令，Java语言表达式所操作的boolean值，在编译之后都使用Java虚拟机中的int数据类型来代替，而boolean数组将会被编码成Java虚拟机的byte数组，每个元素boolean元素占8位”。这样我们可以得出**boolean类型单独使用是4个字节，在数组中又是1个字节。**那虚拟机为什么要用int来代替boolean呢？为什么不用byte或short，这样不是更节省内存空间吗？实际上，使用int的原因是，对于当下32位的CPU来说，一次进行32位的数据交换更加高效。 综上，我们可以知道：官方文档对boolean类型没有给出精确的定义，《Java虚拟机规范》给出了“单独时使用4个字节，boolean数组时1个字节”的定义，具体还要看虚拟机实现是否按照规范来，所以1个字节、4个字节都是有可能的。这其实是一种时空权衡。 boolean类型的封装类是Boolean。</li>
+<li>byte——1 byte——Byte</li>
+<li>short——2 bytes——Short</li>
+<li>int——4 bytes——Integer</li>
+<li>long——8 bytes——Long</li>
+<li>float——4 bytes——Float</li>
+<li>double——8 bytes——Double</li>
+<li>char——2 bytes——Character</li>
+</ul>
+<p><strong>2. 谈一谈”==“与”equals()”的区别。</strong> 《Think in Java》中说：“关系操作符生成的是一个boolean结果，它们计算的是操作数的值之间的关系”。 “”判断的是两个对象的内存地址是否一样，适用于原始数据类型和枚举类型（它们的变量存储的是值本身，而引用类型变量存储的是引用）；equals是Object类的方法，Object对它的实现是比较内存地址，我们可以重写这个方法来自定义“相等”这个概念。比如类库中的String、Date等类就对这个方法进行了重写。 综上，对于枚举类型和原始数据类型的相等性比较，应该使用””；对于引用类型的相等性比较，应该使用equals方法。</p>
+<p><strong>3. Java中的四种引用及其应用场景是什么？</strong></p>
+<ul>
+<li>强引用: 通常我们使用new操作符创建一个对象时所返回的引用即为强引用</li>
+<li>软引用: 若一个对象只能通过软引用到达，那么这个对象在内存不足时会被回收，可用于图片缓存中，内存不足时系统会自动回收不再使用的Bitmap</li>
+<li>弱引用: 若一个对象只能通过弱引用到达，那么它就会被回收（即使内存充足），同样可用于图片缓存中，这时候只要Bitmap不再使用就会被回收</li>
+<li>虚引用: 虚引用是Java中最“弱”的引用，通过它甚至无法获取被引用的对象，它存在的唯一作用就是当它指向的对象回收时，它本身会被加入到引用队列中，这样我们可以知道它指向的对象何时被销毁。</li>
+</ul>
+<p><strong>4. object中定义了哪些方法？</strong> clone(), equals(), hashCode(), toString(), notify(), notifyAll(), wait(), finalize(), getClass()</p>
+<p><strong>5. hashCode的作用是什么？</strong> 请参见<a href="http://www.jianshu.com/p/01028590ada2" target="_blank" rel="noopener">散列表的基本原理与实现</a></p>
+<p><strong>6. ArrayList, LinkedList, Vector的区别是什么？</strong></p>
+<ul>
+<li>ArrayList: 内部采用数组存储元素，支持高效随机访问，支持动态调整大小</li>
+<li>LinkedList: 内部采用链表来存储元素，支持快速插入/删除元素，但不支持高效地随机访问</li>
+<li>Vector: 可以看作线程安全版的ArrayList</li>
+</ul>
+<p><strong>7. String, StringBuilder, StringBuffer的区别是什么？</strong></p>
+<ul>
+<li>String: 不可变的字符序列，若要向其中添加新字符需要创建一个新的String对象</li>
+<li>StringBuilder: 可变字符序列，支持向其中添加新字符（无需创建新对象）</li>
+<li>StringBuffer: 可以看作线程安全版的StringBuilder</li>
+</ul>
+<p><strong>8. Map, Set, List, Queue、Stack的特点及用法。</strong></p>
+<ul>
+<li>Map&lt;K, V&gt;: Java中存储键值对的数据类型都实现了这个接口，表示“映射表”。支持的两个核心操作是<em>get(Object key)</em>以及<em>put(K key, V value)</em>，分别用来获取键对应的值以及向映射表中插入键值对。</li>
+<li>Set: 实现了这个接口的集合类型中不允许存在重复的元素，代表数学意义上的“集合”。它所支持的核心操作有<em>add(E e)</em>, <em>remove(Object o)</em>, <em>contains(Object o)</em>，分别用于添加元素，删除元素以及判断给定元素是否存在于集中。</li>
+<li>List: Java中集合框架中的列表类型都实现了这个接口，表示一种有序序列。支持<em>get(int index)</em>, *add(E e)*等操作。</li>
+<li>Queue: Java集合框架中的队列接口，代表了“先进先出”队列。支持<em>add(E element)</em>, *remove()*等操作。</li>
+<li>Stack: Java集合框架中表示堆栈的数据类型，堆栈是一种“后进先出”的数据结构。支持<em>push(E item)</em>, *pop()*等操作。</li>
+</ul>
+<p>更详细的说明请参考官方文档，对相关数据结构不太熟悉的同学可以参考《算法导论》或其他相关书籍。</p>
+<p><strong>9. HashMap和HashTable的区别</strong></p>
+<ul>
+<li>HashTable是线程安全的，而HashMap不是</li>
+<li>HashMap中允许存在null键和null值，而HashTable中不允许</li>
+</ul>
+<p><strong>10. HashMap的实现原理</strong> 简单的说，HashMap的底层实现是“基于拉链法的散列表”。详细分析请参考<a href="http://blog.csdn.net/tgxblue/article/details/8479147" target="_blank" rel="noopener">深入解析HashMap、HashTable</a></p>
+<p><strong>11. ConcurrentHashMap的实现原理</strong> ConcurrentHashMap是支持并发读写的HashMap，它的特点是读取数据时无需加锁，写数据时可以保证加锁粒度尽可能的小。由于其内部采用“分段存储”，只需对要进行写操作的数据所在的“段”进行加锁。关于ConcurrentHashMap底层实现的详细分析请参考<a href="http://www.cnblogs.com/dolphin0520/p/3932905.html" target="_blank" rel="noopener">Java并发编程：并发容器之ConcurrentHashMap</a></p>
+<p><strong>12. TreeMap, LinkedHashMap, HashMap的区别是什么？</strong></p>
+<ul>
+<li>HashMap的底层实现是散列表，因此它内部存储的元素是无序的；</li>
+<li>TreeMap的底层实现是红黑树，所以它内部的元素的有序的。排序的依据是自然序或者是创建TreeMap时所提供的比较器（Comparator）对象。</li>
+<li>LinkedHashMap可以看作能够记住插入元素的顺序的HashMap。</li>
+</ul>
+<p><strong>13. Collection与Collections的区别是什么？</strong></p>
+<ul>
+<li>Collection是Java集合框架中的基本接口；</li>
+<li>Collections是Java集合框架提供的一个工具类，其中包含了大量用于操作或返回集合的静态方法。</li>
+</ul>
+<p><strong>14. 对于“try-catch-finally”，若try语句块中包含“return”语句，finally语句块会执行吗？</strong> 会执行。只有两种情况finally块中的语句不会被执行：<em>**</em></p>
+<ul>
+<li>调用了*System.exit()*方法；</li>
+<li>JVM“崩溃”了。</li>
+</ul>
+<p><strong>15. Java中的异常层次结构</strong> Java中的异常层次结构如下图所示：</p>
+<pre><code>我们可以看到Throwable类是异常层级中的基类。Error类表示内部错误，这类错误使我们无法控制的；Exception表示异常，RuntimeException及其子类属于未检查异常，这类异常包括ArrayIndexOutOfBoundsException、NullPointerException等，我们应该通过条件判断等方式语句避免未检查异常的发生。IOException及其子类属于已检查异常，编译器会检查我们是否为所有可能抛出的已检查异常提供了异常处理器，若没有则会报错。对于未检查异常，我们无需捕获（当然Java也允许我们捕获，但我们应该做的事避免未检查异常的发生）。
+</code></pre><p><strong>16. Java面向对象的三个特征与含义</strong> 三大特征：封装、继承、多态。详细介绍请戳<a href="http://javabc.baike.com/article-692235.html" target="_blank" rel="noopener">Java面向对象三大特性</a></p>
+<p><strong>17. Override, Overload的含义与区别</strong></p>
+<ul>
+<li>Override表示“重写”，是子类对父类中同一方法的重新定义</li>
+<li>Overload表示“重载”，也就是定义一个与已定义方法名称相同但签名不同的新方法<em>**</em></li>
+</ul>
+<p><strong>18. 接口与抽象类的区别</strong></p>
+<ul>
+<li>接口是一种约定，实现接口的类要遵循这个约定；</li>
+<li>抽象类本质上是一个类，使用抽象类的代价要比接口大。</li>
+<li>接口与抽象类的对比如下： - 抽象类中可以包含属性，方法（包含抽象方法与有着具体实现的方法），常量；接口只能包含常量和方法声明。</li>
+<li>抽象类中的方法和成员变量可以定义可见性（比如public、private等）；而接口中的方法只能为public（缺省为public）。</li>
+<li>一个子类只能有一个父类（具体类或抽象类）；而一个接口可以继承一个多个接口，一个类也可以实现多个接口。</li>
+<li>子类中实现父类中的抽象方法时，可见性可以大于等于父类中的；而接口实现类中的接口 方法的可见性只能与接口中相同（public）。</li>
+</ul>
+<p><strong>19. 静态内部类与非静态内部类的区别</strong> 静态内部类不会持有外围类的引用，而非静态内部类会隐式持有外围类的一个引用。</p>
+<p><strong>20. Java中多态的实现原理</strong> 所谓多态，指的就是父类引用指向子类对象，调用方法时会调用子类的实现而不是父类的实现。多态的实现的关键在于“动态绑定”。详细介绍请戳<a href="http://blog.csdn.net/sureyonder/article/details/5569617" target="_blank" rel="noopener">Java动态绑定的内部实现机制</a></p>
+<p><strong>21. 简述Java中创建新线程的两种方法</strong></p>
+<ul>
+<li>继承Thread类（假设子类为MyThread），并重写run()方法，然后new一个MyThread对象并对其调用start()即可启动新线程。</li>
+<li>实现Runnable接口（假设实现类为MyRunnable），而后将MyRunnable对象作为参数传入Thread构造器，在得到的Thread对象上调用start()方法即可。</li>
+</ul>
+<p><strong>22. 简述Java中进行线程同步的方法</strong></p>
+<ul>
+<li>volatile: Java Memory Model保证了对同一个volatile变量的写happens before对它的读；</li>
+<li>synchronized: 可以来对一个代码块或是对一个方法上锁，被“锁住”的地方称为临界区，进入临界区的线程会获取对象的monitor，这样其他尝试进入临界区的线程会因无法获取monitor而被阻塞。由于等待另一个线程释放monitor而被阻塞的线程无法被中断。</li>
+<li>ReentrantLock: 尝试获取锁的线程可以被中断并可以设置超时参数。</li>
+</ul>
+<p><strong>23. 简述Java中具有哪几种粒度的锁</strong> Java中可以对类、对象、方法或是代码块上锁。</p>
+<p><strong>24. 给出“生产者-消费者”问题的一种解决方案</strong> 使用阻塞队列：</p>
+<pre><code>public class BlockingQueueTest {
+  private int size = 20;
+  private ArrayBlockingQueue&lt;Integer&gt; blockingQueue = new ArrayBlockingQueue&lt;&gt;(size);
+  public static void main(String[] args) {
+    BlockingQueueTest test = new BlockingQueueTest(); 
+    Producer producer = test.new Producer(); 
+    Consumer consumer = test.new Consumer(); 
+    producer.start(); consumer.start(); 
+  } 
+
+  class Consumer extends Thread{ 
+    @Override 
+    public void run() { 
+      while(true){ 
+        try { 
+          //从阻塞队列中取出一个元素 
+          queue.take(); 
+          System.out.println(&quot;队列剩余&quot; + queue.size() + &quot;个元素&quot;); 
+        } catch (InterruptedException e) { 
+        } 
+      } 
+    } 
+  } 
+
+  class Producer extends Thread{ 
+    @Override 
+    public void run() { 
+      while (true) { 
+        try { 
+          //向阻塞队列中插入一个元素 
+          queue.put(1); 
+          System.out.println(&quot;队列剩余空间：&quot; + (size - queue.size())); 
+        } catch (InterruptedException e) { 
+        } 
+      } 
+    } 
+  }
+}
+</code></pre><p><strong>25. ThreadLocal的设计理念与作用</strong> ThreadLocal的作用是提供线程内的局部变量，在多线程环境下访问时能保证各个线程内的ThreadLocal变量各自独立。也就是说，每个线程的ThreadLocal变量是自己专用的，其他线程是访问不到的。ThreadLocal最常用于以下这个场景：多线程环境下存在对非线程安全对象的并发访问，而且该对象不需要在线程间共享，但是我们不想加锁，这时候可以使用ThreadLocal来使得每个线程都持有一个该对象的副本。</p>
+<p><strong>26. concurrent包的整体架构</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2397836-998c32bf72ba921c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>27. ArrayBlockingQueue, CountDownLatch类的作用</strong></p>
+<ul>
+<li>CountDownLatch: 允许线程集等待直到计数器为0。适用场景: 当一个或多个线程需要等待指定数目的事件发生后再继续执行。</li>
+<li>ArrayBlockingQueue: 一个基于数组实现的阻塞队列，它在构造时需要指定容量。当试图向满队列中添加元素或者从空队列中移除元素时，当前线程会被阻塞。通过阻塞队列，我们可以按以下模式来工作：工作者线程可以周期性的将中间结果放入阻塞队列中，其它线程可以取出中间结果并进行进一步操作。若工作者线程的执行比较慢（还没来得及向队列中插入元素），其他从队列中取元素的线程会等待它（试图从空队列中取元素从而阻塞）；若工作者线程执行较快（试图向满队列中插入元素），则它会等待其它线程取出元素再继续执行。</li>
+</ul>
+<p><strong>28. wait()，sleep() 的区别</strong></p>
+<ul>
+<li>wait(): Object类中定义的实例方法。在指定对象上调用wait方法会让当前线程进入等待状态（前提是当前线程持有该对象的monitor），此时当前线程会释放相应对象的monitor，这样一来其它线程便有机会获取这个对象的monitor了。当其它线程获取了这个对象的monitor并进行了所需操作时，便可以调用notify方法唤醒之前进入等待状态的线程。</li>
+<li>sleep(): Thread类中的静态方法，作用是让当前线程进入休眠状态，以便让其他线程有机会执行。进入休眠状态的线程不会释放它所持有的锁。</li>
+</ul>
+<p><strong>29. 线程池的用法与优势</strong></p>
+<ul>
+<li>优势: 实现对线程的复用，避免了反复创建及销毁线程的开销；使用线程池统一管理线程可以减少并发线程的数目，而线程数过多往往会在线程上下文切换上以及线程同步上浪费过多时间。</li>
+<li>用法: 我们可以调用ThreadPoolExecutor的某个构造方法来自己创建一个线程池。但通常情况下我们可以使用Executors类提供给我们的静态工厂方法来更方便的创建一个线程池对象。创建了线程池对象后，我们就可以调用submit方法提交任务到线程池中去执行了；线程池使用完毕后我们要记得调用shutdown方法来关闭它。</li>
+</ul>
+<p><strong>30. for-each与常规for循环的效率对比</strong> 关于这个问题我们直接看《Effective Java》给我们做的解答：</p>
+<blockquote>
+<p>for-each能够让代码更加清晰，并且减少了出错的机会。 下面的惯用代码适用于集合与数组类型：</p>
+<pre><code>for (Element e : elements) {
+    doSomething(e);
+}
+</code></pre><p>使用for-each循环与常规的for循环相比，并不存在性能损失，即使对数组进行迭代也是如此。实际上，在有些场合下它还能带来微小的性能提升，因为它只计算一次数组索引的上限。</p>
+</blockquote>
+<p><strong>31. 简述Java IO与NIO的区别</strong></p>
+<ul>
+<li>Java IO是面向流的，这意味着我们需要每次从流中读取一个或多个字节，直到读取完所有字节；NIO是面向缓冲的，也就是说会把数据读取到一个缓冲区中，然后对缓冲区中的数据进行相应处理。</li>
+<li>Java IO是阻塞IO，而NIO是非阻塞IO。</li>
+<li>Java NIO中存在一个称为选择器（selector）的东西，它允许你把多个通道（channel）注册到一个选择器上，然后使用一个线程来监视这些通道：若这些通道里有某个准备好可以开始进行读或写操作了，则开始对相应的通道进行读写。而在等待某通道变为可读/写期间，请求对通道进行读写操作的线程可以去干别的事情。</li>
+</ul>
+<p><strong>32. 反射的作用与原理</strong> 反射的作用概括地说是运行时获取类的各种定义信息，比如定义了哪些属性与方法。原理是通过类的class对象来获取它的各种信息。</p>
+<p><strong>33. Java中的泛型机制</strong> 关于泛型机制的详细介绍请直接戳<a href="http://www.jianshu.com/p/b70c703cc303" target="_blank" rel="noopener">Java核心技术点之泛型</a></p>
+<p><strong>34. Java 7与Java 8的新特性</strong> 这里有两篇总结的非常好的： <a href="http://www.csdn.net/article/2011-07-22/302072" target="_blank" rel="noopener">Java 7的新特性</a> <a href="http://www.open-open.com/lib/view/open1403232177575.html" target="_blank" rel="noopener">Java 8的新特性</a></p>
+<p><strong>35. 常见设计模式</strong> 所谓“设计模式”，不过是面向对象编程中一些常用的软件设计手法，并且经过实践的检验，这些设计手法在各自的场景下能解决一些需求，因此它们就成为了如今广为流传的”设计模式“。也就是说，正式因为在某些场景下产生了一些棘手的问题，才催生了相应的设计模式。明确了这一点，我们在学习某种设计模式时要充分理解它产生的背景以及它所解决的主要矛盾是什么。</p>
+<p>常用的设计模式可以分为以下三大类：</p>
+<ul>
+<li>创建型模式: 包括工厂模式（又可进一步分为简单工厂模式、工厂方法模式、抽象工厂模式）、建造者模式、单例模式。</li>
+<li>结构型模式: 包括适配器模式、桥接模式、装饰模式、外观模式、享元模式、代理模式。</li>
+<li>行为型模式: 包括命令模式、中介者模式、观察者模式、状态模式、策略模式。关于每个模式具体的介绍请参考<a href="http://design-patterns.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">图说设计模式</a></li>
+</ul>
+<p><strong>36. JNI的基本用法</strong> 关于JNI，这里有篇好文：<a href="http://www.jianshu.com/p/aba734d5b5cd" target="_blank" rel="noopener">Android中的JNI</a></p>
+<p><strong>37. 动态代理的定义、应用场景及原理</strong> 请参见<a href="http://www.jianshu.com/p/cbd58642fc08" target="_blank" rel="noopener">十分钟理解Java之动态代理</a></p>
+<p><strong>38. 注解的基本概念与使用</strong> 注解可以看作是“增强版的注释”，它可以向编译器、虚拟机说明一些事情。 注解是描述Java代码的代码，它能够被编译器解析，注解处理工具在运行时也能够解析注解。注解本身是“被动”的信息，只有主动解析它才有意义。 除了向编译器/虚拟机传递信息，我们也可以使用注解来生成一些“模板化”的代码。</p>
+<p>文／absfree（简书作者） 原文链接：<a href="http://www.jianshu.com/p/1990eb1f66eb" target="_blank" rel="noopener">http://www.jianshu.com/p/1990eb1f66eb</a> 著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/java-interview-questions.html" title="Java面试知识点总结">https://jaxsonwang.github.io/java-interview-questions.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/git-commonly-used-commands.html" rel="next" title="Git常用命令清单">
+                <i class="fa fa-chevron-left"></i> Git常用命令清单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux-daily-use-summary.html" rel="prev" title="Linux日常使用总结">
+                Linux日常使用总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

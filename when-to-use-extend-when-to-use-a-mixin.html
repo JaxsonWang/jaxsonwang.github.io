@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="何时该使用 @extend，何时该使用mixin这是一个我曾被问到过许多次的问题：在什么时候我们应该使用mixin(混合)，而在什么时候我们应该使用@extend（继承）呢？ 有一个老的经验法则告诉我们，不带参数的mixins（混合）是糟糕的——因为这样形式的mixin只是重复的代码跟直接复用的实例一样是肮脏的。可是事实上， 答案远没有这么简单，有许多的细节需要审视（译者注：原文是nuanced，">
+<meta name="keywords" content="Web前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="何时该使用继承，何时该使用混合？">
+<meta property="og:url" content="https://jaxsonwang.github.io/when-to-use-extend-when-to-use-a-mixin.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="何时该使用 @extend，何时该使用mixin这是一个我曾被问到过许多次的问题：在什么时候我们应该使用mixin(混合)，而在什么时候我们应该使用@extend（继承）呢？ 有一个老的经验法则告诉我们，不带参数的mixins（混合）是糟糕的——因为这样形式的mixin只是重复的代码跟直接复用的实例一样是肮脏的。可是事实上， 答案远没有这么简单，有许多的细节需要审视（译者注：原文是nuanced，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="何时该使用继承，何时该使用混合？">
+<meta name="twitter:description" content="何时该使用 @extend，何时该使用mixin这是一个我曾被问到过许多次的问题：在什么时候我们应该使用mixin(混合)，而在什么时候我们应该使用@extend（继承）呢？ 有一个老的经验法则告诉我们，不带参数的mixins（混合）是糟糕的——因为这样形式的mixin只是重复的代码跟直接复用的实例一样是肮脏的。可是事实上， 答案远没有这么简单，有许多的细节需要审视（译者注：原文是nuanced，">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/when-to-use-extend-when-to-use-a-mixin.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>何时该使用继承，何时该使用混合？ | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/when-to-use-extend-when-to-use-a-mixin.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">何时该使用继承，何时该使用混合？
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-25 23:42:35" itemprop="dateCreated datePublished" datetime="2016-10-25T23:42:35+09:00">2016-10-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/when-to-use-extend-when-to-use-a-mixin.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/when-to-use-extend-when-to-use-a-mixin.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="何时该使用-extend，何时该使用mixin"><a href="#何时该使用-extend，何时该使用mixin" class="headerlink" title="何时该使用 @extend，何时该使用mixin"></a>何时该使用 @extend，何时该使用mixin</h1><p>这是一个我曾被问到过许多次的问题：在什么时候我们应该使用mixin(混合)，而在什么时候我们应该使用@extend（继承）呢？</p>
+<p>有一个老的经验法则告诉我们，不带参数的mixins（混合）是糟糕的——因为这样形式的mixin只是重复的代码跟直接复用的实例一样是肮脏的。可是事实上， 答案远没有这么简单，有许多的细节需要审视（译者注：原文是nuanced，微妙。这里水平有限所以没有采用该词汇。您只需知道：这其中有许多的微妙之处）。</p>
+<p>现在，让我们一起看一看其中的微妙之处.</p>
+<h3 id="何时使用继承-extend"><a href="#何时使用继承-extend" class="headerlink" title="何时使用继承 @extend"></a>何时使用继承 <code>@extend</code></h3><p>这里让我先说一句：我通常建议一点也不要使用继承开始 <code>@extend</code> 。这里有一个 <a href="http://oliverjash.me/2012/09/07/methods-for-modifying-objects-in-oocss.html" target="_blank" rel="noopener">Fool’s Gold</a>（傻瓜黄金定律）:一个特性的允诺就必然携带着两倍多的警告（译者注：我理解的是一个强大的功能就必然携带着两倍多的弊端，或者一倍收益，两倍风险。）。</p>
+<p>如果你肯定, 确确实实要使用继承 <code>@extend</code>:</p>
+<ol>
+<li>请再三考虑.</li>
+<li>使用<a href="http://csswizardry.com/2014/01/extending-silent-classes-in-sass/" target="_blank" rel="noopener">placeholder hack</a>.</li>
+<li>时刻关注你输出的css文件.</li>
+</ol>
+<p>理论上, <code>@extend</code> 是很棒的方法, 然而, 事实证明, 有许多使用出现了错误。我曾见过一个输出样式表是原文件大小的两倍多;我也曾见过一份源程序输出文件变得混论不堪; 并且我还曾看见过一个编译后的样式的群组选择器有4095个选择器。最好总是宁可谨慎并且省略任何会造成很多麻烦但是收益却很少或者甚至没有的功能或者工具。由于滥用生产工具让你的碎片样式享有有低于4096选择器组是十分违反直觉的。</p>
+<p>**N.B.**我觉得我需要补充说一下这并不是我本身就讨厌 <code>@extend</code> ;但如果你要使用它，一定要时刻保持警惕，因为有很多地方需要注意。</p>
+<p>但是，如果你要使用 <code>@extend</code>，何时适合呢？</p>
+<p>理解 <strong><code>@extend</code>创建的关系</strong>就很重要了。无论何时你使用<code>@extend</code>,移植一个选择器就会在在其他地方为了与其他选择器共享特征也因此被移植了。结果，你导致这些选择器全部共享了一个关系，并滥用<code>@extend</code>创建关系制定了错误的标准。 这就像分组CD收集的颜色封面一样：可行，但是并不是创建的一个有益的关系。</p>
+<p><strong>你正在形成的这种关系是一个正确的特征是至关重要的。</strong></p>
+<p>很频繁的——在过去，我自己也犯过——我看到的许多东西像这样(让我想一下<code>...</code>表示一个遗漏，简单的说，第100行，(译者注：即输出文件的21行）):</p>
+<pre><code>%brand-font {
+    font-family: webfont, sans-serif;
+    font-weight: 700;
+}
+
+...
+
+h1 {
+    @extend %brand-font;
+    font-size: 2em;
+}
+
+...
+
+.btn {
+    @extend %brand-font;
+    display: inline-block;
+    padding: 1em;
+}
+
+...
+
+.promo {
+    @extend %brand-font;
+    background-color: #BADA55;
+    color: #fff;
+}
+
+...
+
+.footer-message {
+    @extend %brand-font;
+    font-size: 0.75em;
+}
+</code></pre><p>当然，该输出文件为这样：</p>
+<pre><code>h1, .btn, .promo, .footer-message {
+    font-family: webfont, sans-serif;
+    font-weight: 700;
+}
+
+...
+
+h1 {
+    font-size: 2em;
+}
+
+...
+
+.btn {
+    display: inline-block;
+    padding: 1em;
+}
+
+...
+
+.promo {
+    background-color: #BADA55;
+    color: #fff;
+}
+
+...
+
+.footer-message {
+    font-size: 0.75em;
+}
+</code></pre><p>问题是我强迫了一个存在于几百行开外的没有丝毫关联的规则和当前规则因为共享特征建立了一个纯粹是巧合的联系。并且这不仅强迫生成了一个反常的关系，还使得生成的CSS选择器的顺序特异性变得乱七八糟。我竟然因为纯粹的间接关系分散了我的代码库的选择器。这并不是一个<a href="http://csswizardry.com/2014/10/the-specificity-graph/" target="_blank" rel="noopener">好消息</a>.</p>
+<p>在基于纯粹的巧合和间接地相似之处的情况下，继承使得我为了和其他规则集共存在一个不正确的位置，移植了一个不相关的规则集到远离它们来源几百行开外的地方。<strong>使用<code>@extend</code>并不是一个好方法.</strong> (实际上,使用一个带有少量参数的mixin可能是一个完美的用例，我们很快会讲到这个话题。)</p>
+<p>另一个滥用<code>继承</code>的情况看起来有点像这样：</p>
+<pre><code>%bold {
+    font-weight: bold;
+}
+
+...
+
+.header--home &gt; .header__tagline {
+    @extend %bold;
+    color: #333;
+    font-style: italic;
+}
+
+...
+
+.btn--warning {
+    @extend %bold;
+    background-color: red;
+    color: white;
+}
+
+...
+
+.alert--error &gt; .alert__text {
+    @extend %bold;
+    color: red;
+}
+</code></pre><p>如你所愿，它将输出下面的css代码：</p>
+<pre><code>.header--home &gt; .header__tagline,
+.btn--warning,
+.alert--error &gt; .alert__text {
+    font-weight: bold;
+}
+
+...
+
+.header--home &gt; .header__tagline {
+    color: #333;
+    font-style: italic;
+}
+
+...
+
+.btn--warning {
+    background-color: red;
+    color: white;
+}
+
+...
+
+.alert--error &gt; .alert__text {
+    color: red;
+}
+</code></pre><p>该文件有299个字节大小。</p>
+<p><strong>通常情况下, 你移植的选择器可能会比你试图避免重复的声名还要长。</strong></p>
+<p>如果我们真的只是重复<code>font-weight: bold</code>规则;声明多次——而不是试图避免重复它——结果我们确实获得了一个比较小的css文件：<strong>264 个字节</strong>。这仅仅是规模非常小的模型，但是这有助于说明收益递减的可能性。继承的单一声明往往是适得其反的。</p>
+<p>所以，何时我们使用继承呢？</p>
+<p>我们应该使用继承在明确相关的规则集中共享特性，一个完美的用例如下：</p>
+<pre><code>.btn,
+%btn {
+    display: inline-block;
+    padding: 1em;
+}
+
+.btn-positive {
+    @extend %btn;
+    background-color: green;
+    color: white;
+}
+
+.btn-negative {
+    @extend %btn;
+    background-color: red;
+    color: white;
+}
+
+.btn-neutral {
+    @extend %btn;
+    background-color: lightgray;
+    color: black;
+}
+</code></pre><p>Which results in:</p>
+<pre><code>.btn,
+.btn-positive,
+.btn-negative,
+.btn-neutral {
+    display: inline-block;
+    padding: 1em;
+}
+
+.btn-positive {
+    background-color: green;
+    color: white;
+}
+
+.btn-negative {
+    background-color: red;
+    color: white;
+}
+
+.btn-neutral {
+    background-color: lightgray;
+    color: black;
+}
+</code></pre><p>这是一个完美的继承用例。这些规则本质上是相关的;他们共享的特征是由于一个理由共享的，而不是偶然性的。进一步的说,我们不会再移植这些选择器到远离其来源上百行开外的地方去了，所以我们的 <a href="http://csswizardry.com/2014/10/the-specificity-graph/" target="_blank" rel="noopener">特异性图</a>能够保持漂亮和条理性.</p>
+<h3 id="何时该使用混合mixin"><a href="#何时该使用混合mixin" class="headerlink" title="何时该使用混合mixin"></a>何时该使用混合mixin</h3><p>不带参数的混合是糟糕的规则这条古老的经验法则是善意的，但不幸的是这远没有那么简单。</p>
+<p>这条规则源于对 DRY（译者注：DRY是“Don’t Repeat Yourself”的缩写）原则一点轻微的误解。DRY原则旨在一个项目只有一个真正的单一来源。DRY与不重复<strong>自身</strong>相关，但是并不是完全避免重复。</p>
+<p>如果你在一个项目中手动键入一个声明50次，你是重复的：这不是DRY。 如果你生成50次声明不用手动键入，这就是DRY：你在生成重复而不是重复自身。这是一个相当微妙但重要的区别. <strong>在编译系统的重复不是一件坏事，在文件资源（来源）方面的重复才是一件坏事。</strong></p>
+<p>这条单一的真理意味着我们可以存储一个重复结构的资源回收再利用而不是实际上去复制它。当然，一个系统可能会重复给我们，但是它的资源只存在一次。这意味着我们只需改变资源一次，其他利用到该资源的地方就会随着改变；而在我们的源代码中不会有重复的结构；只会有一个实际的单一来源。这就是当我们谈到DRY时的意思。</p>
+<p>有了这一理解，我们就能开始意识到不带参数的mixin实际上是有用的了。现在让我们回到之前<code>%brand-font {}</code>的例子</p>
+<p>让我们想象一下，我们使用一个特定的字体在我们的项目，必须始终在旁边定义一个字体特定的 <code>font-weight</code>:</p>
+<pre><code>.foo {
+    font-family: webfont, sans-serif;
+    font-weight: 700;
+}
+
+...
+
+.bar {
+    font-family: webfont, sans-serif;
+    font-weight: 700;
+}
+
+...
+
+.baz {
+    font-family: webfont, sans-serif;
+    font-weight: 700;
+}
+</code></pre><p>像这样，在我们的代码中一遍又一遍的手动重复这两个声明是十分乏味的；我们不得不记住字体粗细这个700的数字而不是自己更熟悉的<code>regular</code>或者<code>bold</code>；并且如果我们要改变web的字体和粗细程度，我们不得不浏览整个项目更改所有地方的web字体和字体粗细程度。</p>
+<p>我们前面不应该在这里使用<code>@extend</code>强行关联，我们也许应该使用的是一个mixin：</p>
+<pre><code>@mixin webfont() {
+    font-family: webfont, sans-serif;
+    font-weight: 700;
+}
+
+...
+
+.foo {
+    @include webfont();
+}
+
+...
+
+.bar {
+    @include webfont();
+}
+
+...
+
+.baz {
+    @include webfont();
+}
+</code></pre><p><strong>是的,这会编译出重复的部分。不，我们不是在重复自己。</strong> 要记住这些无关的规则集是十分重要的，所以我们不应该去使他们相关。要记住这些无关重要的规则，所以我们不应该让他们相关的。他们是无关的，只是<em>happen</em>有一些共同特征，所以这种重复是明智的，而且是可以预期的。我们<em>want</em>在N的地方使用这些声明，所以我们让他们出现在n处。It is important to remember here that these are unrelated rulesets, so we did not ought to make them related. They are unrelated and just <em>happen</em> to have some shared traits, so this repetition is sensible, and is to be expected. We <em>want</em> to use those declarations in n places, so we make them appear in n places.</p>
+<p>Argument-less mixins are great for just spitting out repeated groups of identical declarations whilst maintaining a Single Source of Truth. See it like a Sassy extension of your copy/paste clipboard: you’re just using it to paste out a few strings you’ve stored elsewhere earlier on. We have our Single Source of Truth, which means we can propagate changes to these declarations whilst only ever making one manual change. Very DRY.</p>
+<p>它也可能是值得注意的，有利于重复，gzip，将几乎完全否定的轻微的成本增加文件大小It is also probably worth noting that Gzip favours repetition, so that will almost entirely negate the costs of the slight added filesize.</p>
+<p>当然，mixin是真的有用当我们使用带参数的mixin时，它会在重复的代码结构中动态的生成值。我不认为任何人都可以说它是一个坏的主意：他们不会重复自身但是允许我们修改这些重复结构的单一来源从而像坐飞机一样改变所有引用该结构的地方。例如：</p>
+<pre><code>@mixin truncate($width: 100%) {
+    width: $width;
+    max-width: 100%;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.foo {
+    @include truncate(100px);
+}
+</code></pre><p>吐出相同的声明，但根据实际案例动态地设置了“宽度”的值。</p>
+<p>这是最常见的和广泛认同的形式的混合，我想我们都同意这是一个好主意。</p>
+<h3 id="tl-dr"><a href="#tl-dr" class="headerlink" title="tl;dr"></a>tl;dr</h3><p>当你试图使用DRY原则的规则集是本质上和主题相关时仅仅使用<code>@extend</code>。不要强迫不存在的关系，这样做会在你的项目中创造出不寻常的分组，同时也会给你的源代码造成负面影响。</p>
+<p>使用mixin要么注入动态值代入重复的结构中（译者注：此处指的是带参数的mixin），要么如时髦的复制/粘贴般（译者注：指不带参数的mixin）在你的整个项目中重复一组声明同时保持只有一个<a href="http://en.wikipedia.org/wiki/Single_Source_of_Truth" target="_blank" rel="noopener">来源</a>（译者注：此处可以解释为只有一个引用来源引用）.</p>
+<h4 id="tl-dr-tl-dr"><a href="#tl-dr-tl-dr" class="headerlink" title="tl;dr;tl;dr"></a>tl;dr;tl;dr</h4><p>与本身相关的规则集是使用 <code>@extend</code>的理由；相同的构造结构仅仅是使用<code>mixin</code>的缘由。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/when-to-use-extend-when-to-use-a-mixin.html" title="何时该使用继承，何时该使用混合？">https://jaxsonwang.github.io/when-to-use-extend-when-to-use-a-mixin.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web前端/" rel="tag"># Web前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linux-daily-use-summary.html" rel="next" title="Linux日常使用总结">
+                <i class="fa fa-chevron-left"></i> Linux日常使用总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/new-video-policies-for-ios10.html" rel="prev" title="iOS 10 Safari 视频播放新政策">
+                iOS 10 Safari 视频播放新政策 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#何时该使用-extend，何时该使用mixin"><span class="nav-number">1.</span> <span class="nav-text">何时该使用 @extend，何时该使用mixin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何时使用继承-extend"><span class="nav-number">1.0.1.</span> <span class="nav-text">何时使用继承 @extend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时该使用混合mixin"><span class="nav-number">1.0.2.</span> <span class="nav-text">何时该使用混合mixin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tl-dr"><span class="nav-number">1.0.3.</span> <span class="nav-text">tl;dr</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tl-dr-tl-dr"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">tl;dr;tl;dr</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

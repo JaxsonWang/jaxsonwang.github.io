@@ -114,7 +114,7 @@
 <meta name="keywords" content="全栈人生,全栈笔记,全栈工程师,全栈,淮城一只猫,淮城,IT博客,个人博客,王瑾,盒子丶先生,WEB平台,BOX-ROM,BoxMod">
 <meta property="og:type" content="website">
 <meta property="og:title" content="淮城一只猫">
-<meta property="og:url" content="https://jaxsonwang.github.io/index.html">
+<meta property="og:url" content="https://jaxsonwang.github.io/page/8/index.html">
 <meta property="og:site_name" content="淮城一只猫">
 <meta property="og:description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
 <meta property="og:locale" content="zh-CN">
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/">
+  <link rel="canonical" href="https://jaxsonwang.github.io/page/8/">
 
 
 
@@ -236,7 +236,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
   </li>
@@ -334,7 +334,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/vue-js-study-notes.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/dwr-session-error-notes.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -353,8 +353,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/vue-js-study-notes.html" itemprop="url">
-                  Vue.js快速上手笔记
+                <a class="post-title-link" href="/dwr-session-error-notes.html" itemprop="url">
+                  DWR中的session error问题解决
                 </a>
               
             
@@ -380,7 +380,7 @@
                 
               
 
-              <time title="创建时间：2018-09-04 20:42:21" itemprop="dateCreated datePublished" datetime="2018-09-04T20:42:21+09:00">2018-09-04</time>
+              <time title="创建时间：2017-04-28 23:41:32" itemprop="dateCreated datePublished" datetime="2017-04-28T23:41:32+09:00">2017-04-28</time>
             
 
             
@@ -429,8 +429,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/vue-js-study-notes.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/vue-js-study-notes.html" itemprop="commentCount"></span>
+                <a href="/dwr-session-error-notes.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/dwr-session-error-notes.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -460,18 +460,15 @@
       
         
           
-          Vue实例Vue.js是一套构建用户界面的渐进式框架。与其他重量级框架不同的是，Vue 从根本上采用最小成本、渐进增量的设计。Vue 的核心库只专注于视图层，并且很容易与其他第三方库或现有项目集成。
-创建Vue实例创建方法如下：
-var  vm  =  new Vue({
-//一些选项配置
-})
-当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其data对象中能找到的所有的属性。当这些属性的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。
-&lt;div  id=&quot;example&quot;&gt;
-    &lt;p&gt;{ {  hello  }}&lt
+          前言今天帮妹子搞毕设的时候，运行程序，登录账号是报session error这个错误。 查看后台控制信息，有个报错：
+严重: A request has been denied as a potential CSRF attack.
+然后百度搜索相关资料，得知报错是因为跨域？!我不知道这个说发对不对… 具体是请求被拒绝因为可能存在csrf(cross-site request forgeries,跨站请求伪造)攻击. 也就是说页面URL可能被跨站了的服务所调用.
+解决解决方案也很好解决了，在web.xml配置文件中dwr的配置中，修改如下：
+&lt;servlet-name&gt;dwr-in
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/vue-js-study-notes.html#more" rel="contents">
+            <a class="btn" href="/dwr-session-error-notes.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -527,7 +524,7 @@ var  vm  =  new Vue({
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/meizu16-plus-unpacking-note.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/nodejs-use-mysql-notes.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -546,8 +543,8 @@ var  vm  =  new Vue({
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/meizu16-plus-unpacking-note.html" itemprop="url">
-                  魅族16 Plus开箱体验
+                <a class="post-title-link" href="/nodejs-use-mysql-notes.html" itemprop="url">
+                  Node.js使用MySQL数据库
                 </a>
               
             
@@ -573,7 +570,394 @@ var  vm  =  new Vue({
                 
               
 
-              <time title="创建时间：2018-08-21 12:48:09" itemprop="dateCreated datePublished" datetime="2018-08-21T12:48:09+09:00">2018-08-21</time>
+              <time title="创建时间：2017-04-27 14:17:25" itemprop="dateCreated datePublished" datetime="2017-04-27T14:17:25+09:00">2017-04-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/nodejs-use-mysql-notes.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/nodejs-use-mysql-notes.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前言感觉还不错。
+安装&lt;code class=&quot;bash&quot;&gt;npm install mysql
+增删改查SQL文件：
+&lt;code class=&quot;sql&quot;&gt;/*
+ Navicat MySQL Data Transfer
+ Source Server : 127.0.0.1
+ Source Server Version : 50621
+ Source Host : localhost
+ Source Database : RUNOOB
+ Target Server Version : 50621
+ File Encoding : ut
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/nodejs-use-mysql-notes.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/npm-install-upgrade-dependencies.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/npm-install-upgrade-dependencies.html" itemprop="url">
+                  安装升级npm依赖
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-21 20:58:49" itemprop="dateCreated datePublished" datetime="2017-04-21T20:58:49+09:00">2017-04-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/npm-install-upgrade-dependencies.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/npm-install-upgrade-dependencies.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          简介npm-check 能够自动检索npm包版本，并且提供交互操作界面：有以下功能：1、告诉你那些依赖已经过时；2、在你决定升级时，给你提供依赖包的文档；3、提示某个依赖没有被你使用；4、支持全局安装模块，-g；5、交互式升级介面，减少输入和输入错误的情况，-u；
+安装方法：
+&lt;code class=&quot;bash&quot;&gt;npm install -g npm-check
+使用方法：
+更新全局依赖&lt;code class=&quot;bash&quot;&gt;npm-check -gu
+更新当前项目依赖&lt;code class=&quot;bash&quot;&
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/npm-install-upgrade-dependencies.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/emd-vol-1704.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/emd-vol-1704.html" itemprop="url">
+                  EMD Vol 1704
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-19 22:24:12" itemprop="dateCreated datePublished" datetime="2017-04-19T22:24:12+09:00">2017-04-19</time>
             
 
             
@@ -622,8 +1006,8 @@ var  vm  =  new Vue({
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/meizu16-plus-unpacking-note.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/meizu16-plus-unpacking-note.html" itemprop="commentCount"></span>
+                <a href="/emd-vol-1704.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/emd-vol-1704.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -653,11 +1037,17 @@ var  vm  =  new Vue({
       
         
           
-          前言在更换Android设备之前，大概用了接近3年，从手机到个人电脑，包括部分公司设备都是Apple产品，不得不说Apple的确是很好的产品，但有些方面成长实在是太慢，或者说是库克针对自家产品理念太保守了，所以因为很大的原因放弃了Apple产品和服务。虽然不是果黑，至少现在也差不多了。 前几个月就萌发换机的想法，但前几个月国内智能机环境真的很乱，一眼望去，全是异形屏，对我来说这简直恶心至极。 去年用过接近一个月的三星S8,因为系统难用送人，无奈用回iPhone 6S Plus设备，直到最近Vivo和OPPO各自出自己新旗舰，说实话在现在的环境能改变设计都是令人佩服的，毕竟里面包含多少工程师心血
+          2017.04.19你好，四月；你好，春天。
+这个月就这样马马虎虎的过来了。
+工作由于上家公司老板老是拖欠工资，无奈辞掉工作跳槽了。
+虽说辞职了，但是至少有一个月半的工资是拿不到，主要是劳动合同没有给我，无法证明在原来的公司上过班，估计申请劳动仲裁有点小困难啊。工资这么多没要到，除了心疼还能咋办？当做买个教训吧！
+辞职在家一段时间后，去了四家公司，月底很荣幸进入相对理想的公司。
+目前在这家公司工作环境不错，至于做的项目压力也不大。至于宿舍就住在公司提供的宿舍，嗯，50块钱一个月的那种，和大学宿舍差不多，还是可以的。
+生活因为上班的生活环境换到了城南，一下子又回到那种莫名失落的心态，好似城南一直
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/meizu16-plus-unpacking-note.html#more" rel="contents">
+            <a class="btn" href="/emd-vol-1704.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -713,7 +1103,7 @@ var  vm  =  new Vue({
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/custom-call-codemirror-editor.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/scp-notes.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -732,8 +1122,8 @@ var  vm  =  new Vue({
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/custom-call-codemirror-editor.html" itemprop="url">
-                  自定义调用CodeMirror编辑器
+                <a class="post-title-link" href="/scp-notes.html" itemprop="url">
+                  SCP命令使用
                 </a>
               
             
@@ -759,7 +1149,7 @@ var  vm  =  new Vue({
                 
               
 
-              <time title="创建时间：2018-08-03 13:46:51" itemprop="dateCreated datePublished" datetime="2018-08-03T13:46:51+09:00">2018-08-03</time>
+              <time title="创建时间：2017-04-13 17:35:51" itemprop="dateCreated datePublished" datetime="2017-04-13T17:35:51+09:00">2017-04-13</time>
             
 
             
@@ -808,8 +1198,8 @@ var  vm  =  new Vue({
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/custom-call-codemirror-editor.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/custom-call-codemirror-editor.html" itemprop="commentCount"></span>
+                <a href="/scp-notes.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/scp-notes.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -839,12 +1229,15 @@ var  vm  =  new Vue({
       
         
           
-          前言在制作WP Editor.md插件中，我有个选项是配置JSON数据的表单框，如果直接在Textarea表单显示可能不容易看出来错误问题。所以一直在寻找更好的方法，大概前段时间看到WP更新支持CodeMirror外部调用，搜索相关资料甚是稀缺，相比文档还未完善，那今日花点时间去解决它吧。
-踩坑在老早之前有个用户发布帖子利用CodeMirror编辑主题或者插件内容得到广大好评以及支持，所以WP官方采纳他的方法。大概在WP 4.9.5版本之后，CodeMirror对外开发的Api逐渐完善，正好利用它完善选项框的显示。 其实引入CodeMirror非常简单，第一就是引入CodeMirror的资源，
+          简介scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。
+使用方式&lt;code class=&quot;bash&quot;&gt;meow:monitor Jaxson$ scp -help
+scp: illegal option -- h
+usage: scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
+ 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/custom-call-codemirror-editor.html#more" rel="contents">
+            <a class="btn" href="/scp-notes.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -900,7 +1293,7 @@ var  vm  =  new Vue({
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/build-the-first-golang-web-server.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/twenty-two.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -919,8 +1312,8 @@ var  vm  =  new Vue({
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/build-the-first-golang-web-server.html" itemprop="url">
-                  搭建第一个Golang Web服务器
+                <a class="post-title-link" href="/twenty-two.html" itemprop="url">
+                  22
                 </a>
               
             
@@ -946,7 +1339,201 @@ var  vm  =  new Vue({
                 
               
 
-              <time title="创建时间：2018-07-20 13:58:55" itemprop="dateCreated datePublished" datetime="2018-07-20T13:58:55+09:00">2018-07-20</time>
+              <time title="创建时间：2017-04-05 19:21:18" itemprop="dateCreated datePublished" datetime="2017-04-05T19:21:18+09:00">2017-04-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/生活杂记/" itemprop="url" rel="index"><span itemprop="name">生活杂记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/twenty-two.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/twenty-two.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+永远年轻，永远热泪盈眶！
+
+依然如前的春日早晨，依然如前的清明时节雨纷纷——世界对我没有不同，但今天我对世界有特别，只因我的生日。
+随着年龄的增长，对自己的生日越来越淡漠了，可今天似乎不一样，突然格外关注，心里祈祷今天如平常过去，不想打乱也不敢打乱，唯一能做到的，只能悄悄腐朽自己。
+今天，一年中唯一属于自己的节日，空间，博客留言，甚至邮件里都送来满满的祝福，对我来说，心里暖暖的！虽说大部分来自朋友们的祝福，但依然有点失落，不说也罢！
+抚摸胸脯，仰望星空，心里默念：王瑾，祝你生日快乐！
+不悲过去，不贪未来，心系当下，由此安详！
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/twenty-two.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/image-into-encoding.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/image-into-encoding.html" itemprop="url">
+                  在前端将image转成base64编码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-02 17:26:21" itemprop="dateCreated datePublished" datetime="2017-04-02T17:26:21+09:00">2017-04-02</time>
             
 
             
@@ -995,8 +1582,8 @@ var  vm  =  new Vue({
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/build-the-first-golang-web-server.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/build-the-first-golang-web-server.html" itemprop="commentCount"></span>
+                <a href="/image-into-encoding.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/image-into-encoding.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1026,23 +1613,23 @@ var  vm  =  new Vue({
       
         
           
-          前言Go语言里面提供了一个完善的net/http包，通过http包可以很方便的就搭建起来一个可以运行的Web服务。同时使用这个包能很简单地对Web的路由，静态文件，模版，cookie等数据进行设置和操作。
-建立http包建立Web服务器
-package main
+          前言业务需要，需要把图片转换成base64数据。 要实现这个功能，要使用canvas来做，Canvas里面提供了一个toDataURL的接口，可以用这个接口获得图片的base64 所以思路是：
 
-import (
-    &quot;net/http&quot;
-    &quot;fmt&quot;
-    &quot;strings&quot;
-    &quot;log&quot;
-)
+获得canvas对象
+加载图片到canvas对象里面
+从canvas对象中获取base64数据
 
-func sayhelloName(w http.ResponseWriter, r *http.Request)  {
-    r
+实例&lt;html lang=&quot;zh-CN&quot;&gt;
+
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+
+
+&lt;script type=&quot;text/javasc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/build-the-first-golang-web-server.html#more" rel="contents">
+            <a class="btn" href="/image-into-encoding.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1098,7 +1685,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/create-theme-options.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/android-nova-launcher-pro.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -1117,8 +1704,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/create-theme-options.html" itemprop="url">
-                  使用面向对象编程创建主题​​选项
+                <a class="post-title-link" href="/android-nova-launcher-pro.html" itemprop="url">
+                  [Android] Nova启动器 解锁完整功能版
                 </a>
               
             
@@ -1144,7 +1731,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 
               
 
-              <time title="创建时间：2018-06-21 15:21:09" itemprop="dateCreated datePublished" datetime="2018-06-21T15:21:09+09:00">2018-06-21</time>
+              <time title="创建时间：2017-04-02 16:56:19" itemprop="dateCreated datePublished" datetime="2017-04-02T16:56:19+09:00">2017-04-02</time>
             
 
             
@@ -1193,8 +1780,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/create-theme-options.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/create-theme-options.html" itemprop="commentCount"></span>
+                <a href="/android-nova-launcher-pro.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/android-nova-launcher-pro.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1224,19 +1811,13 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
       
         
           
-          前言由于新开插件坑，需要选项支持，故写了这篇文章，还是以官网默认主题为主(twentysixteen)。 由于篇幅过长的问题，细节上的不再描述，直接贴上代码分享吧。
-教程在主题目录下新建settings文件夹目录，分别新建settings.css settings.js settings.php文件： settings.css：
-/*
-1. Theme Settings General
-1.1 Checkbox
-1.2 Input Field
-1.3 Image Field
-*/
-/*************** 1. Theme Settings General **************
+          简介Nova Launcher是一款第三方高性能，可自定义控制桌面。
+Google Play地址：https://play.google.com/store/apps/details?id=com.teslacoilsw.launcher&amp;hl=zh-CN
+The highly customizable, performance driven, home screenAccept no substitutes! Nova Launcher is the top launcher for modern Android, embracing full Material Design thr
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/create-theme-options.html#more" rel="contents">
+            <a class="btn" href="/android-nova-launcher-pro.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1292,7 +1873,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/spring-boot-builds-a-rest-web-service.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/android-greenify-pro.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -1311,8 +1892,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/spring-boot-builds-a-rest-web-service.html" itemprop="url">
-                  Spring Boot 构建一个REST Web服务
+                <a class="post-title-link" href="/android-greenify-pro.html" itemprop="url">
+                  [Android] 绿色守护 修正专业版
                 </a>
               
             
@@ -1338,7 +1919,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 
               
 
-              <time title="创建时间：2018-06-15 22:29:55" itemprop="dateCreated datePublished" datetime="2018-06-15T22:29:55+09:00">2018-06-15</time>
+              <time title="创建时间：2017-03-25 13:35:53" itemprop="dateCreated datePublished" datetime="2017-03-25T13:35:53+09:00">2017-03-25</time>
             
 
             
@@ -1372,7 +1953,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/奇淫技巧/" itemprop="url" rel="index"><span itemprop="name">奇淫技巧</span></a></span>
 
                 
                 
@@ -1387,8 +1968,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/spring-boot-builds-a-rest-web-service.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/spring-boot-builds-a-rest-web-service.html" itemprop="commentCount"></span>
+                <a href="/android-greenify-pro.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/android-greenify-pro.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1418,15 +1999,14 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
       
         
           
-          前言使用Spring Boot做一个实例，在请求一个地址http://localhost:8080/greeting响应的数据是JSON数据如下：
-{&quot;id&quot;:1,&quot;content&quot;:&quot;Hello, World!&quot;}
-并且URL有一个参数name，例如：http://localhost:8080/greeting?name=User则会动态显示响应返回的数据：
-{&quot;id&quot;:1,&quot;content&quot;:&quot;Hello, User!&quot;}
-实例编写表示类复制之前编写的项目，pom.xml
+          简介再也不用嫉妒朋友的iPhone手机，即使安装大量应用，也不会变得迟缓和耗电。有了『绿色守护』，你的Android设备也能永葆第一天拥有它时的爽滑持久！
+『知乎』上用户认同度最高的Android省电软件：http://www.zhihu.com/question/21007772
+『绿色守护』帮助你甄别那些对系统全局性能和耗电量有不良影响的应用程序，并通过独特的『绿色化』技术，阻止它们消耗您的电池电量，占用您的宝贵内存。经过『绿色化』工艺处理的应用，在您没有主动启动它们的时候，无法『偷偷』运行，而在您正常启动它们时仍然拥有完整的功能和体验，正如iPhone应用那样！
+重要说明：『绿色化』一个
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/spring-boot-builds-a-rest-web-service.html#more" rel="contents">
+            <a class="btn" href="/android-greenify-pro.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1482,7 +2062,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/getting-started-with-spring-boot.html">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/sd-maid-pro.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="淮城一只猫">
@@ -1501,8 +2081,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/getting-started-with-spring-boot.html" itemprop="url">
-                  Spring Boot 入门
+                <a class="post-title-link" href="/sd-maid-pro.html" itemprop="url">
+                  [Android] SD女佣 英简繁 精简优化 专业版
                 </a>
               
             
@@ -1528,7 +2108,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 
               
 
-              <time title="创建时间：2018-06-13 23:02:50" itemprop="dateCreated datePublished" datetime="2018-06-13T23:02:50+09:00">2018-06-13</time>
+              <time title="创建时间：2017-03-24 22:30:39" itemprop="dateCreated datePublished" datetime="2017-03-24T22:30:39+09:00">2017-03-24</time>
             
 
             
@@ -1562,7 +2142,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/奇淫技巧/" itemprop="url" rel="index"><span itemprop="name">奇淫技巧</span></a></span>
 
                 
                 
@@ -1577,8 +2157,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/getting-started-with-spring-boot.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/getting-started-with-spring-boot.html" itemprop="commentCount"></span>
+                <a href="/sd-maid-pro.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/sd-maid-pro.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1608,611 +2188,14 @@ func sayhelloName(w http.ResponseWriter, r *http.Request)  {
       
         
           
-          前言记得当初放弃Java主要原因是几个框架整合，花了大半天去编写配置文件，编写任务后运行依然有报错，甚是心累，故转前端开发了。最近周围很多Java朋友说微服务开发很爽，各种简单，自己本地体验下，的确很简单。所以对此抱有很大的学习兴趣。
-简介Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。用我的话来理解，就是Spring Boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了所有的jar包，Spring Boot整合了所有
+          前言好久没折腾Android的作品了，今天在家闲得无聊折腾了下。
+介绍SD Maid 将帮助您保持设备的干净整洁！它提供了一个管理应用程序和文件的工具集。
+没有完美的人，同样没有完美的 Android。应用程序被卸载后，有时会留下不需要的数据。系统经常会生成您并不需要的日志、崩溃报告以及调试文件。无用的文件、不明所以的目录，无时无刻不在占用您的存储空间。但是这就到此为止了…… 让 SD Maid 来帮你！
+SD Maids 工具包括:– 资源管理器: 一个正式的文件管理器。– 搜索工具箱: 通过名称或内容帮助您查找文件。– 应用控制器: 允许您管理安装的用户和系统应用程序。– 冗余搜寻器: 删
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/getting-started-with-spring-boot.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/java-basics-collection-list-map-and-set.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="淮城一只猫">
-      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="淮城一只猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/java-basics-collection-list-map-and-set.html" itemprop="url">
-                  Java基础回顾—集合List、Map和Set
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-12 13:53:15" itemprop="dateCreated datePublished" datetime="2018-06-12T13:53:15+09:00">2018-06-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java-basics-collection-list-map-and-set.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-basics-collection-list-map-and-set.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          集合我们在进行Java程序开发的时候，除了最常用的基础数据类型和String对象外，也经常会用到集合相关类。 集合类存放的都是对象的引用，而非对象本身，出于表达上的便利，我们称集合中的对象就是指集合中对象的引用。 集合类型主要有3种：List、Set、和Map。 它们之间的关系可用下图来表示:  注:Map不是collections的子类，但是它们完全整合在集合中了！
-List
-List 接口是继承于 Collection接口并定义 一个允许重复项的有序集合。该接口不但能够对列表的一部分进行处理，还添加了面向位置的操作。
-
-一般来说，我们在单线程中主要使用的List是ArrayList和Lin
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java-basics-collection-list-map-and-set.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/java-basics-inheritance-and-polymorphism.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="淮城一只猫">
-      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="淮城一只猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/java-basics-inheritance-and-polymorphism.html" itemprop="url">
-                  Java基础回顾—封装、继承和多态
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-12 13:51:21" itemprop="dateCreated datePublished" datetime="2018-06-12T13:51:21+09:00">2018-06-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java-basics-inheritance-and-polymorphism.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-basics-inheritance-and-polymorphism.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          封装
-在面向对象程式设计方法中，封装是指一种将抽象性函式接口的实现细节部份包装、隐藏起来的方法。 封装可以被认为是一个保护屏障，防止该类的代码和数据被外部类定义的代码随机访问。要访问该类的代码和数据，必须通过严格的接口控制。
-
-
-封装最主要的功能在于我们能修改自己的实现代码，而不用修改那些调用我们代码的程序片段。适当的封装可以让程式码更容易理解与维护，也加强了程式码的安全性。
-
-简单的来说，就是将Java中的经常用到的代码进行封装起来，形成一个方法。比如，我们常用的实体类，使用private修饰变量，用于保护数据;对外提供getter和setter方法,用于调用。这就是一种典型的封装。
-pub
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java-basics-inheritance-and-polymorphism.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/java-basic-modifiers-and-strings.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="淮城一只猫">
-      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="淮城一只猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/java-basic-modifiers-and-strings.html" itemprop="url">
-                  Java基础回顾—修饰符和String
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-12 11:29:32" itemprop="dateCreated datePublished" datetime="2018-06-12T11:29:32+09:00">2018-06-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java-basic-modifiers-and-strings.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-basic-modifiers-and-strings.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          修饰符Java修饰符主要分为俩类：
-
-访问修饰符：private、default、protected、public
-非访问修饰符：static、final、abstract、synchronized
-
-访问修饰符权限修饰符
-当前类
-同一包类
-子类
-其他包
-public
-Y
-Y
-Y
-Y
-protected
-Y
-Y
-Y
-N
-default
-Y
-Y
-N
-N
-private
-Y
-N
-N
-N
-private被private修饰的变量、方法仅限在本类中使用 所以private是最严的的访问级别，主要用于隐藏类的一些细节实现和保护类的数据。 例如pojo类就是使用private修饰变量，对外提供setter
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java-basic-modifiers-and-strings.html#more" rel="contents">
+            <a class="btn" href="/sd-maid-pro.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2257,7 +2240,7 @@ private被private修饰的变量、方法仅限在本类中使用 所以private�
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 

@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言之前一直用那个Sha#dow#socks（以下简称SS），虽然SS一直更新，稳定，但长时间使用你会发现很多缺点：  作为前端开发者，需要使用 NPM，但是 NPM packages 基本都开源在 GitHub，而 GitHub 的访问速度很慢（并没有被墙），而 GitHub 的静态资源都存储在亚马逊的 AWS 云服务器（被墙），所以下载 GitHub 上的开源代码很慢、几乎无法下载 GitHu">
+<meta name="keywords" content="全栈人生,全栈笔记,全栈工程师,全栈,淮城一只猫,淮城,IT博客,个人博客,王瑾,盒子丶先生,WEB平台,BOX-ROM,BoxMod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正确的科学上网姿势">
+<meta property="og:url" content="https://jaxsonwang.github.io/fuck-the-gfw.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="前言之前一直用那个Sha#dow#socks（以下简称SS），虽然SS一直更新，稳定，但长时间使用你会发现很多缺点：  作为前端开发者，需要使用 NPM，但是 NPM packages 基本都开源在 GitHub，而 GitHub 的访问速度很慢（并没有被墙），而 GitHub 的静态资源都存储在亚马逊的 AWS 云服务器（被墙），所以下载 GitHub 上的开源代码很慢、几乎无法下载 GitHu">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.loyalsoldier.me/content/images/2016/09/develop-config-1.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正确的科学上网姿势">
+<meta name="twitter:description" content="前言之前一直用那个Sha#dow#socks（以下简称SS），虽然SS一直更新，稳定，但长时间使用你会发现很多缺点：  作为前端开发者，需要使用 NPM，但是 NPM packages 基本都开源在 GitHub，而 GitHub 的访问速度很慢（并没有被墙），而 GitHub 的静态资源都存储在亚马逊的 AWS 云服务器（被墙），所以下载 GitHub 上的开源代码很慢、几乎无法下载 GitHu">
+<meta name="twitter:image" content="https://www.loyalsoldier.me/content/images/2016/09/develop-config-1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/fuck-the-gfw.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>正确的科学上网姿势 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/fuck-the-gfw.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">正确的科学上网姿势
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-01-04 21:55:29" itemprop="dateCreated datePublished" datetime="2017-01-04T21:55:29+09:00">2017-01-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/奇淫技巧/" itemprop="url" rel="index"><span itemprop="name">奇淫技巧</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/fuck-the-gfw.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/fuck-the-gfw.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前一直用那个Sha#dow#socks（以下简称SS），虽然SS一直更新，稳定，但长时间使用你会发现很多缺点：</p>
+<ul>
+<li>作为前端开发者，需要使用 NPM，但是 NPM packages 基本都开源在 GitHub，而 GitHub 的访问速度很慢（并没有被墙），而 GitHub 的静态资源都存储在亚马逊的 AWS 云服务器（被墙），所以下载 GitHub 上的开源代码很慢、几乎无法下载 GitHub 上的代码压缩包或者项目编译后的版本包；</li>
+<li>作为前端开发者，CNPM v4 在 Windows 上的兼容性不好，时不时会遇到一些莫名其妙的问题；</li>
+<li>大部分国外网站的访问速度都很慢，因为没有在中国大陆使用 CDN（内容分发网络），或者也有可能是 GFW 的原因。</li>
+</ul>
+<p>所有这些问题，归根结底，在于 SS 使用的是黑名单 PAC。</p>
+<h3 id="黑名单和白名单"><a href="#黑名单和白名单" class="headerlink" title="黑名单和白名单"></a>黑名单和白名单</h3><p>所谓黑名单，是指将“需要科学上网”的网址（域名）都记录在一个文件里，这个文件就是一份黑名单。科学上网软件通过判断将要访问的网址是否在黑名单里。该网站在黑名单里的话，就通过科学上网来访问该网址；不在的话，就不通过科学上网，直接连接。而白名单则相反。</p>
+<blockquote>
+<p>可见，黑名单模式最大的弊端在于：要一直维护这份黑名单，否则哪天某个网站被墙了，而黑名单没有及时更新，就无法访问该网站了。</p>
+</blockquote>
+<h3 id="MEOW-的杀手锏"><a href="#MEOW-的杀手锏" class="headerlink" title="MEOW 的杀手锏"></a>MEOW 的杀手锏</h3><p>除了 SS，还有一个名为 COW 的项目也是大名鼎鼎，为什么也不用 COW 呢？其实 MEOW 是 COW 的一个 Fork 分支，它在 COW 的基础上，提供了智能分流的功能。 所谓智能分流，就是 MEOW 会自动判断哪些网址是中国大陆的网址，哪些是国外网址。对于大陆的网址，将会直接连接，不通过 MEOW 和 SS 服务；对于国外网址，通过 MEOW 和 SS 服务。</p>
+<blockquote>
+<p>所以，MEOW 最大的好处是能节省科学上网服务的流量的同时，为访问国外网站“加速”。 个人认为，能通过判断 IP 地址所在地来决定是否使用智能分流，才是一个科学上网软件优秀与否的评判标准。MEOW 做到了，并为我节省了很多宝贵时间。</p>
+</blockquote>
+<h3 id="科普：为何智能分流能加速访问国外网站？"><a href="#科普：为何智能分流能加速访问国外网站？" class="headerlink" title="科普：为何智能分流能加速访问国外网站？"></a>科普：为何智能分流能加速访问国外网站？</h3><p>首先，为了能实现科学上网，科学上网服务的服务器都部署在中国大陆以外的各个地区（除非你是出国党想要翻回中国大陆，下文会提及），有香港、日本、新加坡、美国等……这些服务器扮演的角色是：我们的电子设备与目标网站的中间者。</p>
+<ul>
+<li>假如我们访问国内的网站，需要先经过位于国外的科学上网的服务器，再来到国内的目标网站，相当于兜了一个大圈，肯定很慢；</li>
+<li>假如我们要访问国外的网站（由于 GFW 的原因，本来很慢；或者没有使用 CDN），先经过科学上网服务的服务器（中间者），让不在 GFW 管辖范围内的这些中间者服务器将目标网站的内容快速地加载出来，然后直接传给我们的电子设备。这个过程虽然增加了中间者的角色，连接目标网站的时间要长一点，但是访问的速度加快了，整体而言也就是访问国外网站“加速”了。</li>
+</ul>
+<h3 id="MEOW-配合-SS-服务的使用方法"><a href="#MEOW-配合-SS-服务的使用方法" class="headerlink" title="MEOW 配合 SS 服务的使用方法"></a>MEOW 配合 SS 服务的使用方法</h3><p>GitHub 的项目地址：<a href="https://github.com/renzhn/MEOW" target="_blank" rel="noopener">https://github.com/renzhn/MEOW</a> 各大系统平台下载地址：<a href="https://github.com/renzhn/MEOW/tree/gh-pages/dist/" target="_blank" rel="noopener">https://github.com/renzhn/MEOW/tree/gh-pages/dist/</a></p>
+<blockquote>
+<p>下面以Windows平台为准：</p>
+</blockquote>
+<p>打开下载好的压缩包，可以看到包含这么几个文件：</p>
+<ul>
+<li><code>rc.txt</code> 和 <code>rc-full.txt</code> 都是 MEOW 的配置文件（以 <code>rc.txt</code> 命名的文件，才是真正起作用的配置文件。<code>rc-full.txt</code> 是带有详细描述的备份配置文件，用于理解各项配置的含义，需要重命名为 <code>rc.txt</code>，该配置文件才能起作用。）；</li>
+<li><code>MEOW.exe</code> 是运行文件，双击它即可运行 MEOW；</li>
+<li><code>direct.txt</code> 是不使用 MEOW 的网址列表；</li>
+<li><code>proxy.txt</code> 是使用 MEOW 的网址列表；</li>
+<li><code>reject.txt</code> 是拒绝访问的网址列表，包含主流的用户数据追踪网站（例如友盟）、手机广告投放网站。</li>
+</ul>
+<blockquote>
+<p>放在 reject.txt 里的网站都是无法访问的。如果平时需要使用友盟（umeng.com）的服务，请务必把 reject.txt 里的 umeng.com 和 umeng.co 删掉，保存，重新载入 MEOW。</p>
+</blockquote>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><ol>
+<li>删掉 <code>rc.txt</code> 文件；</li>
+<li>将 <code>rc-full.txt</code> 文件重命名为 <code>rc.txt</code>（也就是说，这里使用带有详细使用说明的 <code>rc-full.txt</code> 文件的内容作为 MEOW 的配置）；</li>
+<li>用记事本或代码编辑器打开 <code>rc.txt</code> 文件。将下图中这几行的井号（#）去掉，使其生效： 1. <code>listen = http://0.0.0.0:4411</code> 意思是在本局域网内（同一个路由器或 WiFi 所在的网络）提供一个端口号为 4411 的 HTTP 代理；</li>
+<li><code>judgeByIP = true</code> 就是通过 IP 地址判断是否直连，这个配置开启了智能分流功能；</li>
+<li><code>loadBalance = latency</code> 是用于配合下面的 SS 科学上网服务的。latency 意为优先选择连接延迟最低的 SS 二级代理。</li>
+<li>然后在指定二级代理下面的 proxy 设置：<code>proxy = ss://加密方式:登录密码@节点服务器地址:服务器端口号</code></li>
+<li>双击运行 <code>MEOW.exe</code>。这时任务栏就会出现 MEOW 的图标。右键单击图标，选择“设置 IE 代理” – “ <code>http://127.0.0.1:4411/pac</code> ”。</li>
+</ol>
+<blockquote>
+<p>只要 MEOW 配置文件中的代理服务器数量大于 1，上面设置的 loadBalance = latency这句配置就会起作用。此时 MEOW 会隔一段时间检查一下配置文件中所有服务器的连接情况，<strong>自动选择延时最短的服务器进行连接</strong>。</p>
+</blockquote>
+<h3 id="macOS-和-Linux-用户"><a href="#macOS-和-Linux-用户" class="headerlink" title="macOS 和 Linux 用户"></a>macOS 和 Linux 用户</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p>macOS 和 Linux 系统，请使用 Terminal 终端工具或 Bash 命令行工具。在用户主目录下，执行下面命令：<code>curl -L git.io/meowproxy | bash</code> macOS 用户请使用系统自带的搜索功能，输入“Terminal”即可找到 Terminal 终端工具，输入上面的命令后，按回车，即可执行该命令。 可以输入 <code>cd ~</code>，回车，回到用户主目录。 下载 MEOW 期间，会问是否要将 MEOW 添加到开机自启动，输入 Y（是），回车。 设置 完成后，MEOW 可执行文件就会在用户主目录下，同时还有一个 <code>.meow</code> 隐藏文件夹，里面的文件与 <code>Windows</code> 版的一一对应：</p>
+<ul>
+<li>direct</li>
+<li>proxy</li>
+<li>reject</li>
+<li>rc</li>
+<li>rc-full 配置文件 <code>rc</code> 的内容跟 <code>Windows</code> 版本的也完全一致。</li>
+</ul>
+<blockquote>
+<p>由于 <code>.meow</code> 文件夹是隐藏的，只有在 <code>Terminal</code> 或者 <code>Bash</code> 命令行工具下通过 ls 命令才能看到。编辑 rc 配置文件可以这样：<code>vi ~/.meow/rc</code> 编辑 rc 配置文件，按字母 <code>i</code> 进入 vi 编辑器的编辑模式。配置语句参考 Windows 版配置文件。编辑完成后，按<code>:wq</code>保存退出。</p>
+</blockquote>
+<ol>
+<li>编辑完配置文件后，执行命令 <code>./MEOW &amp;</code> 在后台静默启动 MEOW；</li>
+<li>此时进入 macOS 的“网络偏好设置”，点右下角的“高级…”，在弹出的页面中选中“代理”标签页，勾选“自动代理配置”；</li>
+<li>右边 “URL” 中填写 <code>http://0.0.0.0:4411/pac</code></li>
+<li>此时可以打开谷歌首页 <code>http://www.google.com</code>，测试是否能访问成功；</li>
+</ol>
+<h3 id="命令行代理配置及开发环境配置"><a href="#命令行代理配置及开发环境配置" class="headerlink" title="命令行代理配置及开发环境配置"></a>命令行代理配置及开发环境配置</h3><blockquote>
+<p>命令行代理配置</p>
+</blockquote>
+<p>在命令行提示符或者终端中也能科学上网如下设置： <a href="https://www.loyalsoldier.me/content/images/2016/09/develop-config-1.png" target="_blank" rel="noopener"><img src="https://www.loyalsoldier.me/content/images/2016/09/develop-config-1.png" alt></a></p>
+<ul>
+<li><p>Windows 用户打开系统环境变量，点击“新建”，依次添加以下两条环境变量，重启电脑后生效： <code>`</code>bash HTTP_PROXY <a href="http://127.0.0.1:4411" target="_blank" rel="noopener">http://127.0.0.1:4411</a><br>HTTPS_PROXY <a href="http://127.0.0.1:4411" target="_blank" rel="noopener">http://127.0.0.1:4411</a>`</p>
+<ul>
+<li>macOS 和 Linux 用户，在终端或命令行中依次执行以下命令，重新加载命令行或终端后生效：<br><code>`</code>bash<br>vi ~/.bash_profile（使用 bash 的用户请执行这条命令，默认是 bash）<br>vi ~/.zsh_profile （使用 zsh 的用户请执行这条命令）</li>
+</ul>
+</li>
+</ul>
+<p>在文件最后加入以下两句命令（保存，重启终端后生效）：</p>
+<pre><code>export http_proxy=&quot;http://127.0.0.1:4411&quot;
+export https_proxy=&quot;http://127.0.0.1:4411&quot;
+</code></pre><p>此时，除了 ping 等 Windows 系统自带命令，其余一切 <code>CLI</code> 命令均使用了 MEOW 的 HTTP 代理，从而实现智能分流，加速下载。此方法只对当前系统用户有效，其余用户需要按照步骤重新设置。</p>
+<h3 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h3><p>MEOW 启动之后，就在本局域网的 <code>4411</code> 端口上开启了一个 HTTP 代理。所有支持 HTTP 代理的开发软件都可以配置 IP 地址 <code>0.0.0.0</code> 和端口 <code>4411</code> 使用 HTTP 代理，从而使用 MEOW 的智能分流功能加速下载。</p>
+<ul>
+<li>对于前端 NPM ： - 因为会智能分流，配合淘宝的 CNPM 镜像才是最快的：npm config set registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></li>
+<li>让 NPM Packages 的安装过程变得可视化：npm config set loglevel=http</li>
+<li>安装失败后，最好先清除 NPM 的缓存文件，强制删除 node_modules 文件夹，再重新安装：npm cache clean、rm -rf node_modules</li>
+<li>最重要：Windows 下编译 Node 的 C++ 模块终于不需要安装 Visual Studio 这个大块头了：npm install –global –production windows-build-tools；这个项目的地址：windows-build-tools</li>
+<li>上面这个命令跑完之后，可以尝试安装 gulp-image 这个 Package 测试一下是否成功：npm install gulp-image</li>
+<li>如果你使用 macOS，可以尝试使用 cnpm v4：npm install -g cnpm。cnpm v4 采用跟 npm 完全不一样的实现方式，超快。但在 Windows 下暂时有莫名其妙的坑，请勿在 Windows 平台下使用。</li>
+<li>也可以尝试使用 Facebook 开源的 Yarn 包管理器，以取代 npm</li>
+<li>对于 PHP 后端： 请使用国内的 Composer 全量镜像：composer config -g repo.packagist composer <a href="https://packagist.phpcomposer.com" target="_blank" rel="noopener">https://packagist.phpcomposer.com</a></li>
+<li>对于 Ruby 后端： 请使用国内的 Ruby Gem 全量镜像：gem sources –add <a href="https://gems.ruby-china.org/" target="_blank" rel="noopener">https://gems.ruby-china.org/</a> –remove <a href="https://rubygems.org/" target="_blank" rel="noopener">https://rubygems.org/</a></li>
+<li>对于 Android 开发者： 给 Android Studio 设置 HTTP 代理：<a href="http://127.0.0.1:4411" target="_blank" rel="noopener">http://127.0.0.1:4411</a></li>
+<li>对于后端运维： - Docker for Windows 和 Docker for Mac：可在 Docker Daemon 可视化界面下配置 HTTP 代理：<a href="http://127.0.0.1:4411" target="_blank" rel="noopener">http://127.0.0.1:4411</a></li>
+<li>Docker for Linux：可参照阿里云 Docker 镜像仓库加速器指南进行配置</li>
+<li>Linux 运维：可使用 MEOW Linux 版本，配合 SS 服务实现生产服务器科学上网</li>
+<li>通用用法：反正可以设置 HTTP 代理的开发软件，都可以尝试设置 HTTP 代理以实现下载加速：<a href="http://127.0.0.1:4411" target="_blank" rel="noopener">http://127.0.0.1:4411</a></li>
+</ul>
+<blockquote>
+<p>这两种设置方法相当于为命令行交互界面（CLI）下的所有命令都设置了代理。以后运行命令前，必须保证 MEOW 代理正常运行，需要网络支持的命令才能正常执行。 正如不翻阅英文开发文档一样，不用科学上网的开发者月薪永远不超过 10K ：）</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/fuck-the-gfw.html" title="正确的科学上网姿势">https://jaxsonwang.github.io/fuck-the-gfw.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016-summed-and-2017-plan.html" rel="next" title="2016年总结以新年计划">
+                <i class="fa fa-chevron-left"></i> 2016年总结以新年计划
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/javascript-traverses-json-data.html" rel="prev" title="JavaScript遍历JSON数据">
+                JavaScript遍历JSON数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#黑名单和白名单"><span class="nav-number">2.</span> <span class="nav-text">黑名单和白名单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEOW-的杀手锏"><span class="nav-number">3.</span> <span class="nav-text">MEOW 的杀手锏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#科普：为何智能分流能加速访问国外网站？"><span class="nav-number">4.</span> <span class="nav-text">科普：为何智能分流能加速访问国外网站？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEOW-配合-SS-服务的使用方法"><span class="nav-number">5.</span> <span class="nav-text">MEOW 配合 SS 服务的使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置"><span class="nav-number">6.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS-和-Linux-用户"><span class="nav-number">7.</span> <span class="nav-text">macOS 和 Linux 用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">7.1.</span> <span class="nav-text">下载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行代理配置及开发环境配置"><span class="nav-number">8.</span> <span class="nav-text">命令行代理配置及开发环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境配置"><span class="nav-number">9.</span> <span class="nav-text">开发环境配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

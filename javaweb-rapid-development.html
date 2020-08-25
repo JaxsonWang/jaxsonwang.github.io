@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言使用Spring-Boot快速搭建一个Web应用，并且采用Mybatis作为的ORM框架。为了提升性能，将Redis作为Mybatis的二级缓存。为了测试的代码，编写了单元测试，并且用H2内存数据库来生成的测试数据。 Spring-Boot新建项目通过Intellij的Spring Initializer，新建一个Spring-Boot工程变得十分简单。首先在Intellij中选择New一个P">
+<meta name="keywords" content="Java,Java Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb快速开发">
+<meta property="og:url" content="https://jaxsonwang.github.io/javaweb-rapid-development.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="前言使用Spring-Boot快速搭建一个Web应用，并且采用Mybatis作为的ORM框架。为了提升性能，将Redis作为Mybatis的二级缓存。为了测试的代码，编写了单元测试，并且用H2内存数据库来生成的测试数据。 Spring-Boot新建项目通过Intellij的Spring Initializer，新建一个Spring-Boot工程变得十分简单。首先在Intellij中选择New一个P">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2017/06/idea-spring-boot.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaWeb快速开发">
+<meta name="twitter:description" content="前言使用Spring-Boot快速搭建一个Web应用，并且采用Mybatis作为的ORM框架。为了提升性能，将Redis作为Mybatis的二级缓存。为了测试的代码，编写了单元测试，并且用H2内存数据库来生成的测试数据。 Spring-Boot新建项目通过Intellij的Spring Initializer，新建一个Spring-Boot工程变得十分简单。首先在Intellij中选择New一个P">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2017/06/idea-spring-boot.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/javaweb-rapid-development.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaWeb快速开发 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/javaweb-rapid-development.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaWeb快速开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-06-16 21:24:28" itemprop="dateCreated datePublished" datetime="2017-06-16T21:24:28+09:00">2017-06-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/javaweb-rapid-development.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/javaweb-rapid-development.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>使用Spring-Boot快速搭建一个Web应用，并且采用Mybatis作为的ORM框架。为了提升性能，将Redis作为Mybatis的二级缓存。为了测试的代码，编写了单元测试，并且用H2内存数据库来生成的测试数据。</p>
+<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring-Boot"></a>Spring-Boot</h2><h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p>通过Intellij的Spring Initializer，新建一个Spring-Boot工程变得十分简单。首先在Intellij中选择New一个Projec，然后在选择依赖的界面，勾选Web、Mybatis、Redis、Mysql、H2：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2017/06/idea-spring-boot.png" alt></p>
+<p>Spring Initializer已经帮自动生成了一个启动类——<code>SpringBootMybatisWithRedisApplication</code>。该类的代码十分简单：</p>
+<pre><code>package com.iiong;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+</code></pre><p>@SpringBootApplication注解表示启用Spring Boot的自动配置特性。好了，至此的项目骨架已经搭建成功，感兴趣的读者可以通过Intellij启动看看效果。</p>
+<h3 id="新建API接口"><a href="#新建API接口" class="headerlink" title="新建API接口"></a>新建API接口</h3><p>接下来，要编写Web API。假设的Web工程负责处理商家的产品（Product）。需要提供根据product id返回product信息的get接口和更新product信息的put接口。首先定义Product类，该类包括产品id，产品名称name以及价格price：</p>
+<pre><code>public class Product implements Serializable {
+    private static final long serialVersionUID = 1435515995276255188L;
+    private long id;
+    private String name;
+    private long price;
+    // getters setters
+}
+</code></pre><p>然后需要定义Controller类。由于Spring Boot内部使用Spring MVC作为它的Web组件，所以可以通过注解的方式快速开发的接口类：</p>
+<pre><code>@RestController
+@RequestMapping(&quot;/product&quot;)
+public class ProductController {
+    @GetMapping(&quot;/{id}&quot;)
+    public Product getProductInfo(
+            @PathVariable(&quot;id&quot;)
+                    Long productId) {
+        // TODO
+        return null;
+    }
+    @PutMapping(&quot;/{id}&quot;)
+    public Product updateProductInfo(
+            @PathVariable(&quot;id&quot;)
+                    Long productId,
+            @RequestBody
+                    Product newProduct) {
+        // TODO
+        return null;
+    }
+}
+</code></pre><p>简单介绍一下上述代码中所用到的注解的作用：</p>
+<ul>
+<li><code>@RestController</code>：表示该类为Controller，并且提供Rest接口，即所有接口的值以Json格式返回。该注解其实是<code>@Controller</code>和<code>@ResponseBody</code>的组合注解，便于开发Rest API。</li>
+<li><code>@RequestMapping</code>、<code>@GetMapping</code>、<code>@PutMapping</code>：表示接口的URL地址。标注在类上的<code>@RequestMapping</code>注解表示该类下的所有接口的URL都以<code>/product</code>开头。<code>@GetMapping</code>表示这是一个Get HTTP接口，<code>@PutMapping</code>表示这是一个Put HTTP接口。</li>
+<li><code>@PathVariable</code>、<code>@RequestBody</code>：表示参数的映射关系。假设有个Get请求访问的是<code>/product/123</code>，那么该请求会由<code>getProductInfo</code>方法处理，其中URL里的123会被映射到productId中。同理，如果是Put请求的话，请求的body会被映射到<code>newProduct</code>对象中。</li>
+</ul>
+<p>这里只定义了接口，实际的处理逻辑还未完成，因为product的信息都存在数据库中。接下来将在项目中集成mybatis，并且与数据库做交互。</p>
+<h2 id="集成Mybatis"><a href="#集成Mybatis" class="headerlink" title="集成Mybatis"></a>集成Mybatis</h2><h3 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h3><p>首先需要在配置文件中配置的数据源。采用mysql作为的数据库。这里采用yaml作为配置文件的格式。在resources目录下新建application.yml文件：</p>
+<pre><code>spring:
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://{your_host}/{your_db}
+    username: {your_username}
+    password: {your_password}
+    driver-class-name: org.gjt.mm.mysql.Driver
+</code></pre><p>由于Spring Boot拥有自动配置的特性，不用新建一个DataSource的配置类，Sping Boot会自动加载配置文件并且根据配置文件的信息建立数据库的连接池，十分便捷。由于Spring Boot拥有自动配置的特性，不用新建一个DataSource的配置类，Sping Boot会自动加载配置文件并且根据配置文件的信息建立数据库的连接池，十分便捷。</p>
+<blockquote>
+<p>推荐大家采用yaml作为配置文件的格式。xml显得冗长，properties没有层级结构，yaml刚好弥补了这两者的缺点。这也是Spring Boot默认就支持yaml格式的原因。</p>
+</blockquote>
+<h3 id="配置Mybatis"><a href="#配置Mybatis" class="headerlink" title="配置Mybatis"></a>配置Mybatis</h3><p>已经通过Spring Initializer在pom.xml中引入了<code>mybatis-spring-boot-starte</code>库，该库会自动帮初始化mybatis。首先在application.yml中填写mybatis的相关配置：</p>
+<pre><code># mybatis配置
+mybatis:
+  # 配置映射类所在包名
+  type-aliases-package: com.wooyoo.learning.dao.domain
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations:
+    - mappers/ProductMapper.xml
+</code></pre><p>然后，再在代码中定义<code>ProductMapper</code>类：</p>
+<pre><code>@Mapper
+public interface ProductMapper {
+    Product select(
+            @Param(&quot;id&quot;)
+                    long id);
+    void update(Product product);
+}
+</code></pre><p>这里，只要加上了@Mapper注解，Spring Boot在初始化mybatis时会自动加载该mapper类。这里，只要加上了<code>@Mapper</code>注解，Spring Boot在初始化mybatis时会自动加载该mapper类。</p>
+<blockquote>
+<p>Spring Boot之所以这么流行，最大的原因是它自动配置的特性。开发者只需要关注组件的配置（比如数据库的连接信息），而无需关心如何初始化各个组件，这使得可以集中精力专注于业务的实现，简化开发流程。Spring Boot之所以这么流行，最大的原因是它自动配置的特性。开发者只需要关注组件的配置（比如数据库的连接信息），而无需关心如何初始化各个组件，这使得可以集中精力专注于业务的实现，简化开发流程。</p>
+</blockquote>
+<h3 id="访问数据库"><a href="#访问数据库" class="headerlink" title="访问数据库"></a>访问数据库</h3><p>完成了Mybatis的配置之后，就可以在的接口中访问数据库了。在<code>ProductController</code>下通过<code>@Autowired</code>引入mapper类，并且调用对应的方法实现对product的查询和更新操作，这里以查询接口为例：</p>
+<pre><code>@RestController
+@RequestMapping(&quot;/product&quot;)
+public class ProductController {
+    @Autowired
+    private ProductMapper productMapper;
+    @GetMapping(&quot;/{id}&quot;)
+    public Product getProductInfo(
+            @PathVariable(&quot;id&quot;)
+                    Long productId) {
+        return productMapper.select(productId);
+    }
+    // 避免篇幅过长，省略updateProductInfo的代码
+}
+</code></pre><p>然后在你的mysql中插入几条product的信息，就可以运行该项目看看是否能够查询成功了。</p>
+<p>至此，已经成功地在项目中集成了Mybatis，增添了与数据库交互的能力。但是这还不够，一个现代化的Web项目，肯定会上缓存加速的数据库查询。接下来，将介绍如何科学地将Redis集成到Mybatis的二级缓存中，实现数据库查询的自动缓存。</p>
+<h2 id="集成Redis"><a href="#集成Redis" class="headerlink" title="集成Redis"></a>集成Redis</h2><h3 id="配置Redis"><a href="#配置Redis" class="headerlink" title="配置Redis"></a>配置Redis</h3><p>同访问数据库一样，需要配置Redis的连接信息。在application.yml文件中增加如下配置：</p>
+<pre><code>spring:
+  redis:
+    # redis数据库索引（默认为0），使用索引为3的数据库，避免和其他数据库冲突
+    database: 3
+    # redis服务器地址（默认为localhost）
+    host: localhost
+    # redis端口（默认为6379）
+    port: 6379
+    # redis访问密码（默认为空）
+    password:
+    # redis连接超时时间（单位为毫秒）
+    timeout: 0
+    # redis连接池配置
+    pool:
+      # 最大可用连接数（默认为8，负数表示无限）
+      max-active: 8
+      # 最大空闲连接数（默认为8，负数表示无限）
+      max-idle: 8
+      # 最小空闲连接数（默认为0，该值只有为正数才有作用）
+      min-idle: 0
+      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+      max-wait: -1
+</code></pre><p>上述列出的都为常用配置，读者可以通过注释信息了解每个配置项的具体作用。由于在pom.xml中已经引入了<code>spring-boot-starter-data-redis</code>库，所以Spring Boot会帮自动加载Redis的连接，具体的配置类<code>org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration</code>。通过该配置类，可以发现底层默认使用Jedis库，并且提供了开箱即用的<code>redisTemplate</code>和<code>stringTemplate</code>。</p>
+<h3 id="将Redis作为二级缓存"><a href="#将Redis作为二级缓存" class="headerlink" title="将Redis作为二级缓存"></a>将Redis作为二级缓存</h3><p>Mybatis的二级缓存原理本文不再赘述，读者只要知道，Mybatis的二级缓存可以自动地对数据库的查询做缓存，并且可以在更新数据时同时自动地更新缓存。</p>
+<p>实现Mybatis的二级缓存很简单，只需要新建一个类实现<code>org.apache.ibatis.cache.Cache</code>接口即可。</p>
+<p>该接口共有以下五个方法：</p>
+<ul>
+<li><code>String getId()</code>：mybatis缓存操作对象的标识符。一个mapper对应一个mybatis的缓存操作对象。</li>
+<li><code>void putObject(Object key, Object value)</code>：将查询结果塞入缓存。</li>
+<li><code>Object getObject(Object key)</code>：从缓存中获取被缓存的查询结果。</li>
+<li><code>Object removeObject(Object key)</code>：从缓存中删除对应的key、value。只有在回滚时触发。一般也可以不用实现，具体使用方式请参考：<code>org.apache.ibatis.cache.decorators.TransactionalCache</code>。</li>
+<li><code>void clear()</code>：发生更新时，清除缓存。</li>
+<li><code>int getSize()</code>：可选实现。返回缓存的数量。</li>
+<li><code>ReadWriteLock getReadWriteLock()</code>：可选实现。用于实现原子性的缓存操作。</li>
+</ul>
+<p>接下来，新建<code>RedisCache</code>类，实现<code>Cache</code>接口：</p>
+<pre><code>public class RedisCache implements Cache {
+    private static final Logger logger = LoggerFactory.getLogger(RedisCache.class);
+    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    private final String id; // cache instance id
+    private RedisTemplate redisTemplate;
+    private static final long EXPIRE_TIME_IN_MINUTES = 30; // redis过期时间
+    public RedisCache(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException(&quot;Cache instances require an ID&quot;);
+        }
+        this.id = id;
+    }
+    @Override
+    public String getId() {
+        return id;
+    }
+    /**
+     * Put query result to redis
+     *
+     * @param key
+     * @param value
+     */
+    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public void putObject(Object key, Object value) {
+        RedisTemplate redisTemplate = getRedisTemplate();
+        ValueOperations opsForValue = redisTemplate.opsForValue();
+        opsForValue.set(key, value, EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES);
+        logger.debug(&quot;Put query result to redis&quot;);
+    }
+    /**
+     * Get cached query result from redis
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public Object getObject(Object key) {
+        RedisTemplate redisTemplate = getRedisTemplate();
+        ValueOperations opsForValue = redisTemplate.opsForValue();
+        logger.debug(&quot;Get cached query result from redis&quot;);
+        return opsForValue.get(key);
+    }
+    /**
+     * Remove cached query result from redis
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public Object removeObject(Object key) {
+        RedisTemplate redisTemplate = getRedisTemplate();
+        redisTemplate.delete(key);
+        logger.debug(&quot;Remove cached query result from redis&quot;);
+        return null;
+    }
+    /**
+     * Clears this cache instance
+     */
+    @Override
+    public void clear() {
+        RedisTemplate redisTemplate = getRedisTemplate();
+        redisTemplate.execute((RedisCallback) connection -&gt; {
+            connection.flushDb();
+            return null;
+        });
+        logger.debug(&quot;Clear all the cached query result from redis&quot;);
+    }
+    @Override
+    public int getSize() {
+        return 0;
+    }
+    @Override
+    public ReadWriteLock getReadWriteLock() {
+        return readWriteLock;
+    }
+    private RedisTemplate getRedisTemplate() {
+        if (redisTemplate == null) {
+            redisTemplate = ApplicationContextHolder.getBean(&quot;redisTemplate&quot;);
+        }
+        return redisTemplate;
+    }
+}
+</code></pre><p>讲解一下上述代码中一些<strong>关键点</strong>：</p>
+<ol>
+<li>自己实现的二级缓存，必须要有一个带id的构造函数，否则会报错。</li>
+<li>使用Spring封装的<code>redisTemplate</code>来操作Redis。<strong>网上所有介绍redis做二级缓存的文章都是直接用jedis库，但是这样不够Spring Style，而且，<code>redisTemplate</code>封装了底层的实现，未来如果不用jedis了，可以直接更换底层的库，而不用修改上层的代码。更方便的是，使用<code>redisTemplate</code>，不用关心redis连接的释放问题，否则新手很容易忘记释放连接而导致应用卡死。</strong></li>
+<li>需要注意的是，这里不能通过autowire的方式引用<code>redisTemplate</code>，因为<code>RedisCache</code>并不是Spring容器里的bean。所以需要手动地去调用容器的<code>getBean</code>方法来拿到这个bean。</li>
+<li>采用的redis序列化方式是默认的jdk序列化。所以数据库的查询对象（比如Product类）需要实现<code>Serializable</code>接口。</li>
+</ol>
+<p>这样，就实现了一个优雅的、科学的并且具有Spring Style的Redis缓存类。</p>
+<h3 id="开启二级缓存"><a href="#开启二级缓存" class="headerlink" title="开启二级缓存"></a>开启二级缓存</h3><p>接下来，需要在<code>ProductMapper.xml</code>中开启二级缓存：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+
+&lt;mapper namespace=&quot;com.wooyoo.learning.dao.mapper.ProductMapper&quot;&gt;
+    &lt;!-- 开启基于redis的二级缓存 --&gt;
+    &lt;cache type=&quot;com.wooyoo.learning.util.RedisCache&quot;/&gt;
+    &lt;select id=&quot;select&quot; resultType=&quot;Product&quot;&gt;
+        SELECT * FROM products WHERE id = #{id} LIMIT 1
+    &lt;/select&gt;
+    &lt;update id=&quot;update&quot; parameterType=&quot;Product&quot; flushCache=&quot;true&quot;&gt;
+        UPDATE products SET name = #{name}, price = #{price} WHERE id = #{id} LIMIT 1
+    &lt;/update&gt;
+&lt;/mapper&gt;
+
+
+&lt;cache type=&quot;com.wooyoo.learning.util.RedisCache&quot;/&gt;
+</code></pre><p>表示开启基于redis的二级缓存，并且在update语句中，设置<code>flushCache</code>为<code>true</code>，这样在更新product信息时，能够自动失效缓存（本质上调用的是clear方法）。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="配置H2内存数据库"><a href="#配置H2内存数据库" class="headerlink" title="配置H2内存数据库"></a>配置H2内存数据库</h3><p>至此已经完成了所有代码的开发，接下来需要书写单元测试代码来测试代码的质量。刚才开发的过程中采用的是mysql数据库，而一般在测试时经常采用的是内存数据库。这里使用H2作为测试场景中使用的数据库。</p>
+<p>要使用H2也很简单，只需要跟使用mysql时配置一下即可。在application.yml文件中：</p>
+<pre><code>---
+spring:
+  profiles: test
+  # 数据库配置
+  datasource:
+    url: jdbc:h2:mem:test
+    username: root
+    password: 123456
+    driver-class-name: org.h2.Driver
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+</code></pre><p>为了避免和默认的配置冲突，用<code>---</code>另起一段，并且用<code>profiles: test</code>表明这是test环境下的配置。然后只要在的测试类中加上<code>@ActiveProfiles(profiles = &quot;test&quot;)</code>注解来启用test环境下的配置，这样就能一键从mysql数据库切换到h2数据库。</p>
+<p>在上述配置中，schema.sql用于存放的建表语句，data.sql用于存放insert的数据。这样当测试时，h2就会读取这两个文件，初始化所需要的表结构以及数据，然后在测试结束时销毁，不会对的mysql数据库产生任何影响。这就是内存数据库的好处。另外，别忘了在pom.xml中将h2的依赖的scope设置为test。</p>
+<blockquote>
+<p>使用Spring Boot就是这么简单，无需修改任何代码，轻松完成数据库在不同环境下的切换。</p>
+</blockquote>
+<h3 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h3><p>因为是通过Spring Initializer初始化的项目，所以已经有了一个测试类——<code>SpringBootMybatisWithRedisApplicationTests</code>。</p>
+<p>Spring Boot提供了一些方便进行Web接口测试的工具类，比如<code>TestRestTemplate</code>。然后在配置文件中将log等级调成DEBUG，方便观察调试日志。具体的测试代码如下：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles(profiles = &quot;test&quot;)
+public class SpringBootMybatisWithRedisApplicationTests {
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private TestRestTemplate restTemplate;
+    @Test
+    public void test() {
+        long productId = 1;
+        Product product = restTemplate.getForObject(&quot;http://localhost:&quot; + port + &quot;/product/&quot; + productId, Product.class);
+        assertThat(product.getPrice()).isEqualTo(200);
+        Product newProduct = new Product();
+        long newPrice = new Random().nextLong();
+        newProduct.setName(&quot;new name&quot;);
+        newProduct.setPrice(newPrice);
+        restTemplate.put(&quot;http://localhost:&quot; + port + &quot;/product/&quot; + productId, newProduct);
+        Product testProduct = restTemplate.getForObject(&quot;http://localhost:&quot; + port + &quot;/product/&quot; + productId, Product.class);
+        assertThat(testProduct.getPrice()).isEqualTo(newPrice);
+    }
+}
+</code></pre><p>在上述测试代码中：</p>
+<ol>
+<li>首先调用get接口，通过assert语句判断是否得到了预期的对象。此时该product对象会存入redis中。</li>
+<li>然后调用put接口更新该product对象，此时redis缓存会失效。</li>
+<li>最后再次调用get接口，判断是否获取到了新的product对象。如果获取到老的对象，说明缓存失效的代码执行失败，代码存在错误，反之则说明代码是OK的。</li>
+</ol>
+<blockquote>
+<p>书写单元测试是一个良好的编程习惯。虽然会占用你一定的时间，但是当你日后需要做一些重构工作时，你就会感激过去写过单元测试的自己。</p>
+</blockquote>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://www.baeldung.com/spring-data-redis-tutorial" target="_blank" rel="noopener">http://www.baeldung.com/spring-data-redis-tutorial</a><br><a href="http://chrisbaileydeveloper.com/projects/spring-boot-redis-heroku-demo/" target="_blank" rel="noopener">http://chrisbaileydeveloper.com/projects/spring-boot-redis-heroku-demo/</a><br><a href="http://docs.spring.io/spring-data/redis/docs/1.6.2.RELEASE/reference/html/" target="_blank" rel="noopener">http://docs.spring.io/spring-data/redis/docs/1.6.2.RELEASE/reference/html/</a><br><a href="http://blog.didispace.com/springbootredis/" target="_blank" rel="noopener">http://blog.didispace.com/springbootredis/</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/javaweb-rapid-development.html" title="JavaWeb快速开发">https://jaxsonwang.github.io/javaweb-rapid-development.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Java-Web/" rel="tag"># Java Web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/mac-svn-notes.html" rel="next" title="Mac命令行SVN笔记">
+                <i class="fa fa-chevron-left"></i> Mac命令行SVN笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/emd-vol-1706.html" rel="prev" title="EMD Vol 1706">
+                EMD Vol 1706 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot"><span class="nav-number"></span> <span class="nav-text">Spring-Boot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建项目"><span class="nav-number">1.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建API接口"><span class="nav-number">2.</span> <span class="nav-text">新建API接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成Mybatis"><span class="nav-number"></span> <span class="nav-text">集成Mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置数据源"><span class="nav-number">1.</span> <span class="nav-text">配置数据源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Mybatis"><span class="nav-number">2.</span> <span class="nav-text">配置Mybatis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问数据库"><span class="nav-number">3.</span> <span class="nav-text">访问数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成Redis"><span class="nav-number"></span> <span class="nav-text">集成Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Redis"><span class="nav-number">1.</span> <span class="nav-text">配置Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将Redis作为二级缓存"><span class="nav-number">2.</span> <span class="nav-text">将Redis作为二级缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启二级缓存"><span class="nav-number">3.</span> <span class="nav-text">开启二级缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number"></span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置H2内存数据库"><span class="nav-number">1.</span> <span class="nav-text">配置H2内存数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写测试代码"><span class="nav-number">2.</span> <span class="nav-text">编写测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

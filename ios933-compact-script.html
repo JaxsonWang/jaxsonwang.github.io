@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="简介这是一份适合iOS9.2-9.3.3越狱后一键精简系统的脚本，可达到对ROM，RAM进行一些列的优化。用户在脚本选择可以进行交互，某些应用程序是否保留有用户说了算。且精简的应用程序会自动备份在用户内存中，用户可以自己手动恢复应用程序。 此脚本不适合小白，遇到一些问题请手动解决，若发现比较严重的问题请联系我！ 拜托各位推广了，感谢！ 展示样本脚本运行后的样本： 运行准备在运行脚本之前请关闭设置-">
+<meta name="keywords" content="Java,精简">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS9.3.3一键精简系统脚本">
+<meta property="og:url" content="https://jaxsonwang.github.io/ios933-compact-script.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="简介这是一份适合iOS9.2-9.3.3越狱后一键精简系统的脚本，可达到对ROM，RAM进行一些列的优化。用户在脚本选择可以进行交互，某些应用程序是否保留有用户说了算。且精简的应用程序会自动备份在用户内存中，用户可以自己手动恢复应用程序。 此脚本不适合小白，遇到一些问题请手动解决，若发现比较严重的问题请联系我！ 拜托各位推广了，感谢！ 展示样本脚本运行后的样本： 运行准备在运行脚本之前请关闭设置-">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://o49m2kysy.qnssl.com/image/compact_script/demo/CompactScript_01.jpg">
+<meta property="og:image" content="https://o49m2kysy.qnssl.com/image/compact_script/demo/PC_Screenshot_Demo.png">
+<meta property="og:image" content="https://o49m2kysy.qnssl.com/image/compact_script/demo/iPhone_Screenshot_Demo.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS9.3.3一键精简系统脚本">
+<meta name="twitter:description" content="简介这是一份适合iOS9.2-9.3.3越狱后一键精简系统的脚本，可达到对ROM，RAM进行一些列的优化。用户在脚本选择可以进行交互，某些应用程序是否保留有用户说了算。且精简的应用程序会自动备份在用户内存中，用户可以自己手动恢复应用程序。 此脚本不适合小白，遇到一些问题请手动解决，若发现比较严重的问题请联系我！ 拜托各位推广了，感谢！ 展示样本脚本运行后的样本： 运行准备在运行脚本之前请关闭设置-">
+<meta name="twitter:image" content="https://o49m2kysy.qnssl.com/image/compact_script/demo/CompactScript_01.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/ios933-compact-script.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>iOS9.3.3一键精简系统脚本 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/ios933-compact-script.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS9.3.3一键精简系统脚本
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-03 15:36:14" itemprop="dateCreated datePublished" datetime="2016-08-03T15:36:14+09:00">2016-08-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/奇淫技巧/" itemprop="url" rel="index"><span itemprop="name">奇淫技巧</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/ios933-compact-script.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/ios933-compact-script.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>这是一份适合iOS9.2-9.3.3越狱后一键精简系统的脚本，可达到对ROM，RAM进行一些列的优化。用户在脚本选择可以进行交互，某些应用程序是否保留有用户说了算。且精简的应用程序会自动备份在用户内存中，用户可以自己手动恢复应用程序。</p>
+<p>此脚本不适合小白，遇到一些问题请手动解决，若发现比较严重的问题请联系我！</p>
+<p>拜托各位推广了，感谢！</p>
+<h3 id="展示样本"><a href="#展示样本" class="headerlink" title="展示样本"></a>展示样本</h3><p>脚本运行后的样本：<br><img src="https://o49m2kysy.qnssl.com/image/compact_script/demo/CompactScript_01.jpg" alt="Demo"></p>
+<h3 id="运行准备"><a href="#运行准备" class="headerlink" title="运行准备"></a>运行准备</h3><p>在运行脚本之前请关闭<code>设置-通用-访问限制</code>选项统统关闭！<br>在运行脚本之前请关闭<code>设置-隐私-定位服务</code>！！<br>否则会出现白图标！</p>
+<p>然后使用ftp上传脚本，把<code>black文件夹放在~目录，也就是/private/var/root</code>目录`，打开SSH终端输入命令：</p>
+<pre><code>cd ~ &amp;&amp; cd black &amp;&amp; chmod 644 black.sh &amp;&amp; sh black.sh
+</code></pre><p>若是手机运行脚本，需要<code>root</code>登录：</p>
+<pre><code>login
+cd ~ &amp;&amp; cd black &amp;&amp; chmod 644 black.sh &amp;&amp; sh black.sh
+</code></pre><p>剩下按照脚本的提示来运行！</p>
+<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><p>电脑运行：<br><img src="https://o49m2kysy.qnssl.com/image/compact_script/demo/PC_Screenshot_Demo.png" alt="电脑运行"></p>
+<p>手机运行：<br><img src="https://o49m2kysy.qnssl.com/image/compact_script/demo/iPhone_Screenshot_Demo.png" alt="手机运行"></p>
+<p>奉劝各位封釉一句…能不精简的最好别精简…<br>诶，真的后悔发布这个工具，毕竟我懒…反馈的结果我又不得不处理…</p>
+<blockquote>
+<p>关于恢复App一些思路引导</p>
+</blockquote>
+<p>最近时间有点紧张，脚本好多地方要完善。实在是挤出时间在修复脚本一些存在的bug。<br>关于恢复的脚本，不出意外这个星期搞定。有些同学等不住可以自己动手恢复，给大家一点思路。</p>
+<p>从备份的App直接拉到根目录，这点没错，重启后桌面确实出现App图标了，但打开出现闪退，那是因为没设置权限。</p>
+<p>而我的脚本打权限是：</p>
+<pre><code>chown -R mobile.mobile /private/var/mobile/Media/Backup/
+chmod 755 /private/var/mobile/Media/Backup/
+find /private/var/mobile/Media/Backup/ -type d -exec chmod 755 {} ;
+find /private/var/mobile/Media/Backup/ -type f -exec chmod 644 {} ;
+</code></pre><p>考虑到读写权限问题，我默认设置用户群组为mobile，但在system可是root组。<br>请看实例：</p>
+<pre><code>wangjinde-iPhone:/Applications root# cd / &amp;&amp; cd Applications
+wangjinde-iPhone:/Applications root# ls -l Music.app
+total 220
+-rw-rw-r-- 1 root admin   2061 Mar 26 16:36 App Icon29x29@2x.png
+-rw-rw-r-- 1 root admin   6075 Jul  1 17:49 App Icon29x29@3x.png
+-rw-rw-r-- 1 root admin   3452 Mar 26 16:36 App Icon40x40@2x.png
+-rw-rw-r-- 1 root admin   7043 Mar 26 16:36 App Icon40x40@3x.png
+-rw-rw-r-- 1 root admin   7043 Mar 26 16:36 App Icon60x60@2x.png
+-rw-rw-r-- 1 root admin  14002 Mar 26 16:36 App Icon60x60@3x.png
+-rw-r--r-- 1 root admin 115772 Jul  1 17:54 Assets.car
+-rw-rw-r-- 1 root admin   2333 Jul  1 17:49 Info.plist
+drwxrwxr-x 2 root admin    170 Mar 26 16:36 LaunchScreen.storyboardc
+-rwxrwxr-x 1 root admin 176176 Jul  1 17:49 Music
+-rw-rw-r-- 1 root admin      8 Jul  1 17:49 PkgInfo
+drwxrwxr-x 4 root admin    136 Mar 26 16:36 PlugIns
+drwxrwxr-x 2 root admin    102 Mar 26 16:36 _CodeSignature
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 ar.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:47 ca.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:47 cs.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 da.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 de.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 el.lproj
+drwxrwxr-x 2 root admin    102 Mar 26 16:37 en.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 en_AU.lproj
+drwxrwxr-x 2 root admin    102 Mar 25 03:15 en_GB.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 es.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 es_419.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 fi.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 fr.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:47 fr_CA.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 he.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 hi.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 hr.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 hu.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 06:00 id.lproj
+drwxrwxr-x 2 root admin    102 Mar 26 21:18 it.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 11:06 ja.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 09:14 ko.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 ms.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 09:09 nl.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 09:09 no.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 pl.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 pt.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 pt_PT.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 ro.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:59 ru.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 sk.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 sv.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 05:58 th.lproj
+drwxrwxr-x 2 root admin    102 Mar 25 03:15 tr.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 uk.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 vi.lproj
+drwxrwxr-x 2 root admin    102 Mar 23 09:10 zh_CN.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 09:31 zh_HK.lproj
+drwxrwxr-x 2 root admin    102 Mar 24 05:45 zh_TW.lproj
+</code></pre><p>从终端得知结果<br>so，需要再加上几条条命令:</p>
+<pre><code>chown -R root.admin /YourApplications
+find /YourApplications -type d -exec chmod 755 {} ;
+find /YourApplications -type f -exec chmod 644 {} ;
+</code></pre><p>/YourApplications就是你所需要恢复的文件目录<br>建议大家在恢复的时候看看其他文件权限用户组是什么，那就改什么。</p>
+<h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址:"></a>下载地址:</h3><p><a href="https://i95.me/wp-upload/black.zip" target="_blank" rel="noopener">https://i95.me/wp-upload/black.zip</a></p>
+<p>[reply notice=”评论后可看见此处内容”]<br>蛤蛤，其实并没有什么东西<br>[/reply]</p>
+<h3 id="精简前做好的准备视频介绍："><a href="#精简前做好的准备视频介绍：" class="headerlink" title="精简前做好的准备视频介绍："></a>精简前做好的准备视频介绍：</h3><p><a href="http://v.youku.com/v_show/id_XMTY3MzM1OTYyOA==.html" target="_blank" rel="noopener">点击查看</a></p>
+<h3 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志:"></a>更新日志:</h3><p><strong>在测试精简文件占用一共<code>460M</code></strong></p>
+<blockquote>
+<p>2016.08.11:</p>
+</blockquote>
+<ul>
+<li>修复上个脚本存在的一些问题</li>
+<li>调整事项提醒可选精简</li>
+<li>添加可选精简日历</li>
+<li>保留书签功能</li>
+<li>删除访问限制中GameCenter残留的代码</li>
+<li>删除股票和天气(根据用户判断)残余文件</li>
+<li>删除事项提醒残余文件</li>
+<li>添加精简CarPlay代码</li>
+<li>删除GameCenter残余文件</li>
+</ul>
+<blockquote>
+<p>2016.08.07:</p>
+</blockquote>
+<ul>
+<li>添加精简备忘录应用程序</li>
+<li>添加精简谷歌认证应用程序</li>
+<li>添加精简雅虎认证应用程序</li>
+<li>深度精简天气残留文件</li>
+</ul>
+<blockquote>
+<p>2016.08.06 13:40:</p>
+</blockquote>
+<ul>
+<li>保留通讯录，老版本通话点击通讯录会出现卡死的现象 <strong><code>严重</code></strong></li>
+<li>调整录音为可选精简</li>
+</ul>
+<blockquote>
+<p>2016.08.06中午:</p>
+</blockquote>
+<ul>
+<li>修复脚本自动中断的问题</li>
+<li>修复AppStore无法登陆以及下载App的问题 <strong><code>严重</code></strong></li>
+<li>修复系统提示丢失文件的问题 <strong><code>严重</code></strong></li>
+<li>修复闹钟无法选择铃声的问题 <strong><code>严重</code></strong></li>
+<li>修复后台一直高速负荷运行遗留程序，导致手机一直发热(耗电)的问题</li>
+</ul>
+<p><strong>这一版本建议大家最好重新刷机再精简，毕竟修复了很多以前精简一直存在的问题</strong></p>
+<blockquote>
+<p>2016.08.06早上:</p>
+</blockquote>
+<ul>
+<li>精简邮件遗留的文件</li>
+<li>精简iTunes Store应用程序</li>
+<li>精简通讯录应用程序(电话不影响)</li>
+<li>添加精简地图进程服务</li>
+<li>添加精简Game Center进程服务</li>
+<li>添加精简iAD进程服务</li>
+<li>添加精简健康进程服务</li>
+<li>添加精简wallet进程服务</li>
+<li>添加精简系统收集崩溃日志进程服务</li>
+<li>添加精简Book自启动进程服务</li>
+<li>添加精简收集系统或系统程序崩溃的信息进程服务</li>
+<li>添加精简系统日志进程服务</li>
+<li>添加精简Apple产品智能设备控制进程服务</li>
+<li>添加精简iTunes Store实例进程服务</li>
+<li>添加精简系统升级进程服务</li>
+<li>添加精简动态壁纸代码</li>
+</ul>
+<blockquote>
+<p>2016.08.05晚上:</p>
+</blockquote>
+<ul>
+<li>删除Facebook遗留的文件</li>
+<li>删除无用的Yahoo验证文件</li>
+<li>删除无用的Google验证文件</li>
+<li>可选删除邮件</li>
+<li>可选删除天气</li>
+<li>可选删除计算器</li>
+<li>深度精简遗留文件(大约60多个文件)</li>
+<li>修复其他设备壁纸无法删除的逻辑语句错误</li>
+</ul>
+<blockquote>
+<p>2016.08.05:</p>
+</blockquote>
+<ul>
+<li>主要针对Game Center和健康精简不彻底的问题</li>
+<li>根据上面修复设置白图标的问题</li>
+<li>修复壁纸精简失败的问题</li>
+<li>修复脚本一些存在的代码错误</li>
+</ul>
+<blockquote>
+<p>2016.08.03:</p>
+</blockquote>
+<ul>
+<li>主要是添加用户可选精简<code>健康</code>和<code>GameCenter</code>选项</li>
+<li>修复之前版本精简壁纸出现判断逻辑错误</li>
+<li>添加遗漏精简文件代码</li>
+</ul>
+<h3 id="其它说明"><a href="#其它说明" class="headerlink" title="其它说明:"></a>其它说明:</h3><ul>
+<li>恢复一键脚本还在制作，想恢复可以看看上面的教</li>
+</ul>
+<h1 id="Black-Blackup文档说明"><a href="#Black-Blackup文档说明" class="headerlink" title="Black Blackup文档说明"></a>Black Blackup文档说明</h1><blockquote>
+<p>备份目录解释说明：</p>
+</blockquote>
+<h4 id="SettingList目录："><a href="#SettingList目录：" class="headerlink" title="SettingList目录："></a>SettingList目录：</h4><ul>
+<li>Restrictions.plist:设置-通用-访问限制</li>
+<li>Privacy.plist:设置-隐私</li>
+<li>Settings.plist:设置</li>
+<li>Sounds.plist:设置-声音</li>
+<li>CalendarProvider.bundle/Info.plist:设置-通知(提醒事项)</li>
+<li>clients.plist:设置-隐私-定位服务</li>
+</ul>
+<h4 id="Applications目录："><a href="#Applications目录：" class="headerlink" title="Applications目录："></a>Applications目录：</h4><ul>
+<li>Music:音乐</li>
+<li>Videos:视频</li>
+<li>Bridge:手表</li>
+<li>Wallet:Wallet(钱包)</li>
+<li>Maps:地图</li>
+<li>Compass:指南针</li>
+<li>Calculator：计算器</li>
+<li>MobileMail：邮件</li>
+<li>Weather：Weather</li>
+<li>GameCenter:GameCenter(游戏中心，喜欢玩单机游戏不建议删除，否则游戏打开闪退)</li>
+<li>iBook:iBook(图书和有声读物)</li>
+<li>Podcasts:播客</li>
+<li>Stocks:股票</li>
+<li>Flickr:Flickr（图片分享）</li>
+<li>Vimeo:Vimeo(视频播客)</li>
+<li>TencentWeibo:腾讯微博</li>
+<li>Twitter:Twitter(推特)</li>
+<li>Facebook:Facebook(脸书)</li>
+<li>SinaWeibo:新浪微博</li>
+<li>HomeKit:HomeKit(家庭智能)</li>
+<li>News:News(隐藏应用：新闻)</li>
+<li>FindMyFriends:查找我的朋友</li>
+<li>Tips:提示</li>
+<li>Reminders:提醒事项</li>
+<li>VoiceMemos:语音备忘录</li>
+<li>iTunes Store:多媒体商店</li>
+<li>Contacts:通讯录</li>
+<li>iAd:广告</li>
+<li>Notes:备忘录</li>
+<li>OtherApp:其他应用程序</li>
+</ul>
+<h4 id="LaunchDaemons目录"><a href="#LaunchDaemons目录" class="headerlink" title="LaunchDaemons目录:"></a>LaunchDaemons目录:</h4><ul>
+<li>SoftwareBehaviorServices:系统升级服务</li>
+<li>OTACrashCopier:OTA进程服务</li>
+<li>Fseventsd:苹果监听进程服务</li>
+<li>PowerLogs:第三方充电器日志进程服务</li>
+<li>ReportCrash:收集系统或系统程序崩溃的信息进程服务</li>
+<li>SystemLogs:系统日志进程服务</li>
+<li>TouchSetup:Apple产品智能设备控制进程服务</li>
+</ul>
+<h4 id="Wallpaper目录"><a href="#Wallpaper目录" class="headerlink" title="Wallpaper目录:"></a>Wallpaper目录:</h4><ul>
+<li>Wallpaper:静态壁纸、动态壁纸、Live</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/ios933-compact-script.html" title="iOS9.3.3一键精简系统脚本">https://jaxsonwang.github.io/ios933-compact-script.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/精简/" rel="tag"># 精简</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/twenty-years-old.html" rel="next" title="20岁的年纪">
+                <i class="fa fa-chevron-left"></i> 20岁的年纪
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/sublime-text-3-license-and-install.html" rel="prev" title="Sublime Text 3注册码和汉化安装">
+                Sublime Text 3注册码和汉化安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展示样本"><span class="nav-number">2.</span> <span class="nav-text">展示样本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行准备"><span class="nav-number">3.</span> <span class="nav-text">运行准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截图"><span class="nav-number">4.</span> <span class="nav-text">截图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载地址"><span class="nav-number">5.</span> <span class="nav-text">下载地址:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精简前做好的准备视频介绍："><span class="nav-number">6.</span> <span class="nav-text">精简前做好的准备视频介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新日志"><span class="nav-number">7.</span> <span class="nav-text">更新日志:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它说明"><span class="nav-number">8.</span> <span class="nav-text">其它说明:</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Black-Blackup文档说明"><span class="nav-number"></span> <span class="nav-text">Black Blackup文档说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SettingList目录："><span class="nav-number">0.1.</span> <span class="nav-text">SettingList目录：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Applications目录："><span class="nav-number">0.2.</span> <span class="nav-text">Applications目录：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LaunchDaemons目录"><span class="nav-number">0.3.</span> <span class="nav-text">LaunchDaemons目录:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wallpaper目录"><span class="nav-number">0.4.</span> <span class="nav-text">Wallpaper目录:</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

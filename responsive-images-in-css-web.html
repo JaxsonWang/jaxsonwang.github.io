@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="CSS中的响应式图片“响应式图片”这个术语的意思是“在html中的响应式图片”，换句话说，srcset和sizes属性是适用于&amp;lt;img&amp;gt;和&amp;lt;picture&amp;gt;元素的。但是这些html属性该如何映射在CSS中？ 过去几年，CSS一般不真正地参与响应式图片之旅的。这有个很好的理由：CSS早已经有关于此的工具。响应式图片只是赶上了CSS已经能做的事。让我们来看看吧。 CSS中的sr">
+<meta name="keywords" content="CSS,Web前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS中的响应式图片">
+<meta property="og:url" content="https://jaxsonwang.github.io/responsive-images-in-css-web.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="CSS中的响应式图片“响应式图片”这个术语的意思是“在html中的响应式图片”，换句话说，srcset和sizes属性是适用于&amp;lt;img&amp;gt;和&amp;lt;picture&amp;gt;元素的。但是这些html属性该如何映射在CSS中？ 过去几年，CSS一般不真正地参与响应式图片之旅的。这有个很好的理由：CSS早已经有关于此的工具。响应式图片只是赶上了CSS已经能做的事。让我们来看看吧。 CSS中的sr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/responsive-images-in-css-web-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/responsive-images-in-css-web-2.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS中的响应式图片">
+<meta name="twitter:description" content="CSS中的响应式图片“响应式图片”这个术语的意思是“在html中的响应式图片”，换句话说，srcset和sizes属性是适用于&amp;lt;img&amp;gt;和&amp;lt;picture&amp;gt;元素的。但是这些html属性该如何映射在CSS中？ 过去几年，CSS一般不真正地参与响应式图片之旅的。这有个很好的理由：CSS早已经有关于此的工具。响应式图片只是赶上了CSS已经能做的事。让我们来看看吧。 CSS中的sr">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/10/responsive-images-in-css-web-1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/responsive-images-in-css-web.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CSS中的响应式图片 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/responsive-images-in-css-web.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS中的响应式图片
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-27 23:07:16" itemprop="dateCreated datePublished" datetime="2016-10-27T23:07:16+09:00">2016-10-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/responsive-images-in-css-web.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/responsive-images-in-css-web.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CSS中的响应式图片"><a href="#CSS中的响应式图片" class="headerlink" title="CSS中的响应式图片"></a>CSS中的响应式图片</h1><p>“响应式图片”这个术语的意思是“在html中的响应式图片”，换句话说，<code>srcset</code>和<code>sizes</code>属性是适用于<code>&lt;img&gt;</code>和<code>&lt;picture&gt;</code>元素的。但是这些html属性该如何映射在CSS中？</p>
+<p>过去几年，CSS一般不真正地参与响应式图片之旅的。这有个很好的理由：CSS早已经有关于此的工具。响应式图片只是赶上了CSS已经能做的事。让我们来看看吧。</p>
+<h3 id="CSS中的srcset"><a href="#CSS中的srcset" class="headerlink" title="CSS中的srcset"></a>CSS中的<code>srcset</code></h3><p>在HTML中，<code>srcset</code>就像这个（来源于Picturefill网站）：</p>
+<pre><code>&lt;img srcset=&quot;
+  examples/images/image-384.jpg 1x, 
+  examples/images/image-768.jpg 2x
+&quot; alt=&quot;…&quot;&gt;
+</code></pre><p>一张为像素比为1x的视图准备的图片,一张为像素比为2x的视图准备的较大图片。如果我们想要在CSS中做相同的事情，只有<code>background-image</code>属性可以实现：</p>
+<pre><code>.img {
+  background-image: url(examples/images/image-384.jpg); 
+}
+@media 
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) { 
+  .img {
+    background-image: url(examples/images/image-768.jpg);
+  }
+}
+</code></pre><p>虽然这里与html有些不同。按照我的理解，从<code>srcset</code>变成标准的样子来看，这更像一种建议。属性和属性值提供了关于那个是可获得的以及浏览器决定哪一个在这个时候是最好的。或者说，至少，这能够决定，如果浏览器选择用这个方式实现。声明应该伴随着<code>@media</code>的查询条件。</p>
+<p>分辨率的媒体查询器的支持是相当好的：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/responsive-images-in-css-web-1.png" alt></p>
+<p>分辨率的媒体查询器的<a href="http://caniuse.com/#feat=css-media-resolution" target="_blank" rel="noopener">浏览器支持</a></p>
+<hr>
+<p>还有一个很好的方法，这很接近于<code>srcset</code>运行方式，并且它在CSS中用<code>image-set()</code>这个方法：</p>
+<pre><code>.img {
+  background-image: url(examples/images/image-384.jpg);
+  background-image:
+    -webkit-image-set(
+      &quot;examples/images/image-384.jpg&quot; 1x,
+      &quot;examples/images/image-768.jpg&quot; 2x,
+    );
+  background-image: 
+    image-set(
+      &quot;examples/images/image-384.jpg&quot; 1x,
+      &quot;examples/images/image-768.jpg&quot; 2x,
+    );
+}
+</code></pre><p>但是这个方法的浏览器支持不如分辨率查询：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/responsive-images-in-css-web-2.png" alt> image-set()的<a href="http://caniuse.com/#feat=css-image-set" target="_blank" rel="noopener">浏览器支持</a></p>
+<p>这个更加贴近<code>srcset</code>这个属性，不仅仅因为语法的相似，更加是因为这允许浏览器有发言权。根据<a href="https://drafts.csswg.org/css-images-3/#image-set-notation" target="_blank" rel="noopener">细则（还处于草稿阶段）</a>:</p>
+<blockquote>
+<p>image-set()这个方法允许作者忽略其他的问题，只要提供多分辨率的图片并且让UA决定当前情况下哪一个最合适。</p>
+</blockquote>
+<p>在CSS中没有完全1：1的<code>srcset</code>的代替属性，但是这个相当接近了。</p>
+<h3 id="CSS中的sizes"><a href="#CSS中的sizes" class="headerlink" title="CSS中的sizes"></a>CSS中的<code>sizes</code></h3><p>在HTML中的<code>sizes</code>属性直接关联CSS中的属性。事实上，它主要是：<strong>“这就是我想在CSS中处理图片大小的方式，我只是让你现在知道了，因为你可能需要这个信息并且迫不及待想下载一试”</strong></p>
+<p>例子：</p>
+<pre><code>&lt;img
+  sizes=&quot;(min-width: 40em) 80vw, 100vw&quot;
+  srcset=&quot; ... &quot;
+  alt=&quot;…&quot;&gt;
+</code></pre><p>假设在CSS中看上去是这样的：</p>
+<pre><code>img {
+  width: 100%;
+}
+@media (min-width: 40em) {
+  /* Probably some parent element that limits the img width */
+  main {
+    width: 80%;
+  }
+}
+</code></pre><p>但是单独的<code>sizes</code>并没有什么用。你需要和<code>srcset</code>配合使用，它提供了已知的宽度，因此浏览器可以做出选择。让我们假定有一对图片像这样：</p>
+<pre><code>&lt;img
+  sizes=&quot;(min-width: 400px) 80vw, 100vw&quot;
+  srcset=&quot;examples/images/small.jpg 375w,
+          examples/images/big.jpg 1500w&quot;
+  alt=&quot;…&quot;&gt;
+</code></pre><p>通过标记上的信息，浏览器可以找出最适合他的图片。因为浏览器知道 1）自己的视图尺寸 2）自己的像素密度</p>
+<p>假定浏览器视图是320px的宽，并且像素密度是1x、同时也知道图片的尺寸将会设置为100vw。那么这个时候，他就需要在提供的两张图片中挑一张。这需要做一些算数。</p>
+<p>375 (图#1尺寸) / 320 (显示图片的像素) = 1.17 1500 (图#2尺寸) / 320 (显示图片的像素) = 4.69</p>
+<p>1.17 is closer to 1 (it’s a 1x display), so the 375w image wins. It’ll try to not go under, so 1.3 would beat 0.99, as far as I understand it. 1.17离1比较近（这是像素比为1的显示）。因此375宽的图片赢了。根据我了解的，这不会向下尝试，因此1.3完败0.99,。</p>
+<p>现在有一个像素比为2的显示。这加倍了图片所需的像素数量，因此算数是这样的：</p>
+<p>375 / 640 = 0.59 1500 / 640 = 2.34</p>
+<p>2.34 wins here, and it’ll show the 1500w image. How about a 1x display with a 1200px viewport? 2.34赢了，那么这里就会显示1500vw的图片。那么像素比为1和1200px的视图怎么办呢？</p>
+<p>375 / (80% of 1200) = 0.39 1500 / (80% of 1200) = 1.56</p>
+<p>1500px宽的图片在此胜利。</p>
+<p>在这里写的CSS有些怪异以及狡猾的。如果我们认为是像素比为1的显示，以几点来结束我们的逻辑：</p>
+<ul>
+<li>Over 468px, use the 1500w image.</li>
+<li>如果视频小于375px, 用375宽的图</li>
+<li>如果视图大于375px，小于400px，用1500w的图片（不然我们需要拉伸图片）</li>
+<li>在400px的时候，图片需要80Vw的宽度，因此（在400px和468px之间）用375宽的图片是很安全的</li>
+<li>大于468px,用宽度为1500w的图片</li>
+</ul>
+<p>我们可以向下面这么写：</p>
+<pre><code>img {
+  background-image: url(small.jpg);
+}
+/* Only override this if one of the conditions for the 1500w image is met */
+@media 
+  (min-width: 375px) and (max-width: 400px),
+  (min-width: 468px) {
+  main {
+    background-image: url(large.jpg);
+  }
+}
+</code></pre><p>在这个确切的情况下，一个2倍的显示，以及在像300px这种真的很窄的而宽度下，依然需要600px的图片以确保是1 .0的最小质量, 因此我们需要添加如下逻辑：</p>
+<pre><code>.img {
+  background-image: url(small.jpg);
+}
+/* Only override this if one of the conditions for the 1500w image is met */
+@media 
+  (min-width: 375px) and (max-width: 400px),
+  (min-width: 468px),
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) {
+  .img {
+    background-image: url(large.jpg);
+  }
+}
+</code></pre><p>这个复杂度让断点（尺寸）和需要提供的图片的数量猛涨。然而这依然不是在html中响应式图片可以做的一个完美匹配，因为这不允许浏览器自由判断（例子：浏览器需要考虑其他的潜在因素[比如带宽]再选择图片）。</p>
+<h3 id="CSS中的picture"><a href="#CSS中的picture" class="headerlink" title="CSS中的picture"></a>CSS中的<code>picture</code></h3><p>一个例子：</p>
+<pre><code>&lt;picture&gt;
+  &lt;source srcset=&quot;extralarge.jpg&quot; media=&quot;(min-width: 1000px)&quot;&gt;
+  &lt;source srcset=&quot;large.jpg&quot; media=&quot;(min-width: 800px)&quot;&gt;
+  &lt;img srcset=&quot;medium.jpg&quot; alt=&quot;…&quot;&gt;
+&lt;/picture&gt;
+</code></pre><p>这算是媒体查询器相当直接的转换。确切的媒体查询器再这里可以拷贝：</p>
+<pre><code>.img {
+  background-image: url(medium.jpg);
+}
+@media (min-width: 800px) {
+  .img {
+    background-image: url(large.jpg);
+  }
+}
+@media (min-width: 1000px) {
+  .img {
+    background-image: url(extralarge.jpg);
+  }
+}
+</code></pre><p>不要惊吓，这个可以更复杂，因为<code>srcset</code>可以做和<code>picture</code>元素相同的事情：</p>
+<pre><code>&lt;picture&gt;
+  &lt;source srcset=&quot;large.jpg, extralarge.jpg 2x&quot; media=&quot;(min-width: 800px)&quot;&gt;
+  &lt;img srcset=&quot;small.jpg, medium.jpg 2x&quot; alt=&quot;…&quot;&gt;
+&lt;/picture&gt;
+</code></pre><p>可以翻译成：</p>
+<pre><code>.img {
+  background-image: url(small.jpg);
+}
+@media
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) {
+  .img {
+    background-image: url(medium.jpg);
+  }
+}
+@media
+  (min-width: 800px) {
+  .img {
+    background-image: url(large.jpg);
+  }
+}
+@media
+  (-webkit-min-device-pixel-ratio: 2) and (min-width: 800px), 
+  (min-resolution: 192dpi) and (min-width: 800px) {
+  .img {
+    background-image: url(extralarge.jpg);
+  }
+}
+</code></pre><p>此外，在你添加一些图片和条件的时候，这只是在等复杂度的极速上升。只比<code>image-set()</code>好一丢丢：</p>
+<pre><code>.img {
+  background-image: url(small.jpg);
+  background-image:
+    -webkit-image-set(
+      &quot;small.jpg&quot; 1x,
+      &quot;medium.jpg&quot; 2x,
+    );
+  background-image:
+    image-set(
+      &quot;small.jpg&quot; 1x,
+      &quot;medium.jpg&quot; 2x,
+    );
+}
+@media
+  (min-width: 800px) {
+  .img {
+    background-image: url(large.jpg);
+    background-image:
+      -webkit-image-set(
+        &quot;large.jpg&quot; 1x,
+        &quot;extralarge.jpg&quot; 2x,
+      );
+    background-image:
+      image-set(
+        &quot;large.jpg&quot; 1x,
+        &quot;extralarge.jpg&quot; 2x,
+      );
+  }
+}
+</code></pre><h3 id="mixins有帮助吗"><a href="#mixins有帮助吗" class="headerlink" title="mixins有帮助吗?"></a>mixins有帮助吗?</h3><p>可能吧？我很想看到Sass的<code>@mixin</code>支持所有的参数，同时把图片大小计算在内（通过磁盘来算出大小），以及吐出一些高品质的CSS响应的图片代码。也许甚至有一种方法可以合成分辨率查询和 <code>image-set()</code>的语法。</p>
+<h3 id="我们真的在这么做吗"><a href="#我们真的在这么做吗" class="headerlink" title="我们真的在这么做吗?"></a>我们真的在这么做吗?</h3><p>我很好奇有多少人真的在CSS中处理响应式图片。也许取中间值，只在大的断点，换一张大的图片。我再想，也许因为 picture/srcset通常是自动的，因此事实上比CSS中响应式的图片拥有更高的接受率。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/responsive-images-in-css-web.html" title="CSS中的响应式图片">https://jaxsonwang.github.io/responsive-images-in-css-web.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/Web前端/" rel="tag"># Web前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/new-video-policies-for-ios10.html" rel="next" title="iOS 10 Safari 视频播放新政策">
+                <i class="fa fa-chevron-left"></i> iOS 10 Safari 视频播放新政策
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/pure-css-content-filter-web.html" rel="prev" title="纯CSS过滤内容">
+                纯CSS过滤内容 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS中的响应式图片"><span class="nav-number">1.</span> <span class="nav-text">CSS中的响应式图片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS中的srcset"><span class="nav-number">1.0.1.</span> <span class="nav-text">CSS中的srcset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS中的sizes"><span class="nav-number">1.0.2.</span> <span class="nav-text">CSS中的sizes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS中的picture"><span class="nav-number">1.0.3.</span> <span class="nav-text">CSS中的picture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixins有帮助吗"><span class="nav-number">1.0.4.</span> <span class="nav-text">mixins有帮助吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们真的在这么做吗"><span class="nav-number">1.0.5.</span> <span class="nav-text">我们真的在这么做吗?</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

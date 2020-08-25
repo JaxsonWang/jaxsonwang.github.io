@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="React Router 是一个非常出色的路由解决方案，同时也非常容易上手。但是当网站规模越来越大的时候，首先出现的问题是 Javascript 文件变得巨大，这导致首页渲染的时间让人难以忍受。实际上程序应当只加载当前渲染页所需的 JavaScript，也就是大家说的“代码分拆” — 将所有的代码分拆成多个小包，在用户浏览过程中按需加载。 官方示例在 这里。 所得到的效果是： 以前是这样（2333">
+<meta name="keywords" content="ReactJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-router 按需加载">
+<meta property="og:url" content="https://jaxsonwang.github.io/react-router-load-on-demand.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="React Router 是一个非常出色的路由解决方案，同时也非常容易上手。但是当网站规模越来越大的时候，首先出现的问题是 Javascript 文件变得巨大，这导致首页渲染的时间让人难以忍受。实际上程序应当只加载当前渲染页所需的 JavaScript，也就是大家说的“代码分拆” — 将所有的代码分拆成多个小包，在用户浏览过程中按需加载。 官方示例在 这里。 所得到的效果是： 以前是这样（2333">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://segmentfault.com/image?src=http://7xo08n.com1.z0.glb.clouddn.com/blog/react-router-dynamic/01.png&objectId=1190000007141049&token=8803a4391b64a7c96ac72514ed942162">
+<meta property="og:image" content="https://segmentfault.com/image?src=http://7xo08n.com1.z0.glb.clouddn.com/blog/react-router-dynamic/02.png&objectId=1190000007141049&token=5b11e129cfae5b8ea43f759e49812692">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react-router 按需加载">
+<meta name="twitter:description" content="React Router 是一个非常出色的路由解决方案，同时也非常容易上手。但是当网站规模越来越大的时候，首先出现的问题是 Javascript 文件变得巨大，这导致首页渲染的时间让人难以忍受。实际上程序应当只加载当前渲染页所需的 JavaScript，也就是大家说的“代码分拆” — 将所有的代码分拆成多个小包，在用户浏览过程中按需加载。 官方示例在 这里。 所得到的效果是： 以前是这样（2333">
+<meta name="twitter:image" content="https://segmentfault.com/image?src=http://7xo08n.com1.z0.glb.clouddn.com/blog/react-router-dynamic/01.png&objectId=1190000007141049&token=8803a4391b64a7c96ac72514ed942162">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/react-router-load-on-demand.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>react-router 按需加载 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/react-router-load-on-demand.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react-router 按需加载
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-18 19:16:10" itemprop="dateCreated datePublished" datetime="2016-10-18T19:16:10+09:00">2016-10-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/react-router-load-on-demand.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/react-router-load-on-demand.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>React Router 是一个非常出色的路由解决方案，同时也非常容易上手。但是当网站规模越来越大的时候，首先出现的问题是 Javascript 文件变得巨大，这导致首页渲染的时间让人难以忍受。实际上程序应当只加载当前渲染页所需的 JavaScript，也就是大家说的“代码分拆” — 将所有的代码分拆成多个小包，在用户浏览过程中按需加载。</p>
+<p>官方示例在 <a href="https://github.com/ReactTraining/react-router/tree/master/examples/huge-apps" target="_blank" rel="noopener">这里</a>。</p>
+<p>所得到的效果是：</p>
+<p>以前是这样（23333，我真不是故意的。。）</p>
+<p><img src="https://segmentfault.com/image?src=http://7xo08n.com1.z0.glb.clouddn.com/blog/react-router-dynamic/01.png&amp;objectId=1190000007141049&amp;token=8803a4391b64a7c96ac72514ed942162" alt></p>
+<p>现在是这样：</p>
+<p><img src="https://segmentfault.com/image?src=http://7xo08n.com1.z0.glb.clouddn.com/blog/react-router-dynamic/02.png&amp;objectId=1190000007141049&amp;token=5b11e129cfae5b8ea43f759e49812692" alt></p>
+<p>实际上就是将一个大 javascript 文件拆分成了若干个 chunk file。</p>
+<p>下面是改造过程</p>
+<h2 id="Webpack-配置"><a href="#Webpack-配置" class="headerlink" title="Webpack 配置"></a>Webpack 配置</h2><p>首先在 <code>webpack.config.js</code> 的 <code>output</code> 内加上 <code>chunkFilename</code></p>
+<pre><code>output: {
+    path: path.join(__dirname, &apos;/../dist/assets&apos;),
+    filename: &apos;app.js&apos;,
+    publicPath: defaultSettings.publicPath,
+    // 添加 chunkFilename
+    chunkFilename: &apos;[name].[chunkhash:5].chunk.js&apos;,
+},
+</code></pre><p><code>name</code> 是在代码里为创建的 chunk 指定的名字，如果代码中没指定则 webpack 默认分配 id 作为 name。</p>
+<p><code>chunkhash</code> 是文件的 hash 码，这里只使用前五位。</p>
+<h2 id="添加首页"><a href="#添加首页" class="headerlink" title="添加首页"></a>添加首页</h2><p>以前你的路由大概应该是这样的：（作为需要按需加载的大型应用，路由肯定是相当复杂，这里只列举部分路由举例）</p>
+<pre><code>ReactDOM.render(
+  (
+    &lt;Router history={browserHistory}&gt;
+      {/* 主页 */}
+      &lt;Route path=&quot;/&quot; component={App}&gt;
+        {/* 默认 */}
+        &lt;IndexRoute component={HomePage} /&gt;
+
+        {/* baidu */}
+        &lt;Route path=&quot;/baidu&quot; component={BaiduPage}&gt;
+          &lt;Route path=&quot;result&quot; component={BaiduResultPage} /&gt;
+          &lt;Route path=&quot;frequency&quot; component={BaiduFrequencyPage} /&gt;
+        &lt;/Route&gt;
+
+        {/* 404 */}
+        &lt;Route path=&apos;/404&apos; component={NotFoundPage} /&gt;
+
+        {/* 其他重定向到 404 */}
+        &lt;Redirect from=&apos;*&apos; to=&apos;/404&apos; /&gt;
+      &lt;/Route&gt;
+    &lt;/Router&gt;
+  ), document.getElementById(&apos;app&apos;)
+);
+</code></pre><p>按需加载之后，我们需要让路由动态加载组件，需要将 <code>component</code> 换成 <code>getComponent</code>。首先将路由拆出来（因为路由庞大之后全部写在一起会很难看），创建一个根路由 rootRoute：</p>
+<pre><code>const rootRoute = {
+  path: &apos;/&apos;,
+  indexRoute: {
+    getComponent(nextState, cb) {
+      require.ensure([], (require) =&gt; {
+        cb(null, require(&apos;components/layer/HomePage&apos;))
+      }, &apos;HomePage&apos;)
+    },
+  },
+  getComponent(nextState, cb) {
+    require.ensure([], (require) =&gt; {
+      cb(null, require(&apos;components/Main&apos;))
+    }, &apos;Main&apos;)
+  },
+  childRoutes: [
+    require(&apos;./routes/baidu&apos;),
+    require(&apos;./routes/404&apos;),
+    require(&apos;./routes/redirect&apos;)
+  ]
+}
+
+ReactDOM.render(
+  (
+    &lt;Router
+      history={browserHistory}
+      routes={rootRoute}
+      /&gt;
+  ), document.getElementById(&apos;app&apos;)
+);
+</code></pre><p>history 不变，在 Router 中添加 routes 属性，将创建的路由传递进去。</p>
+<p>这里有四个属性：</p>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p>将匹配的路由，也就是以前的 path。</p>
+<h3 id="getComponent"><a href="#getComponent" class="headerlink" title="getComponent"></a>getComponent</h3><p>对应于以前的 component 属性，但是这个方法是异步的，也就是当路由匹配时，才会调用这个方法。</p>
+<p>这里面有个 <strong>require.ensure</strong> 方法</p>
+<pre><code>require.ensure(dependencies, callback, chunkName)
+</code></pre><p>这是 webpack 提供的方法，这也是按需加载的核心方法。第一个参数是依赖，第二个是回调函数，第三个就是上面提到的 chunkName，用来指定这个 chunk file 的 name。</p>
+<p>如果需要返回多个子组件，则使用 <code>getComponents</code> 方法，将多个组件作为一个对象的属性通过 <code>cb</code> 返回出去即可。这个在官方示例也有，但是我们这里并不需要，而且根组件是不能返回多个子组件的，所以使用 <code>getComponent</code>。</p>
+<h3 id="indexRoute"><a href="#indexRoute" class="headerlink" title="indexRoute"></a>indexRoute</h3><p>用来设置主页，对应于以前的 <code>&lt;IndexRoute&gt;</code>。</p>
+<p>注意这里的 indexRoute 写法， <strong>这是个对象，在对象里面使用 getComponent</strong>。</p>
+<h3 id="childRoutes"><a href="#childRoutes" class="headerlink" title="childRoutes"></a>childRoutes</h3><p>这里面放置的就是子路由的配置，对应于以前的子路由们。我们将以前的 <code>/baidu</code>、<code>/404</code> 和 <code>*</code> 都拆了出来，接下来将分别为他们创建路由配置。</p>
+<h2 id="路由控制"><a href="#路由控制" class="headerlink" title="路由控制"></a>路由控制</h2><p>上面的<code>childRoutes</code> 里面，我们 require 了三个子路由，在目录下创建 <code>routes</code> 目录，将这三个路由放置进去。</p>
+<pre><code>routes/
+├── 404
+│   └── index.js
+├── baidu
+│   ├── index.js
+│   └── routes
+│       ├── frequency
+│       │   └── index.js
+│       └── result
+│           └── index.js
+└── redirect
+    └── index.js
+</code></pre><p>和 rootRoute 类似，里面的每个 index.js 都是一个路由对象：</p>
+<h3 id="404-index-js"><a href="#404-index-js" class="headerlink" title="/404/index.js"></a>/404/index.js</h3><pre><code>module.exports = {
+  path: &apos;404&apos;,
+
+  getComponent(nextState, cb) {
+    require.ensure([], (require) =&gt; {
+      cb(null, require(&apos;components/layer/NotFoundPage&apos;))
+    }, &apos;NotFoundPage&apos;)
+  }
+}
+</code></pre><h3 id="baidu-index-js"><a href="#baidu-index-js" class="headerlink" title="/baidu/index.js"></a>/baidu/index.js</h3><pre><code>module.exports = {
+  path: &apos;baidu&apos;,
+
+  getChildRoutes(partialNextState, cb) {
+    require.ensure([], (require) =&gt; {
+      cb(null, [
+        require(&apos;./routes/result&apos;),
+        require(&apos;./routes/frequency&apos;)
+      ])
+    })
+  },
+
+  getComponent(nextState, cb) {
+    require.ensure([], (require) =&gt; {
+      cb(null, require(&apos;components/layer/BaiduPage&apos;))
+    }, &apos;BaiduPage&apos;)
+  }
+}
+</code></pre><h3 id="baidu-routes-frequency-index-js"><a href="#baidu-routes-frequency-index-js" class="headerlink" title="/baidu/routes/frequency/index.js"></a>/baidu/routes/frequency/index.js</h3><pre><code>module.exports = {
+  path: &apos;frequency&apos;,
+
+  getComponent(nextState, cb) {
+    require.ensure([], (require) =&gt; {
+      cb(null, require(&apos;components/layer/BaiduFrequencyPage&apos;))
+    }, &apos;BaiduFrequencyPage&apos;)
+  }
+}
+</code></pre><p>举这几个例子应该就差不多了，其他都是一样的，稍微有点特别的是 redirect。</p>
+<h2 id="设置-Redirect"><a href="#设置-Redirect" class="headerlink" title="设置 Redirect"></a>设置 Redirect</h2><p>之前我们在根路由下是这么设置重定向的：</p>
+<pre><code>&lt;Router history={browserHistory}&gt;
+      &lt;Route path=&quot;/&quot; component={App}&gt;
+        {/* home */}
+        &lt;IndexRoute component={HomePage} /&gt;
+
+        &lt;Route path=&quot;/baidu&quot; component={BaiduPage}&gt;
+          &lt;Route path=&quot;result&quot; component={BaiduResultPage} /&gt;
+          &lt;Route path=&quot;frequency&quot; component={BaiduFrequencyPage} /&gt;
+        &lt;/Route&gt;
+
+        &lt;Route path=&apos;/404&apos; component={NotFoundPage} /&gt;
+        {/* 如果都不匹配，重定向到 404 */}
+        &lt;Redirect from=&apos;*&apos; to=&apos;/404&apos; /&gt;
+      &lt;/Route&gt;
+    &lt;/Router&gt;
+</code></pre><p>当改写之后，我们需要把这个重定向的路由单独拆出来，也就是 <code>*</code> 这个路由，我们上面已经为他创建了一个 <code>redirect</code> 目录。这里使用到 onEnter 方法，然后在这个方法里改变路由状态，调到另外的路由，实现 redirect ：</p>
+<h3 id="redirect-index-js"><a href="#redirect-index-js" class="headerlink" title="/redirect/index.js"></a>/redirect/index.js</h3><pre><code>module.exports = {
+  path: &apos;*&apos;,
+  onEnter: (_, replaceState) =&gt; replaceState(null, &quot;/404&quot;)
+}
+</code></pre><h2 id="The-root-route-must-render-a-single-element"><a href="#The-root-route-must-render-a-single-element" class="headerlink" title="The root route must render a single element"></a>The root route must render a single element</h2><p>跟着官方示例和上面码出来之后，可能页面并没有渲染出来，而是报 <strong>The root route must render a single element</strong> 这个异常，这是因为 <code>module.exports</code> 和 ES6 里的 <code>export default</code> 有区别。</p>
+<p>如果你是使用 es6 的写法，也就是你的组件都是通过 <code>export default</code> 导出的，那么在 <code>getComponent</code> 方法里面需要加入 <code>.default</code>。</p>
+<pre><code>getComponent(nextState, cb) {
+    require.ensure([], (require) =&gt; {
+      // 在后面加 .default
+      cb(null, require(&apos;components/layer/ReportPage&apos;)).default
+    }, &apos;ReportPage&apos;)
+}
+</code></pre><p>如果你是使用 CommonJS 的写法，也就是通过 <code>module.exports</code> 导出的，那就无须加 <code>.default</code> 了。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/react-router-load-on-demand.html" title="react-router 按需加载">https://jaxsonwang.github.io/react-router-load-on-demand.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ReactJS/" rel="tag"># ReactJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/intellij-idea-warrant.html" rel="next" title="IntelliJ IDEA 注册码">
+                <i class="fa fa-chevron-left"></i> IntelliJ IDEA 注册码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/theme-color-for-chrome-on-lollipop.html" rel="prev" title="站点在Android 5.0下Chrome的App Bar颜色定制">
+                站点在Android 5.0下Chrome的App Bar颜色定制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Webpack-配置"><span class="nav-number">1.</span> <span class="nav-text">Webpack 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加首页"><span class="nav-number">2.</span> <span class="nav-text">添加首页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#path"><span class="nav-number">2.1.</span> <span class="nav-text">path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getComponent"><span class="nav-number">2.2.</span> <span class="nav-text">getComponent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#indexRoute"><span class="nav-number">2.3.</span> <span class="nav-text">indexRoute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#childRoutes"><span class="nav-number">2.4.</span> <span class="nav-text">childRoutes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由控制"><span class="nav-number">3.</span> <span class="nav-text">路由控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#404-index-js"><span class="nav-number">3.1.</span> <span class="nav-text">/404/index.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#baidu-index-js"><span class="nav-number">3.2.</span> <span class="nav-text">/baidu/index.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#baidu-routes-frequency-index-js"><span class="nav-number">3.3.</span> <span class="nav-text">/baidu/routes/frequency/index.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-Redirect"><span class="nav-number">4.</span> <span class="nav-text">设置 Redirect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redirect-index-js"><span class="nav-number">4.1.</span> <span class="nav-text">/redirect/index.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-root-route-must-render-a-single-element"><span class="nav-number">5.</span> <span class="nav-text">The root route must render a single element</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

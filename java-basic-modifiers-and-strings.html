@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="修饰符Java修饰符主要分为俩类：  访问修饰符：private、default、protected、public 非访问修饰符：static、final、abstract、synchronized  访问修饰符权限修饰符 当前类 同一包类 子类 其他包 public Y Y Y Y protected Y Y Y N default Y Y N N private Y N N N private">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础回顾—修饰符和String">
+<meta property="og:url" content="https://jaxsonwang.github.io/java-basic-modifiers-and-strings.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="修饰符Java修饰符主要分为俩类：  访问修饰符：private、default、protected、public 非访问修饰符：static、final、abstract、synchronized  访问修饰符权限修饰符 当前类 同一包类 子类 其他包 public Y Y Y Y protected Y Y Y N default Y Y N N private Y N N N private">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础回顾—修饰符和String">
+<meta name="twitter:description" content="修饰符Java修饰符主要分为俩类：  访问修饰符：private、default、protected、public 非访问修饰符：static、final、abstract、synchronized  访问修饰符权限修饰符 当前类 同一包类 子类 其他包 public Y Y Y Y protected Y Y Y N default Y Y N N private Y N N N private">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/java-basic-modifiers-and-strings.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java基础回顾—修饰符和String | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/java-basic-modifiers-and-strings.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java基础回顾—修饰符和String
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-12 11:29:32" itemprop="dateCreated datePublished" datetime="2018-06-12T11:29:32+09:00">2018-06-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/java-basic-modifiers-and-strings.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-basic-modifiers-and-strings.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>Java修饰符主要分为俩类：</p>
+<ul>
+<li>访问修饰符：private、default、protected、public</li>
+<li>非访问修饰符：static、final、abstract、synchronized</li>
+</ul>
+<h3 id="访问修饰符权限"><a href="#访问修饰符权限" class="headerlink" title="访问修饰符权限"></a>访问修饰符权限</h3><p>修饰符</p>
+<p>当前类</p>
+<p>同一包类</p>
+<p>子类</p>
+<p>其他包</p>
+<p>public</p>
+<p>Y</p>
+<p>Y</p>
+<p>Y</p>
+<p>Y</p>
+<p>protected</p>
+<p>Y</p>
+<p>Y</p>
+<p>Y</p>
+<p>N</p>
+<p>default</p>
+<p>Y</p>
+<p>Y</p>
+<p>N</p>
+<p>N</p>
+<p>private</p>
+<p>Y</p>
+<p>N</p>
+<p>N</p>
+<p>N</p>
+<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p><strong>被private修饰的变量、方法仅限在本类中使用</strong> 所以private是最严的的访问级别，主要用于隐藏类的一些细节实现和保护类的数据。 例如pojo类就是使用private修饰变量，对外提供setter和getter的方法。 还有如果使用private用来修饰构造方法的话，该类是不能实例化的。这种在单例模式中可以经常看到！ 虽然private主要用于修饰变量和方法，不过也可以修饰内部类，只不过是内部类。</p>
+<pre><code>public class Test{
+    //修饰一个私有变量
+    private int count=1;
+    //修饰一个私有方法
+    private int add(int i,int j){
+        return i+j;
+   }
+    private class Test1{            
+    }
+}
+</code></pre><p><strong>private不能修饰外部类</strong>,因为Test类中的变量和方法是私有的，所以其他类无法调用！</p>
+<pre><code>public class Test2 {
+    public static void main(String[] args) {
+        Test t=new Test();
+        //下面的变量和方法是无法获取的
+        //t.count=2;
+        //t.add(1,2);
+    }
+}
+</code></pre><h4 id="default"><a href="#default" class="headerlink" title="default"></a>default</h4><p>不使用任何修饰符。类、接口、变量、方法都可以使用。不过仅限在同一包下:</p>
+<pre><code>class Test{
+     int count=1;
+     int add(int i,int j){
+            return i+j;
+     }
+    interface Test1{
+    }
+}
+</code></pre><h4 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h4><p>被protected修饰的变量、方法仅仅对同一包内的类和所有子类可见。</p>
+<pre><code>public class Test{
+    protected int count=1;
+    protected int add(int i,int j){
+            return i+j;
+     }
+     protected class Test1{
+     }
+}
+</code></pre><p>在同包下可以直接调用，如果不在同包，则需要继承才可以使用:</p>
+<pre><code>public class Test2 extends Test{
+    public static void main(String[] args) {
+        Test t=new Test();
+        t.count=2;
+        t.add(1,2);
+    }
+}
+</code></pre><p><strong>protected不能修饰外部类</strong></p>
+<h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>public:修饰的类、接口、变量、方法对所有类都可以使用。</p>
+<pre><code>public class Test{
+  public int count=1;
+  public int add(int i,int j){
+          return i+j;
+   }
+}
+</code></pre><h3 id="非访问修饰符"><a href="#非访问修饰符" class="headerlink" title="非访问修饰符"></a>非访问修饰符</h3><p>其下有<code>static</code>,<code>final</code>,<code>abstract</code>,<code>synchronized</code>,<code>transient</code>,<code>native</code></p>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p><strong>静态变量</strong>： static在修饰类变量的时候，无论该类被实例化了多少次，它的静态变量只有一份拷贝。静态变量也被称为类变量。局部变量是不能被声明为static变量的。 <strong>静态方法</strong>： static在修饰类方法的时候，静态方法是不能使用类的非静态变量。静态方法可以直接通过类名调用，因此静态方法中是不能用<strong>this</strong>和<strong>super</strong>关键字的。</p>
+<pre><code>public class Test{
+   public  String name=&quot;xuwujing&quot;;
+   public  static String name2=&quot;xuwujing&quot;;
+
+   public  static String getName() {
+   //这个一句 会报错  因为静态方法是不能使用类的非静态变量
+   //String reult=name;
+   //这一句就可以
+   String reult=name2;
+   return reult;
+    }
+
+   //main方法是静态方法，可以直接调用本类中的静态方法和静态变量
+   public static void main(String[] args) {
+    System.out.println(name2);
+    System.out.println(getName());
+   }
+
+   //该方法是不静态方法，所以调用本类中的静态方法和静态变量时，
+   //需要使用classname.variablename和 classname.methodname的方式访问
+   private void print(){
+    System.out.println(Test.name2);
+    System.out.println(Test.getName());
+    }
+   }
+</code></pre><p><strong>static 静态块：</strong> 在JVM类加载机制中，<strong>如果类存在直接的父类并且这个类还没有被初始化，那么就先初始化父类；如果类中存在初始化语句，就依次执行这些初始化语句。</strong> 可能上述的两句话不太好理解，那么这里我们来运行下代码查看其结果，通过结果可能就能更好的理解上述语句的话了。</p>
+<pre><code>class HelloA {
+    public HelloA() {
+        System.out.println(&quot;HelloA&quot;);
+    }
+
+    {
+        System.out.println(&quot;I&apos;m A class&quot;);
+    }
+
+    static {
+        System.out.println(&quot;static A&quot;);
+    }
+}
+
+public class HelloB extends HelloA {
+    public HelloB() {
+        System.out.println(&quot;HelloB&quot;);
+    }
+
+    {
+        System.out.println(&quot;I&apos;m B class&quot;);
+    }
+
+    static {
+        System.out.println(&quot;static B&quot;);
+    }
+
+    public static void main(String[] args) {
+        new HelloB();
+    }
+}
+
+结果：
+static A
+static B
+I&apos;m A class
+HelloA
+I&apos;m B class
+HelloB
+</code></pre><p><strong>创建对象时构造器的调用顺序是：</strong> 先初始化静态成员，然后调用父类构造器，再初始化非静态成员，最后调用自身构造器。 那么static修饰符这块的运用可以总结如下:</p>
+<ol>
+<li>静态变量在内存中只有一个拷贝，在类的所有实例中共享。</li>
+<li>在静态方法中不能直接访问实例方法和实例变量，反之可以。</li>
+<li>在静态方法中不能使用this和super关键字。</li>
+<li>静态方法不能被abstract修饰。</li>
+<li>静态方法和静态变量都可以通过类名直接访问。</li>
+<li>当类被加载时，静态代码块只被加载一次。有多个静态变量或块时，按声明顺序加载。</li>
+</ol>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><p>final :用来修饰类、方法和变量。 final 修饰的类不能够被继承，修饰的方法不能被继承类重新定义，修饰的变量为常量，是不可修改的。 如果上述语句不好理解的话，我们可以通过编写相关代码进行实验。 定义一个final修饰的变量、方法以及类。然后进行相关的测试</p>
+<pre><code>public class Test{
+       //定义一个final修饰的变量
+   public  static final String name=&quot;xuwujing&quot;;
+
+ public static void main(String[] args) {
+         //这句会报错  因为该变量已经被final修饰了
+         name=&quot;张三&quot;;
+     }
+     //类加上final之后，该类是无法被继承的
+     final class Test2{
+     }
+     //这句会报错，因为Test2是被final修饰的类
+     class Test3 extends Test2{
+     }
+
+     class Test4{
+         //定义一个被final修饰的方法
+          final Date getTime(){
+             return new Date();
+         }
+     }
+
+     class Test5 extends Test4{
+         //这句会报错，因为final方法是不能被子类修改的。
+         Date getTime(){
+    return new Date();
+         }
+     }
+ }
+</code></pre><p>故得知：</p>
+<ul>
+<li>final修饰类：表示该类不能被继承；</li>
+<li>final修饰方法：表示方法不能被重写；</li>
+<li>final修饰变量：表示变量只能一次赋值以后值不能被修改（常量）;</li>
+</ul>
+<h4 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h4><p>abstract ：用来创建抽象类和抽象方法。 修饰类：会使这个类成为一个抽象类，这个类将不能生成对象实例，但可以做为对象变量声明的类型（见后面实例），也就是编译时类型。抽象类就相当于一类的半成品，需要子类继承并覆盖其中的抽象方法。 修饰方法：会使这个方法变成抽象方法，也就是只有声明而没有实现，需要子类继承实现。</p>
+<pre><code>public class AbstractTest{
+    public static void main(String[] args) {
+        //这句会报错，因为抽象类不能实例化
+        // Animal a=new Animal();
+        //抽象类可以实例化重写该类抽象方法的子类
+        Animal a = new Dog();
+        a.show();
+    }
+}
+abstract class Animal{
+    abstract void show();
+    public void print(){
+        System.out.println(&quot;Animal&quot;);
+    }
+}
+//继承抽象类需要实现抽象类的方法
+class Dog extends Animal{    
+    @Override
+    void show() {
+        System.out.println(&quot;This is Dog!&quot;);
+    }
+}
+</code></pre><p>总结: - 抽象类和抽象方法都需要被abstract修饰。抽象方法一定要定义在抽象类中。 - 抽象类不可以创建实例，原因：调用抽象方法没有意义。 - 只有覆盖了抽象类中所有的抽象方法后，其子类才可以实例化。否则该子类还是一个抽象类。 注意： - 抽象类不能用来实例化对象，声明抽象类的唯一目的是为了将来对该类进行扩充。 - 一个类不能同时被 abstract 和 final 修饰。如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将出现编译错误。 - 抽象方法是一种没有任何实现的方法，该方法的的具体实现由子类提供。 4、抽象方法不能被声明成 final 和 static。 - 任何继承抽象类的子类必须实现父类的所有抽象方法，除非该子类也是抽象类。 - 如果一个类包含若干个抽象方法，那么该类必须声明为抽象类。抽象类可以不包含抽象方法。</p>
+<h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><p>synchronized: 修饰的方法同一时间只能被一个线程访问。在多线程中运用很常见。 synchronized 的解释: synchronized 方法控制对类成员变量的访问：每个类实例对应一把锁，每个 synchronized方法都必须获得调用该方法的类实例的锁方能执行，否则所属线程阻塞，方法一旦执行，就独占该锁，直到从该方法返回时才将锁释放，此后被阻塞的线程方能获得该锁，重新进入可执行状态。这种机制确保了同一时刻对于每一个类实例，其所有声明synchronized 的成员函数中至多只有一个处于可执行状态（因为至多只有一个能够获得该类实例对应的锁），从而有效避免了类成员变量的访问冲突（只要所有可能访问类成员变量的方法均被声明为 synchronized）。 简单的来说，就是使用synchronized 修饰的方法，在多线程进行同时访问的时候，只会让一个线程先进行访问，其它的线程等候，当这个线程访问完了之后，再让下一个进行访问，依次类推。</p>
+<h4 id="transient-和native"><a href="#transient-和native" class="headerlink" title="transient 和native"></a>transient 和native</h4><p>transient:被 transient 修饰的实例变量时，java 虚拟机(JVM)跳过该特定的变量。 native: 被native修饰的方法实际是由另一种语言进行实现的本地方法。例如Java中获取的Long类型的时间戳 ：System.currentTimeMillis(); 实际是由native 修饰的。</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String 类型可能就是我们最常用的的对象了。 首先说明，String并不是基本数据类型，而是一个对象，并且是不可变的对象。查看源码可以String类是被final修饰的，是不可被继承的！</p>
+<blockquote>
+<p>String的在未被初始化的时候为null，表示它还没有被创建，自然也就没有分配空间; 而” “和 new String()不是null，它们是已经被创建，只是值为空而已！并且也分配了内存空间。</p>
+</blockquote>
+<p>String有15种构造方法,有两种是过时的，其中包含<code>char[]</code>,<code>byte[]</code>,<code>int[]</code>,<code>String</code>,<code>StringBuffer</code>,<code>StringBuilder</code>。 我们在创建String对象的的时候，一般是使用 String str=”xxx”，但有时也会用new String()来初始话字符串。 例如:</p>
+<pre><code>String hello=&quot;hello&quot;;
+String newHello=new String(&quot;hello&quot;);
+char []cHello ={&apos;h&apos;,&apos;e&apos;,&apos;l&apos;,&apos;l&apos;,&apos;o&apos;};
+String str=new String(cHello);
+</code></pre><p><strong>注意:String 类是不可改变的，所以你一旦创建了 String 对象，那它的值就无法改变了。</strong> String常用方法 大概讲述了String的用法之后，这里我们来列举一些String常用的方法: - length ：返回此字符串的长度。 - charAt：返回指定索引处的 char 值。 - compareTo:把这个字符串和另一个对象比较。 - concat：将指定字符串连接到此字符串的结尾。 - split:根据给定正则表达式的匹配拆分此字符串。 - equals:将此字符串与指定的对象比较。 - endsWith:测试此字符串是否以指定的后缀结束。 - startsWith:测试此字符串是否以指定的前缀结束。 - getBytes: 使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。 - indexOf:返回指定字符在此字符串中第一次出现处的索引。 - replace：返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。 12:substring：返回一个新的字符串，它是此字符串的一个子字符串。 - ….</p>
+<h4 id="String对象比较"><a href="#String对象比较" class="headerlink" title="String对象比较"></a>String对象比较</h4><p>String作为我们最常用的对象，在面试中估计也会接触不少。一般来说，会考到String的常量池相关问题，主要是使用String进行比较的时候，==和equals这两种方法来判断是否相当。这里收集了一些String经常遇到的问题。</p>
+<pre><code>String s1 = &quot;test&quot;;
+String s2 = new String(&quot;test&quot;);
+String s3 = &quot;te&quot;;
+String s4 = &quot;st&quot;;
+String s5 = &quot;te&quot; + &quot;st&quot;;
+String s6 = s3 + s4;
+String s7 = new String(s1);
+System.out.println(s1 == s2); 
+System.out.println(s1 == s5); 
+System.out.println(s1 == s6); 
+System.out.println(s7==s1);       
+System.out.println(s7.equals(s1));
+
+結果：
+false
+true
+false
+false
+true
+</code></pre><p>解析： - 虽然看起来是一样的，但是新建一个String类的时候会重新分配引用地址，而 == 就是比较引用地址，所以为false。 - 在编译之前就可以确认s5=test， 并且引用地址一样，所以为true; - 字符串常量池的原则 这时 s6 的值是在运行时得到的，它会重新构造字符串对象 所以为false。 - 和第一个一样的，就是换汤不换药，所以为false。 - equals 只比较值相等，不关心它的引用地址。</p>
+<pre><code>String ab=&quot;ab&quot;;
+String c=&quot;c&quot;;
+String ab_c=ab+c;
+String ab_c1=&quot;ab&quot;+&quot;c&quot;;
+String abc=&quot;abc&quot;;
+System.out.println(ab_c == abc + &quot; : &quot; + ab_c.equals(abc));
+System.out.println((ab_c == abc) + &quot; : &quot; + ab_c.equals(abc));
+System.out.println((ab_c1 == abc) + &quot; : &quot; + ab_c1.equals(abc));
+
+
+结果：
+false
+false : true
+true : true
+</code></pre><p>解析： 到这里，可能就会诧异了，为什么和我想的不一样呢？ 这里其实是有陷阱的，也就是运算符的优先级。 第一个结果就是优先级的问题导致的，它会先计算 abc + “ : “ + ab_c.equals(abc) ，然后再来进行比较，所以为false。同理，下面的也是如此，基本和上面的那个例子差不多，这里就不再概述了。</p>
+<h4 id="String、StringBuffer和StringBuilder"><a href="#String、StringBuffer和StringBuilder" class="headerlink" title="String、StringBuffer和StringBuilder"></a>String、StringBuffer和StringBuilder</h4><ul>
+<li>String: String的特点是一旦赋值，便不能更改其指向的字符对象，如果更改，则会指向一个新的字符对象。</li>
+<li>StringBuffer:StringBuffer对象可以调用其方法动态的进行增加、插入、修改和删 除操作，且不用像数组那样事先指定大小，从而实现多次插入字 符，一次整体取出的效果，因而操作字符串非常灵活方便。并且生成数据之后可以toString转为String，线程安全。</li>
+<li>StringBuilder：它是在单线程环境下使用的，因为它的所有方面都没有被synchronized修饰，因此它的效率也比StringBuffer要高。</li>
+</ul>
+<p>关于字符串拼接方式，在String类中，我们最常用的是 + ,其次是使用StringBuffer或StringBuilder 的append方法，至于String类中的concat几乎很少用到。 一般来说，如果在少量的字符串进行拼接的话，我们会使用+，如果拼接过多的话，单线程使用 StringBuilder ，多线程使用StringBuffer 进行拼接。因为使用String 的 + 在过多的字符串进行拼接的时候会极大的使用内存，因为它在凭借的时候还是使用 append()方法，然后再进行toString转换，如果是少量的时候，是感觉不到差异的，但是在大量拼接的时候就会明显感受得到。</p>
+<pre><code>String str=&quot;Hello World&quot;;
+String str1=&quot;&quot;;
+StringBuffer sbr=new StringBuffer(str); 
+StringBuilder sbd=new StringBuilder(str); 
+long start=System.currentTimeMillis();
+   for(int i=0;i&lt;10000;i++){
+       str1+=str;
+   }
+   System.out.println(&quot;String累加用时:&quot;+(System.currentTimeMillis()-start)+&quot;ms&quot;);
+   long start2=System.currentTimeMillis();
+   for(int i=0;i&lt;10000;i++){
+       sbr.append(str);
+   }
+   System.out.println(&quot;StringBuffer累加用时:&quot;+(System.currentTimeMillis()-start2)+&quot;ms&quot;);
+   long start3=System.currentTimeMillis();
+   for(int i=0;i&lt;10000;i++){
+       sbd.append(str);
+   }
+   System.out.println(&quot;StringBuilder累加用时:&quot;+(System.currentTimeMillis()-start3)+&quot;ms&quot;);
+
+
+结果：
+String累加用时:701ms
+StringBuffer累加用时:2ms
+StringBuilder累加用时:0ms
+</code></pre><p>这里从输出结果中可以看到String 的+拼接方法的耗时了。但是使用 + 实在是方便。所以在这里建议如果字符串拼接次数在10次以下，可以使用+，过多的则用StringBuffer或StringBuilder。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/java-basic-modifiers-and-strings.html" title="Java基础回顾—修饰符和String">https://jaxsonwang.github.io/java-basic-modifiers-and-strings.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/java-basic-data-types.html" rel="next" title="Java基础回顾—基本数据类型">
+                <i class="fa fa-chevron-left"></i> Java基础回顾—基本数据类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/java-basics-inheritance-and-polymorphism.html" rel="prev" title="Java基础回顾—封装、继承和多态">
+                Java基础回顾—封装、继承和多态 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符"><span class="nav-number">1.</span> <span class="nav-text">修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问修饰符权限"><span class="nav-number">2.</span> <span class="nav-text">访问修饰符权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#private"><span class="nav-number">2.1.</span> <span class="nav-text">private</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#default"><span class="nav-number">2.2.</span> <span class="nav-text">default</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#protected"><span class="nav-number">2.3.</span> <span class="nav-text">protected</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#public"><span class="nav-number">2.4.</span> <span class="nav-text">public</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非访问修饰符"><span class="nav-number">3.</span> <span class="nav-text">非访问修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static"><span class="nav-number">3.1.</span> <span class="nav-text">static</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final"><span class="nav-number">4.</span> <span class="nav-text">final</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#abstract"><span class="nav-number">4.1.</span> <span class="nav-text">abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronized"><span class="nav-number">4.2.</span> <span class="nav-text">synchronized</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transient-和native"><span class="nav-number">4.3.</span> <span class="nav-text">transient 和native</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String"><span class="nav-number">5.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String对象比较"><span class="nav-number">5.1.</span> <span class="nav-text">String对象比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String、StringBuffer和StringBuilder"><span class="nav-number">5.2.</span> <span class="nav-text">String、StringBuffer和StringBuilder</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

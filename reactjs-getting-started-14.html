@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="附录四、GraphQL/Relay 初体验 前言GraphQL 的出现主要是为了要解决 Web/Mobile 端不断增加的 API 请求所衍生的问题。由于 RESTful 最大的功能在于很有效的前后端分离和建立 stateless 请求，然而 RESTful API 的资源设计上比较偏向单方面的互动，若是有著複杂资源间的关联就会出现请求次数过多，遇到不少的瓶颈。 GraphQL 初体验 Graph">
+<meta name="keywords" content="Sock5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="附录四、GraphQL&#x2F;Relay 初体验">
+<meta property="og:url" content="https://jaxsonwang.github.io/reactjs-getting-started-14.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="附录四、GraphQL/Relay 初体验 前言GraphQL 的出现主要是为了要解决 Web/Mobile 端不断增加的 API 请求所衍生的问题。由于 RESTful 最大的功能在于很有效的前后端分离和建立 stateless 请求，然而 RESTful API 的资源设计上比较偏向单方面的互动，若是有著複杂资源间的关联就会出现请求次数过多，遇到不少的瓶颈。 GraphQL 初体验 Graph">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/relay-graphql.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/graphql-demo-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/graphql-demo-2.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/relay-architecture.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="附录四、GraphQL&#x2F;Relay 初体验">
+<meta name="twitter:description" content="附录四、GraphQL/Relay 初体验 前言GraphQL 的出现主要是为了要解决 Web/Mobile 端不断增加的 API 请求所衍生的问题。由于 RESTful 最大的功能在于很有效的前后端分离和建立 stateless 请求，然而 RESTful API 的资源设计上比较偏向单方面的互动，若是有著複杂资源间的关联就会出现请求次数过多，遇到不少的瓶颈。 GraphQL 初体验 Graph">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/10/relay-graphql.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/reactjs-getting-started-14.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>附录四、GraphQL/Relay 初体验 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/reactjs-getting-started-14.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">附录四、GraphQL/Relay 初体验
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-04 09:17:40" itemprop="dateCreated datePublished" datetime="2016-10-04T09:17:40+09:00">2016-10-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/reactjs-getting-started-14.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/reactjs-getting-started-14.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="附录四、GraphQL-Relay-初体验"><a href="#附录四、GraphQL-Relay-初体验" class="headerlink" title="附录四、GraphQL/Relay 初体验"></a>附录四、GraphQL/Relay 初体验</h1><p><img src="https://res.i95.me/wp-content/uploads/2016/10/relay-graphql.png" alt="Relay/GraphQL 初体验"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>GraphQL 的出现主要是为了要解决 Web/Mobile 端不断增加的 API 请求所衍生的问题。由于 RESTful 最大的功能在于很有效的前后端分离和建立 stateless 请求，然而 RESTful API 的资源设计上比较偏向单方面的互动，若是有著複杂资源间的关联就会出现请求次数过多，遇到不少的瓶颈。</p>
+<h3 id="GraphQL-初体验"><a href="#GraphQL-初体验" class="headerlink" title="GraphQL 初体验"></a>GraphQL 初体验</h3><blockquote>
+<p>GraphQL is a data query language and runtime designed and used at Facebook to request and deliver data to mobile and web apps since 2012.</p>
+</blockquote>
+<p>根据 <a href="http://graphql.org/" target="_blank" rel="noopener">GraphQL 官方网站</a>的定义，GraphQL 是一个资料查询语言和 runtime。Query responses 是由 client 所宣告决定，而非 server 端，且只会回传 client 所宣告的内容。此外，GraphQL 是强型别（strong type）且可以容易使用阶层（hierarchical）和处理複杂的资料关连性，并更容易让前端工程师和产品工程师定义 Schema 来使用，赋予前端对于资料的制定能力。</p>
+<p>GraphQL 主要由以下元件构成：</p>
+<p>类别系统（Type System） 查询语言（Query Language）：在 Operations 中 query 只读取资料而 mutation 写入操作 执行语意（Execution Semantics） 静态验证（Static Validation） 类别检查（Type Introspection）</p>
+<p>一般 RESTful 在取用资源时会对应到 HTTP 中 <code>GET</code>、<code>POST</code>、<code>DELETE</code>、<code>PUT</code> 等方法，并以 URL 对应的方式去取得资源，例如：</p>
+<p>取得 id 为 3500401 的使用者资料：</p>
+<p>GET <code>/users/3500401</code></p>
+<p>以下则是 GraphQL 宣告的 query 范例，宣告式（declarative）的方式比起 RESTful 感觉起来相对直观：</p>
+<pre><code>{
+  user(id: 3500401) {
+    id,
+    name,
+    isViewerFriend,
+    profilePicture(size: 50)  {
+      uri,
+      width,
+      height
+    }
+  }
+}
+</code></pre><p>接收到 GraphQL query 后 server 回传结果：</p>
+<pre><code>{
+  &quot;user&quot; : {
+    &quot;id&quot;: 3500401,
+    &quot;name&quot;: &quot;Jing Chen&quot;,
+    &quot;isViewerFriend&quot;: true,
+    &quot;profilePicture&quot;: {
+      &quot;uri&quot;: &quot;http://someurl.cdn/pic.jpg&quot;,
+      &quot;width&quot;: 50,
+      &quot;height&quot;: 50
+    }
+  }
+}
+</code></pre><h4 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h4><p>在 GraphQL 中有取得资料 Query、更改资料 Mutation 等操作。以下我们先介绍如何建立 GraphQL Server 并取得资料。</p>
+<ol>
+<li>环境建置 接下来我们将动手建立 GraphQL 的简单范例，让大家感受一下 GraphQL 的特性，在这之前我们需要先安装以下套件建立好环境： 1. <a href="https://github.com/graphql/graphql-js" target="_blank" rel="noopener">graphql</a>：GraphQL 的 JavaScript 实作.</li>
+<li><a href="https://github.com/expressjs/express" target="_blank" rel="noopener">express</a>：Node web framework.</li>
+<li><p><a href="https://github.com/graphql/express-graphql" target="_blank" rel="noopener">express-graphql</a>, an express middleware that exposes a GraphQL server. <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">    $ npm init  </span><br><span class="line">    $ npm install graphql express express-graphql --save</span><br><span class="line"></span><br><span class="line">    2. Data 格式设计 以下是 `data.json`：</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#123;  </span><br><span class="line">&quot;1&quot;: &#123;  </span><br><span class="line">&quot;id&quot;: &quot;1&quot;,  </span><br><span class="line">&quot;name&quot;: &quot;Dan&quot;  </span><br><span class="line">&#125;,  </span><br><span class="line">&quot;2&quot;: &#123;  </span><br><span class="line">&quot;id&quot;: &quot;2&quot;,  </span><br><span class="line">&quot;name&quot;: &quot;Marie&quot;  </span><br><span class="line">&#125;,  </span><br><span class="line">&quot;3&quot;: &#123;  </span><br><span class="line">&quot;id&quot;: &quot;3&quot;,  </span><br><span class="line">&quot;name&quot;: &quot;Jessie&quot;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    3. Server 设计</span><br></pre></td></tr></table></figure></p>
+<p> // 引入函式库<br> import graphql from ‘graphql’;<br> import graphqlHTTP from ‘express-graphql’;<br> import express from ‘express’;</p>
+<p> // 引入 data<br> const data = require(‘./data.json’);</p>
+<p> // 定义 User type 的两个子 fields：<code>id</code> 和 <code>name</code> 字串，注意型别对于 GraphQL 非常重要<br> const userType = new graphql.GraphQLObjectType({<br>   name: ‘User’,<br>   fields: {</p>
+<pre><code>id: { type: graphql.GraphQLString },
+name: { type: graphql.GraphQLString },
+</code></pre><p>   }<br> });</p>
+<p> const schema = new graphql.GraphQLSchema({<br>   query: new graphql.GraphQLObjectType({</p>
+<pre><code>name: &apos;Query&apos;,
+fields: {
+  user: {
+      // 使用上面定义的 userType
+    type: userType,
+    // 定义所接受的 user 参数
+    args: {
+      id: { type: graphql.GraphQLString }
+    },
+    // 当传入参数后 resolve 如何处理回传 data
+    resolve: function (_, args) {
+      return data[args.id];
+    }
+  }
+}
+</code></pre><p>   })<br> });</p>
+<p> // 启动 graphql server<br> express()<br>   .use(‘/graphql’, graphqlHTTP({ schema: schema, pretty: true }))<br>   .listen(3000);</p>
+<p> console.log(‘GraphQL server running on <a href="http://localhost:3000/graphql&#39;)" target="_blank" rel="noopener">http://localhost:3000/graphql&#39;)</a>;</p>
+</li>
+</ol>
+<p>在终端机执行：</p>
+<pre><code>node index.js
+</code></pre><p>这个时候我们可以打开浏览器输入 <code>localhost:3000/graphql.</code>，由于没有任何 Query，目前会出现以下画面：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/graphql-demo-1.png" alt="Relay/GraphQL 初体验"><br>4. Query 设计 当 GraphQL 指令为：</p>
+<pre><code>{
+  user(id: &quot;1&quot;) {
+    name
+  }
+}
+</code></pre><p>将回传资料：</p>
+<pre><code>{
+  &quot;data&quot;: {
+    &quot;user&quot;: {
+      &quot;name&quot;: &quot;Dan&quot;
+    }
+  }
+}
+</code></pre><p>在了解了资料和 Query 设计后，这个时候我们可以打开浏览器输入（当然也可以透过终端机 curl 的方式执行）： <code>http://localhost:3000/graphql?query={user(id:&quot;1&quot;){name}}</code>，此时 server 会根据 GET 的资料回传：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/graphql-demo-2.png" alt="Relay/GraphQL 初体验"></p>
+<p>到这裡，你已经完成了最简单的 GraphQL Server 设计了，若你遇到编码问题，可以尝试使用 JavaScript 中的 <code>encodeURI</code> 去进行转码。也可以自己尝试不同的 Schema 和 Query，感受一下 GraphQL 的特性。事实上，GraphQL 还拥有许多有趣的特色，例如：Fragment、指令、Promise 等，若读者对于 GraphQL 有兴趣可以进一步参考 <a href="http://graphql.org/" target="_blank" rel="noopener">GraphQL 官网</a>。</p>
+<h3 id="Relay-初体验"><a href="#Relay-初体验" class="headerlink" title="Relay 初体验"></a>Relay 初体验</h3><blockquote>
+<p>Relay is a new framework from Facebook that provides data-fetching functionality for React applications.</p>
+</blockquote>
+<p>在体验完 GraphQL 后，我们要来聊聊 Relay。Relay 是 Facebook 为了满足大型应用程式开发所建构的框架，主要用于处理 React 应用层（Application）的资料互动框架。在 Relay 中可以让每个 Component 透过 GraphQL 的整合处理可以精确地向 Component props 提供取得的数据，并在 client side 存放一份所有数据的 store 当作暂存。</p>
+<p>整个 Relay 架构流程图：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/relay-architecture.png" alt="Relay/GraphQL 初体验"></p>
+<p>一般来说要使用 Relay 必须先准备好以下三项工具：</p>
+<ol>
+<li>A GraphQL Schema - <a href="https://github.com/graphql/graphql-js" target="_blank" rel="noopener">graphql-js</a></li>
+</ol>
+<ul>
+<li><a href="https://github.com/graphql/graphql-relay-js" target="_blank" rel="noopener">graphql-relay-js</a></li>
+</ul>
+<ol start="2">
+<li>A GraphQL Server - <a href="https://github.com/expressjs/express" target="_blank" rel="noopener">express</a></li>
+</ol>
+<ul>
+<li><a href="https://github.com/graphql/express-graphql" target="_blank" rel="noopener">express-graphql</a></li>
+</ul>
+<ol start="3">
+<li>Relay - <a href="https://github.com/facebook/relay/tree/master/src/network-layer/default" target="_blank" rel="noopener">network layer</a>：Relay 透过 network layer 传 GraphQL 给 server</li>
+</ol>
+<p>接下来我们来透过 React 官方上的范例来让大家感受一下 Relay 的特性。上面我们有提过：在 Relay 中可以让每个 Component 透过 GraphQL 的整合处理可以更精确地向 Component props 提供取得的数据，并在 client side 存放一份所有数据的 store 当作暂存。所以，首先我们先建立每个 Component 和 GraphQL/Relay 的对应：</p>
+<pre><code>// 建立 Tea Component，从 this.props.tea 取得资料
+class Tea extends React.Component {
+  render() {
+    var {name, steepingTime} = this.props.tea;
+    return (
+      &lt;li key={name}&gt;
+        {name} (&lt;em&gt;{steepingTime} min&lt;/em&gt;)
+      &lt;/li&gt;
+    );
+  }
+}
+// 使用 Relay.createContainer 建立资料沟通窗口 
+Tea = Relay.createContainer(Tea, {
+  fragments: {
+    tea: () =&gt; Relay.QL`
+      fragment on Tea {
+        name,
+        steepingTime,
+      }
+    `,
+  },
+});
+
+class TeaStore extends React.Component {
+  render() {
+    return &lt;ul&gt;
+      {this.props.store.teas.map(
+        tea =&gt; &lt;Tea tea={tea} /&gt;
+      )}
+    &lt;/ul&gt;;
+  }
+}
+TeaStore = Relay.createContainer(TeaStore, {
+  fragments: {
+    store: () =&gt; Relay.QL`
+      fragment on Store {
+        teas { ${Tea.getFragment(&apos;tea&apos;)} },
+      }
+    `,
+  },
+});
+
+// Route 设计
+class TeaHomeRoute extends Relay.Route {
+  static routeName = &apos;Home&apos;;
+  static queries = {
+    store: (Component) =&gt; Relay.QL`
+      query TeaStoreQuery {
+        store { ${Component.getFragment(&apos;store&apos;)} },
+      }
+    `,
+  };
+}
+
+ReactDOM.render(
+  &lt;Relay.RootContainer
+    Component={TeaStore}
+    route={new TeaHomeRoute()}
+  /&gt;,
+  mountNode
+);
+</code></pre><p>GraphQL Schema 和 store 建立：</p>
+<pre><code>// 引入函式库
+import {
+  GraphQLInt,
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+} from &apos;graphql&apos;;
+
+// client side 暂存 store，GraphQL Server reponse 会更新 store，再透过 props 传递给 Component
+const STORE = {
+  teas: [
+    {name: &apos;Earl Grey Blue Star&apos;, steepingTime: 5},
+    {name: &apos;Milk Oolong&apos;, steepingTime: 3},
+    {name: &apos;Gunpowder Golden Temple&apos;, steepingTime: 3},
+    {name: &apos;Assam Hatimara&apos;, steepingTime: 5},
+    {name: &apos;Bancha&apos;, steepingTime: 2},
+    {name: &apos;Ceylon New Vithanakande&apos;, steepingTime: 5},
+    {name: &apos;Golden Tip Yunnan&apos;, steepingTime: 5},
+    {name: &apos;Jasmine Phoenix Pearls&apos;, steepingTime: 3},
+    {name: &apos;Kenya Milima&apos;, steepingTime: 5},
+    {name: &apos;Pu Erh First Grade&apos;, steepingTime: 4},
+    {name: &apos;Sencha Makoto&apos;, steepingTime: 2},
+  ],
+};
+
+// 设计 GraphQL Type
+var TeaType = new GraphQLObjectType({
+  name: &apos;Tea&apos;,
+  fields: () =&gt; ({
+    name: {type: GraphQLString},
+    steepingTime: {type: GraphQLInt},
+  }),
+});
+
+// 将 Tea 整合进来
+var StoreType = new GraphQLObjectType({
+  name: &apos;Store&apos;,
+  fields: () =&gt; ({
+    teas: {type: new GraphQLList(TeaType)},
+  }),
+});
+
+// 输出 GraphQL Schema
+export default new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: &apos;Query&apos;,
+    fields: () =&gt; ({
+      store: {
+        type: StoreType,
+        resolve: () =&gt; STORE,
+      },
+    }),
+  }),
+});
+</code></pre><p>限于篇幅，我们只能让大家感受一下 Relay 的简单范例，若大家想进一步体验 Relay 的优势，已经帮你准备好 GraphQL Server、transpiler 的 <a href="https://github.com/relayjs/relay-starter-kit" target="_blank" rel="noopener">Relay Starter Kit</a> 专案会是个很好的开始。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>React 生态系中，除了前端 View 的部份有革新性的创新外，GraphQL 更是对于资料取得的全新思路。虽然 GraphQL 和 Relay 已经成为开源专案，但技术上仍持续演进，若需要在团队 production 上导入仍可以持续观察。到这边，若是一路从第一章看到这裡的读者真的要给自己一个热烈掌声了，我知道对于初学者来说 React 庞大且有许多的新的观念需要消化，但如同笔者在最初时所提到的，学习 React 重要的是透过这个生态系去学习现代化网页开发的工具和方法以及思路，成为更好的开发者。根据前端摩尔定律，每半年就有一次大变革，但基本 Web 问题和观念依然不变，大家一起加油啦！若有任何问题都欢迎来信给笔者或是发 <code>issue</code>，当然 PR is welcome 🙂</p>
+<h3 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><ol>
+<li><a href="https://medium.com/the-graphqlhub/your-first-graphql-server-3c766ab4f0a2#.7e02np1rs" target="_blank" rel="noopener">Your First GraphQL Server</a></li>
+<li><a href="http://qianduan.guru/2016/01/03/Your-First-GraphQL-Server/" target="_blank" rel="noopener">搭建你的第一个 GraphQL 服务器</a></li>
+<li><a href="https://learngraphql.com/" target="_blank" rel="noopener">Learn GraphQL</a></li>
+<li><a href="https://kadira.io/blog/graphql/graphql-vs-relay" target="_blank" rel="noopener">GraphQL vs Relay</a></li>
+<li><a href="http://graphql.org/" target="_blank" rel="noopener">GraphQL 官网</a></li>
+<li><a href="https://facebook.github.io/relay/" target="_blank" rel="noopener">Relay 官网</a></li>
+<li><a href="https://github.com/graphql/graphql-js" target="_blank" rel="noopener">A reference implementation of GraphQL for JavaScript</a></li>
+<li><a href="http://taobaofed.org/blog/2016/03/10/graphql-in-depth/" target="_blank" rel="noopener">深入理解 GraphQL</a></li>
+<li><a href="http://taobaofed.org/blog/2015/11/26/graphql-basics-server-implementation/" target="_blank" rel="noopener">Node.js 服务端实践之 GraphQL 初探</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/reactjs-getting-started-14.html" title="附录四、GraphQL/Relay 初体验">https://jaxsonwang.github.io/reactjs-getting-started-14.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sock5/" rel="tag"># Sock5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/reactjs-getting-started-13.html" rel="next" title="附录三、React 测试入门教学">
+                <i class="fa fa-chevron-left"></i> 附录三、React 测试入门教学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/programmer-presentation-guide.html" rel="prev" title="程序员高级装逼指南">
+                程序员高级装逼指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#附录四、GraphQL-Relay-初体验"><span class="nav-number">1.</span> <span class="nav-text">附录四、GraphQL/Relay 初体验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQL-初体验"><span class="nav-number">1.0.2.</span> <span class="nav-text">GraphQL 初体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实战演练"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">实战演练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relay-初体验"><span class="nav-number">1.0.3.</span> <span class="nav-text">Relay 初体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.0.4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸阅读"><span class="nav-number">1.0.5.</span> <span class="nav-text">延伸阅读</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

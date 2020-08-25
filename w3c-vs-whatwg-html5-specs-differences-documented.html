@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="W3C vs. WhatWG HTML5 标准 – 差异记录 原文：http://developer.telerik.com/featured/w3c-vs-whatwg-html5-specs-differences-documented/  几周以前，HTML5成为W3C的一个正式推荐。我在SitePoint上针对这一事件讨论了5个有趣但现在过时的功能 。 问题在于W3C标准是同一硬币的一面。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="W3C vs. WhatWG HTML5 标准 - 差异记录">
+<meta property="og:url" content="https://jaxsonwang.github.io/w3c-vs-whatwg-html5-specs-differences-documented.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="W3C vs. WhatWG HTML5 标准 – 差异记录 原文：http://developer.telerik.com/featured/w3c-vs-whatwg-html5-specs-differences-documented/  几周以前，HTML5成为W3C的一个正式推荐。我在SitePoint上针对这一事件讨论了5个有趣但现在过时的功能 。 问题在于W3C标准是同一硬币的一面。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="W3C vs. WhatWG HTML5 标准 - 差异记录">
+<meta name="twitter:description" content="W3C vs. WhatWG HTML5 标准 – 差异记录 原文：http://developer.telerik.com/featured/w3c-vs-whatwg-html5-specs-differences-documented/  几周以前，HTML5成为W3C的一个正式推荐。我在SitePoint上针对这一事件讨论了5个有趣但现在过时的功能 。 问题在于W3C标准是同一硬币的一面。">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/w3c-vs-whatwg-html5-specs-differences-documented.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>W3C vs. WhatWG HTML5 标准 - 差异记录 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/w3c-vs-whatwg-html5-specs-differences-documented.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">W3C vs. WhatWG HTML5 标准 - 差异记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-09 18:34:43" itemprop="dateCreated datePublished" datetime="2016-10-09T18:34:43+09:00">2016-10-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/w3c-vs-whatwg-html5-specs-differences-documented.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/w3c-vs-whatwg-html5-specs-differences-documented.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="W3C-vs-WhatWG-HTML5-标准-–-差异记录"><a href="#W3C-vs-WhatWG-HTML5-标准-–-差异记录" class="headerlink" title="W3C vs. WhatWG HTML5 标准 – 差异记录"></a>W3C vs. WhatWG HTML5 标准 – 差异记录</h1><blockquote>
+<p>原文：<a href="http://developer.telerik.com/featured/w3c-vs-whatwg-html5-specs-differences-documented/" target="_blank" rel="noopener">http://developer.telerik.com/featured/w3c-vs-whatwg-html5-specs-differences-documented/</a></p>
+</blockquote>
+<p>几周以前，HTML5成为W3C的一个正式推荐。我在SitePoint上针对这一事件讨论了<a href="http://www.sitepoint.com/5-obsolete-features-html5/" target="_blank" rel="noopener">5个有趣但现在过时的功能</a> 。 问题在于W3C标准是同一硬币的一面。从HTML的这个版本开始，开发者和浏览器供应商可以在相同标记语言的两种不同风格之间进行选择：W3C开发的规范和WHATWG开发的规范。</p>
+<blockquote>
+<p>译者注：WHATWG：Web Hypertext Application Technology Working Group，网页超文本应用技术工作小组，是一个以推动网络标准为目的而成立的组织。（后面再不做翻译）</p>
+</blockquote>
+<p>就大部分而言，这些规范都是相同或者说非常相似的，但是几年过去之后，越来越多的差异出现。你会关心他们吗？在大多数情况下不会，因为它对你和你的项目差异很小，或者浏览器供应商会支持这两个标准。然而，在短期内，那些影响已给定功能实现的差异可能对你比较重要。每个浏览器供应商遵循规范都有自己的需求。例如<a href="https://groups.google.com/forum/#!msg/mozilla.dev.platform/BnY1261cNJo/MdkaT_EX6M0J" target="_blank" rel="noopener">来自于Mozilla的David Baron目前声明</a>:</p>
+<blockquote>
+<p>当W3C和WHATWG的HTML标准不同时，我们倾向于遵循WHATWG标准。</p>
+</blockquote>
+<p>在这篇文章里，我们将解决W3C和WHATWG标准之间的一些差异，在每个部分的结尾我会给出我对差异的看法。这并不是一个全面的列表，但是足够让你在这个问题有自己的观点。</p>
+<h3 id="“HTML5”-vs-“HTML-现存标准”"><a href="#“HTML5”-vs-“HTML-现存标准”" class="headerlink" title="“HTML5” vs “HTML 现存标准”"></a>“HTML5” vs “HTML 现存标准”</h3><p>我们以一个简单的主题来开始讨论差异：标准的名称。<a href="http://www.whatwg.org/html/" target="_blank" rel="noopener">WHATWG标准的版本</a>去掉了名字后面的”5″<a href="https://blog.whatwg.org/html-is-the-new-html5" target="_blank" rel="noopener">在2011年初更名为”HTML”</a>。然后，又改名为”HTML 现存标准”来指定它将不断发展和不再支持使用版本号引用。</p>
+<p>相反地，<a href="http://www.w3.org/TR/html5/" target="_blank" rel="noopener">W3C标准</a>继续使用数字，正如介绍中提到的一样，最后一个稳定版本是5，例如HTML5。作为这一步的结果，该组织正在积极开发的标准被称为HTML5.1新版本。在HTML5.1里，一些HTML5里面的元素和属性将不会再有，例如正在讨论的<code>dailog</code>元素，<code>month</code>和<code>week</code>类型的<code>input</code>。</p>
+<h4 id="观点"><a href="#观点" class="headerlink" title="观点"></a>观点</h4><p>我认为现在和2000年之前的世界变化太大了，因为技术以一个疯狂的速度发展着，尤其在web端。所以，删除版本号使其具有连续性听起来是比较合理地。然而，不是所有的浏览器都会自动更新或者以同样的速度发布(常用的术语是一个<strong>evergreen browser</strong>),所以将一组功能放到一个或者多个浏览器版本是有道理的。</p>
+<p>我的观点是，有一个版本可以供开发人员参考并做出更好的计划，直到每一个浏览器都采用这一策略的快速发布和自动更新。不是因为，为了使用一些的功能去开发网站而需要检测浏览器的版本（你真的需要使用该功能检测），而是因为，我们可以获得其统计数据使用一个特定版本的浏览器。使用这些统计数据，在合适的时间你可以采用一些功能在你的项目中。 polyfills 和 shims可以帮助你实现，但是把它们加到你的网站中你需要考虑权重？</p>
+<h3 id="main-元素"><a href="#main-元素" class="headerlink" title="main 元素"></a><code>main</code> 元素</h3><p><code>main</code>元素是最新增加标准中的其中一个，不同的标准对于它有不同的定义。W3C标准定义为页面的主要内容 – 内容是一个页面的主要主题或者一个应用的核心功能。标准还定义一个文档中不能出现一个以上的<code>main</code>元素，并且<code>main</code>元素需要搭配<code>role=&quot;main&quot;</code>或者其他等效性的APIS。</p>
+<p>根据这个标准的一个简单的例子如下所示：</p>
+<pre><code>&lt;header&gt;
+   &lt;h1&gt;Main title&lt;/h1&gt;
+&lt;/header&gt;
+&lt;main&gt;
+   &lt;article&gt;
+      &lt;h1&gt;Main title&lt;/h1&gt;
+      &lt;p&gt;This is the content of this section&lt;/p&gt;
+      &lt;footer&gt;
+         The author of this content is Aurelio De Rosa
+      &lt;/footer&gt;
+   &lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+   &lt;small&gt;Copyright © Aurelio De Rosa 2014&lt;/small&gt;
+&lt;/footer&gt;
+</code></pre><p>WHATWG标准不给<code>main</code>元素分配任何语义值，它定义为其他元素主导内容的容器。如果你坚持WHATWG标准，它没有限制你使用<code>main</code>元素的次数。因此如果你在一个页面中有多个<code>article</code>元素，你需要使用<code>main</code>元素标记每个<code>article</code>的的内容。</p>
+<p>使用基于WHATWG标准的一个例子是：</p>
+<pre><code>&lt;header&gt;
+   &lt;h1&gt;Main title&lt;/h1&gt;
+&lt;/header&gt;
+&lt;main&gt;
+   &lt;article&gt;
+      &lt;h1&gt;Main title&lt;/h1&gt;
+      &lt;main&gt;
+         &lt;p&gt;This is the content of this section&lt;/p&gt;
+      &lt;/main&gt;
+      &lt;footer&gt;
+         The author of this content is Aurelio De Rosa
+      &lt;/footer&gt;
+   &lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+   &lt;small&gt;Copyright © Aurelio De Rosa 2014&lt;/small&gt;
+&lt;/footer&gt;
+</code></pre><p>请注意，在上面的代码中，我使用了两次<code>main</code>元素。</p>
+<h4 id="观点-1"><a href="#观点-1" class="headerlink" title="观点"></a>观点</h4><p>关于<code>main</code>元素，我与W3C看法一致，因为我质疑在一个文档中有多个主要区域的需求。此外，我记得 Steve Faulkner（W3C的标准的编辑）多次敦促 Ian Hickson（WHATWG标准的编辑）在WHATWG邮件中提供能够证明需要多个主要区域的数据。结论是，在所有的场合WHATWG编辑提供这些数据失败。</p>
+<h3 id="hgroup-元素"><a href="#hgroup-元素" class="headerlink" title="hgroup 元素"></a><code>hgroup</code> 元素</h3><p><code>hgroup</code>元素用于组合一个或多个<code>h1</code>–<code>h6</code>的元素集合，对组织一个部分的标题和相应的子标题十分有用。</p>
+<p>引入此元素以便于创建子标题，并解决文档轮廓算法的重要问题。实际上，将多个标题元素放在<code>hgroup</code>中，想象文档大纲应该是包含所有标题，但从最终的结果中看出只有最高级别的标题元素。</p>
+<p>一个使用它的例子，来源于我的文章<a href="http://www.sitepoint.com/5-obsolete-features-html5/" target="_blank" rel="noopener">HTML5中5个过时的功能</a>，如下所示：</p>
+<pre><code>&lt;article&gt;
+   &lt;hgroup&gt;
+      &lt;h1&gt;5 deprecated features of HTML5&lt;/h1&gt;
+      &lt;h2&gt;Sometimes specifications are changed
+      and you need to refactor your code&lt;/h2&gt;
+   &lt;/hgroup&gt;
+   &lt;p&gt;In this article we&apos;ll discuss...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre><p>2013年4月由于缺乏实现，用例不足和促进标记反面模式而从W3C标准删除。相反地，WHATWG标准还包括<code>ghroup</code>。</p>
+<h4 id="观点-2"><a href="#观点-2" class="headerlink" title="观点"></a>观点</h4><p>正如引用文章中所说，我一直是这个元素的粉丝但是我弃用了它。第一个原因是，我是W3C标准的一个追随者。第二个原因是，我注意到对这个缺乏兴趣和在浏览器中实现。</p>
+<h3 id="Web-Notifications-API"><a href="#Web-Notifications-API" class="headerlink" title="Web Notifications API"></a>Web Notifications API</h3><p>Web Notifications API定义是为终端用户提供通知的一个API。一个允许提示用户当前网页之外的通知，例如电子邮件传送。每当用户收到了一封新的电子邮件都需要通知用户或者有意见事情需要他们关注。一些具体的例子是如果有人在twitter发文，或者发了一张照片在Facebook或Google+。</p>
+<p>使用此API的简单例子如下：</p>
+<pre><code>Notification.requestPermission(function() {
+   var notification = new Notification(&apos;Email received&apos;, {
+      body: &apos;You have a total of 3 unread emails&apos;
+   });
+
+   notification.onshow = function() {
+      console.log(&apos;Notification shown&apos;);
+   };
+});
+</code></pre><p>Web Notifications API在<a href="http://www.w3.org/TR/notifications/" target="_blank" rel="noopener">W3C标准</a>和<a href="https://notifications.spec.whatwg.org/" target="_blank" rel="noopener">WHATWG标准</a>都有明确的规定，两个版本之间有一些差异。特别地，WHATWG标准去掉了<code>onclose</code>和<code>onshow</code>事件。因此，W3C标准定义了4个事件(<code>onclick</code>, <code>onclose</code>, <code>onerror</code>, 和<code>onshow</code>)，WHATWG标准只定义了两个(<code>onclick</code> 和 <code>onerror</code>)。</p>
+<p>如果你想了解更多API的不同版本和主要浏览器的支持，你可以看看我的这篇文章<a href="http://aurelio.audero.it/blog/2014/10/18/state-web-notifications-api/" target="_blank" rel="noopener">Web Notifications API的状态</a>。</p>
+<h4 id="观点-3"><a href="#观点-3" class="headerlink" title="观点"></a>观点</h4><p>标准之间没有太大的差异，但是它会影响你执行某些任务的方法。在这种情况下，我遵循W3C标准，我考虑的当我触发关闭事件的需要做执行某些操作，但是WHATWG不可能。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>在本文中我们讨论了一些W3C与WHATWG标准之间最重要的差异。正如你看到的，考虑到标准中定义的元素和APIS的数量，还是没有太多的差异。有了这一想法，就不会担心未来，因为我相信标准最后都会和现实需求匹配，这意味着，不管哪个组织开始一个新的功能都会有明确的规定，开发者和浏览器供应商都有权利去使用成功的一个或另一个版本。因此，浏览器供应商和开发者是决定哪个标准”成功”实施或者弃用他们的主导者。正因为如此，对于每一个讨论的功能，最终都会该表标准以符合现实需求。</p>
+<p>最后一点，如果你想发现更多的差异，你可以看W3C的这篇文章<a href="http://www.w3.org/wiki/HTML/W3C-WHATWG-Differences" target="_blank" rel="noopener">W3C HTML5.1标准与WHATWG LS的不同</a>。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/w3c-vs-whatwg-html5-specs-differences-documented.html" title="W3C vs. WhatWG HTML5 标准 - 差异记录">https://jaxsonwang.github.io/w3c-vs-whatwg-html5-specs-differences-documented.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/programmers-show-off-their-wealth.html" rel="next" title="为什么很少见人傻钱多的程序员炫富？">
+                <i class="fa fa-chevron-left"></i> 为什么很少见人傻钱多的程序员炫富？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/css-word-for-word-breaker.html" rel="prev" title="CSS单词换行and断词笔记">
+                CSS单词换行and断词笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#W3C-vs-WhatWG-HTML5-标准-–-差异记录"><span class="nav-number">1.</span> <span class="nav-text">W3C vs. WhatWG HTML5 标准 – 差异记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#“HTML5”-vs-“HTML-现存标准”"><span class="nav-number">1.0.1.</span> <span class="nav-text">“HTML5” vs “HTML 现存标准”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#观点"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">观点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-元素"><span class="nav-number">1.0.2.</span> <span class="nav-text">main 元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#观点-1"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">观点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hgroup-元素"><span class="nav-number">1.0.3.</span> <span class="nav-text">hgroup 元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#观点-2"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">观点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Notifications-API"><span class="nav-number">1.0.4.</span> <span class="nav-text">Web Notifications API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#观点-3"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">观点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">1.0.5.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

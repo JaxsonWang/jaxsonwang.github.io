@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="手把手教你处理下划线 原文：https://css-tricks.com/styling-underlines-web/  译者百科： descenders:降部(不明白的看wiki百科) 设计链接的下划线可能是一件棘手的事，我总是忘记在什么情况下用什么方法。 然而谢天谢地, John Jameson 让我们在这篇博客中加快了处理这个问题的速度. 有许多不同的方法让你设计下划线。也许你还记得这篇文">
+<meta name="keywords" content="Web前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手把手教你处理下划线">
+<meta property="og:url" content="https://jaxsonwang.github.io/styling-underlines-on-the-web.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="手把手教你处理下划线 原文：https://css-tricks.com/styling-underlines-web/  译者百科： descenders:降部(不明白的看wiki百科) 设计链接的下划线可能是一件棘手的事，我总是忘记在什么情况下用什么方法。 然而谢天谢地, John Jameson 让我们在这篇博客中加快了处理这个问题的速度. 有许多不同的方法让你设计下划线。也许你还记得这篇文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-1.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-2.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-3.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-4.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-5.png">
+<meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-6.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手把手教你处理下划线">
+<meta name="twitter:description" content="手把手教你处理下划线 原文：https://css-tricks.com/styling-underlines-web/  译者百科： descenders:降部(不明白的看wiki百科) 设计链接的下划线可能是一件棘手的事，我总是忘记在什么情况下用什么方法。 然而谢天谢地, John Jameson 让我们在这篇博客中加快了处理这个问题的速度. 有许多不同的方法让你设计下划线。也许你还记得这篇文">
+<meta name="twitter:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/styling-underlines-on-the-web.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>手把手教你处理下划线 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/styling-underlines-on-the-web.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">手把手教你处理下划线
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-29 22:19:48" itemprop="dateCreated datePublished" datetime="2016-10-29T22:19:48+09:00">2016-10-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/styling-underlines-on-the-web.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/styling-underlines-on-the-web.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="手把手教你处理下划线"><a href="#手把手教你处理下划线" class="headerlink" title="手把手教你处理下划线"></a>手把手教你处理下划线</h1><blockquote>
+<p>原文：<a href="https://css-tricks.com/styling-underlines-web/" target="_blank" rel="noopener">https://css-tricks.com/styling-underlines-web/</a></p>
+</blockquote>
+<p>译者百科： <a href="https://zh.wikipedia.org/wiki/%E9%99%8D%E9%83%A8" target="_blank" rel="noopener">descenders</a>:<strong>降部</strong>(不明白的看wiki百科)</p>
+<p><strong>设计链接的下划线可能是一件棘手的事，我总是忘记在什么情况下用什么方法。 然而谢天谢地, <a href="https://twitter.com/johndjameson" target="_blank" rel="noopener">John Jameson</a> 让我们在这篇博客中加快了处理这个问题的速度.</strong></p>
+<p>有许多不同的方法让你设计下划线。也许你还记得这篇文章<a href="https://medium.com/design/7c03a9274f9" target="_blank" rel="noopener">在medium制作下划线</a>。Medium并不打算做任何<a href="http://tympanus.net/Development/InlineAnchorStyles/" target="_blank" rel="noopener">crazy</a>的事；他们只想在他们的文本中创造一个正常的下划线。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-1.png" alt="A thin, black underline with space around descenders"></p>
+<p>在降部周围有一个细黑有间距的下划线——来自Marcin Wichary, <a href="https://medium.com/design/7c03a9274f9" target="_blank" rel="noopener">Medium上精心制作的链接下划线</a></p>
+<p>这是一个十分基础的下划线，但是这是一个很好的尺寸，并且他跳过了降部。很明显比任何浏览器默认的都要好。然而问题来了，为了要实现这个样式，Medium需要处理许多问题。两年过去了，这依然是一个很难实现的好看的下划线。</p>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>只用<code>text-decoration: underline</code>有什么问题吗？如果我们讨论的是理想情况，一个下划线需要做以下的事：</p>
+<ul>
+<li>将此定位在基准线之下</li>
+<li>跳过降部</li>
+<li>改变颜色，厚度和样式</li>
+<li>支持文字换行</li>
+<li>在任何背景下都能实现</li>
+</ul>
+<p>我认为这些是十分合理的要求，但是据我所知，在CSS中没有直接的方法可以达到上述所有的要求。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>那么，在web上到底有多少可以实现文本下划线的方法？</p>
+<p>下面是我能想到的：</p>
+<ul>
+<li><code>text-decoration</code></li>
+<li><code>border-bottom</code></li>
+<li><code>box-shadow</code></li>
+<li><code>background-image</code></li>
+<li>SVG filters</li>
+<li>Underline.js (canvas)</li>
+<li><code>text-decoration-*</code></li>
+</ul>
+<p>让我们一个个来看看，讨论讨论每个方法的好处和不足之处。</p>
+<h4 id="text-decoration"><a href="#text-decoration" class="headerlink" title="text-decoration"></a>text-decoration</h4><p><code>text-decoration</code>是实现文本下划线最直接的方法。你只需要提供一个属性然后就好了。非常小，看上去也不错，但是增加了字体大小，而且在同一行开始的下划线让人觉得很笨拙。</p>
+<p>看这个<a href="http://codepen.io/johndjameson/pen/QEzLAJ" target="_blank" rel="noopener">demo</a>.</p>
+<p><code>text-decoration</code>最大的问题就是缺少可定制性。他们使用文本的颜色和字体大小，而且都没有跨浏览器的方法可以改变样式。之后再讲这些。</p>
+<h5 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h5><ul>
+<li><strong>很好用</strong></li>
+<li>定位在基线以下</li>
+<li>在Safari和iOS中默认略过降部</li>
+<li>支持换行</li>
+<li>在任何背景下都能使用</li>
+</ul>
+<h5 id="坏处"><a href="#坏处" class="headerlink" title="坏处"></a>坏处</h5><ul>
+<li>_不能_在其他浏览器略过降部</li>
+<li>_不能_改变颜色，厚度或者样式</li>
+</ul>
+<h4 id="border-bottom"><a href="#border-bottom" class="headerlink" title="border-bottom"></a>border-bottom</h4><p><code>border-bottom</code>提供了一个在_快速_和<em>自定义</em>中的平衡的解决方案. 这个方法用的是可靠的css border,也就是说你可以轻易地改变颜色，厚度和样式。</p>
+<p>这就是为什么<code>border-bottom</code>看上去像<code>inline</code>元素:</p>
+<p>看这个<a href="http://codepen.io/johndjameson/pen/VKPZEZ" target="_blank" rel="noopener">demo</a></p>
+<p>最大的疑难杂症是下划线离文本的距离——这完全_低于_降部。你可以通过将元素变成<code>inline-block</code>并且减少 <code>line-height</code>来解决问题。但是你没有办法支持换行。对于一行来说是好的解决方案，但是对于多行不起作用。</p>
+<p>看这个<a href="http://codepen.io/johndjameson/pen/kkgPAz" target="_blank" rel="noopener">demo</a>.</p>
+<p>此外，你可以用<code>text-shadow</code>来遮盖部分降部的线，但是需要用和背景色相同的颜色。这意味着这只在固有色的背景下才能生效，因此不支持渐变或者图片背景。</p>
+<p>看这个<a href="http://codepen.io/johndjameson/pen/kkgPAz" target="_blank" rel="noopener">demo</a>.</p>
+<p>在这一点上，一个下滑线上有4个参数。这比<code>text-decoration</code>要多出大量工作。</p>
+<h5 id="好处-1"><a href="#好处-1" class="headerlink" title="好处"></a>好处</h5><ul>
+<li>跳过下行文字可以用<code>text-shadow</code></li>
+<li><strong>可以改变颜色，厚度和样式</strong></li>
+<li><strong>可以在颜色和厚度上做动画</strong></li>
+<li>除非是<code>inline-block</code>，不然默认换行</li>
+<li>在任何背景都可以用，除非是<code>text-shadow</code></li>
+</ul>
+<h5 id="坏处-1"><a href="#坏处-1" class="headerlink" title="坏处"></a>坏处</h5><ul>
+<li>定位有点远而且很难复位</li>
+<li>为了让他 <em>刚刚好</em>，需要用很多不相关额属性</li>
+<li>Janky 当使用<code>text-shadow</code>时候文本选择</li>
+</ul>
+<h4 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h4><p><code>box-shadow</code>通过两个内部盒子之间阴影描绘了下划线: 先创建一个一个长方形，然后第二长方形改在第一个长方形上面. 也就是说你需要一个純色背景色才能生效。</p>
+<p>看例子 <a href="http://codepen.io/johndjameson/pen/NAokqB" target="_blank" rel="noopener">demo</a>.</p>
+<p>你可以用同样的<code>text-shadow</code>技巧来假装下划线和降部之间的距离。但是如果下划线是和文本不同的颜色——或者够细——这就不会像<code>text-decoration</code>一样冲突。</p>
+<h5 id="好处-2"><a href="#好处-2" class="headerlink" title="好处"></a>好处</h5><ul>
+<li>可以在基线之下定位</li>
+<li>可以用<code>text-shadow</code>来跳过降部</li>
+<li>可以改变颜色和厚度</li>
+<li>支持多行</li>
+</ul>
+<h5 id="坏处-2"><a href="#坏处-2" class="headerlink" title="坏处"></a>坏处</h5><ul>
+<li>不能改变样式</li>
+<li>不能在任何背景下成功</li>
+</ul>
+<h4 id="背景图"><a href="#背景图" class="headerlink" title="背景图"></a>背景图</h4><p><code>background-image</code> 可以实现所有我们设想的功能，而且问题最少。你可以用<code>linear-gradient</code>和<code>background-position</code>创建一个图片然后在水平方向上重复。</p>
+<p>这个方法也需要你设置<code>display: inline;</code>。</p>
+<p>看个例子 <a href="http://codepen.io/johndjameson/pen/NAkgQY" target="_blank" rel="noopener">demo</a>.</p>
+<p>这个方法不需要使用<code>linear-gradient</code>。你可以用你自己的图片做一些很酷的效果。</p>
+<p>看个例子 <a href="http://codepen.io/johndjameson/pen/zKAKQP" target="_blank" rel="noopener">demo</a>.</p>
+<h5 id="Good"><a href="#Good" class="headerlink" title="Good"></a>Good</h5><h5 id="好处-3"><a href="#好处-3" class="headerlink" title="好处"></a>好处</h5><ul>
+<li>可以定位在基线以下</li>
+<li>使用<code>text-shadow</code>跳过降部</li>
+<li><strong>可以改变颜色厚度（允许一半的px值，如2.5px）, 和样式</strong></li>
+<li>自定义的图像可生效</li>
+<li><strong>支持换行</strong></li>
+<li>如果使用 <code>text-shadow</code>，就不能让任何背景都生效</li>
+</ul>
+<h5 id="坏处-3"><a href="#坏处-3" class="headerlink" title="坏处"></a>坏处</h5><ul>
+<li>图像可能会因分辨率，浏览器和缩小程度而变形。</li>
+</ul>
+<h4 id="SVG-filters"><a href="#SVG-filters" class="headerlink" title="SVG filters"></a>SVG filters</h4><p>这里有一个我玩过的方法：SVG滤镜。你可以创建一个内联SVG<code>filter</code>（滤镜）元素，画一条线，然后扩展文本遮住我们希望是透明的地方。然后你可以给<code>filter</code>一个<code>id</code>，然后再CSS中引用它，就像这样<code>filter: url(‘#svg-underline’)</code>。</p>
+<p>这个的好处就是滤镜加了透明，而不用依赖于<code>text-shadow</code>。这就意味这你可以跳过任何背景的降部，包括渐变和背景图片。但是这个只在单行文本有效，因此先不看他。</p>
+<p>看个例子<a href="http://codepen.io/johndjameson/pen/JXZrqy" target="_blank" rel="noopener">demo</a>.</p>
+<p>这是他在Chrome和Firefox中的效果图：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-2.png" alt></p>
+<p>再IE，edge和safari的浏览器支持是很有问题的。很难在CSS中测试SVG滤镜的支持。你可以用<code>@supports</code>和<code>filter</code>，但是之只能测试_引用_有效，不能测试应用滤镜。我的方法就在这里结束了。因此先不看他。</p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>定位在基线以下</li>
+<li>跳过下行文字</li>
+<li>能挨边颜色，厚度和样式</li>
+<li><strong>任何背景都ok</strong></li>
+</ul>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>不支持多行</li>
+<li>不能再IE，Edg或者safari中运行，但是你可以返回去用<code>text-decoration</code>。safari的下划线还是很好用的。</li>
+</ul>
+<h4 id="Underline-js-Canvas"><a href="#Underline-js-Canvas" class="headerlink" title="Underline.js (Canvas)"></a>Underline.js (Canvas)</h4><p>Underline.js很赞。我认为它最令影响深刻的是Wenting Zhang用js做的一些对于细节的关注。如果你之前还不了解Underline.js <a href="http://underlinejs.org/" target="_blank" rel="noopener">tech demo</a>。立刻停下看此文，快去查看一下把。在<a href="http://embed.wirewax.com/8013554/7bafa8/" target="_blank" rel="noopener">how it works</a>上有很赞的9分钟的演讲，但是我给你一个短版本：他用<code>&lt;canvas&gt;</code>绘制下划线。这是一个出奇有效的新方法。</p>
+<p>除了朗朗上口的名称，Underline.js仅仅是个<strong>技术演示</strong>。也就是说你不能将此应用到任何项目中，除非你先修改一大堆东西。</p>
+<p>在这里提出这个作为一个概念证明十分值。<code>&lt;canvas&gt;</code>有潜力创造出有好看又可以交互的下划线，但是你需要写一些原生的js来使之生效。</p>
+<h4 id="text-decoration-properties"><a href="#text-decoration-properties" class="headerlink" title="text-decoration-* properties"></a>text-decoration-* properties</h4><p>还记得我说过“待会再说”的部分吗？很好，现在我就要开始说了。</p>
+<p><code>text-decoration</code>自身运行很好，但是你可以添加一些实验性的属性来定制它：</p>
+<ul>
+<li><code>text-decoration-color</code></li>
+<li><code>text-decoration-skip</code></li>
+<li><code>text-decoration-style</code></li>
+</ul>
+<p>不要太激动了，<strong>浏览器支持</strong>，你懂的！</p>
+<h5 id="text-decoration-color"><a href="#text-decoration-color" class="headerlink" title="text-decoration-color"></a>text-decoration-color</h5><p><code>text-decoration-color</code> 让你可以改变下划线的颜色，以和文字颜色做区分。这个属性还没达到预期的浏览器支持——它只能用在Firefox和加了前缀之后地safari。这里有截图：如果你要清除下行文字，safari把线放在文字顶部。🙃 Firefox: <img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-3.png" alt> Safari: <img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-4.png" alt></p>
+<h5 id="text-decoration-skip"><a href="#text-decoration-skip" class="headerlink" title="text-decoration-skip"></a>text-decoration-skip</h5><p><code>text-decoration-skip</code>在下划线文字中切换跳过降部。</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-5.png" alt></p>
+<p>这个属性不是标准地，因此只在safari中有效，因此你需要用<code>-webkit-</code>前缀来用它。safari默认使这个属性，这就是为什么下划线跳过下行文字甚至在网站上不指明他。</p>
+<p>如果你在用Normalize，那你应该知道最新版本<em>disable</em>这个属性让样式在浏览器之间保持一致。如果你想要这些希望地下划线，你需要设定回来。</p>
+<h5 id="text-decoration-style"><a href="#text-decoration-style" class="headerlink" title="text-decoration-style"></a>text-decoration-style</h5><p><code>text-decoration-style</code>提供了和<code>border-style</code>一样的线的类型，但是添加了<code>wavy</code>（波浪）线。</p>
+<p>这里有你可以设置的不同的值</p>
+<ul>
+<li><code>dashed</code></li>
+<li><code>dotted</code></li>
+<li><code>double</code></li>
+<li><code>solid</code></li>
+<li><code>wavy</code></li>
+</ul>
+<p>然而，<code>text-decoration-style</code> 只在火狐中有效，这里是截图：</p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-6.png" alt></p>
+<p>各式各样的纯色下划线风格</p>
+<p>看上去很眼熟？</p>
+<h5 id="少了什么？"><a href="#少了什么？" class="headerlink" title="少了什么？"></a>少了什么？</h5><p><code>text-decoration-*</code>属性远远比其他css属性装饰下划线更加直观。但是看看我们早期需求，这些属性不能提供一个方案，让我们定制线的的厚度和位置。</p>
+<p>在做了一些研究之后，我遇到了这两个属性</p>
+<ul>
+<li><code>text-underline-width</code></li>
+<li><code>text-underline-position</code></li>
+</ul>
+<p>这看上去是在早期的css草案中提及的，但是因为缺乏兴趣而没有被实现。啊~大家不要打我！</p>
+<h3 id="带走"><a href="#带走" class="headerlink" title="带走"></a>带走</h3><p>因此，最好实现下划线的方法是什么？</p>
+<p><a href="https://codepen.io/rachsmith/details/YweZbG/" target="_blank" rel="noopener">看情况</a></p>
+<p>对于小字，我推荐使用<code>text-decoration</code>然后在头部使用<code>text-decoration-skip</code>。在所有的浏览器中个，这看上去有些乏味，但是下划线永远是那样，而且人们并不介意。外加如果你够耐心，总是会有机会的，所有的下划线都会看上去很赞，而不需要你去改变什么。</p>
+<p>对于正文，你可能需要<code>background-image</code>这个方法。它有效而且看上去棒呆了，同时也有Sass的<a href="https://codepen.io/jimmynotjim/pen/EabQjV" target="_blank" rel="noopener">mixins</a>对它支持。如果你的下划线很细或者颜色和文本不一样，你可以忽略<code>text-shadow</code> 这个方法。</p>
+<p>对于单行文字来说，使用<code>border-bottom</code>和其他的你想使用的属性。</p>
+<p>对于想要在渐变或者图片背景之上跳过降部，试着用SVG滤镜。或者避免使用下划线。</p>
+<p>在未来，当浏览器支持变好了，那么答案将是<code>text-decoration-*</code>解决一切问题。</p>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/styling-underlines-on-the-web.html" title="手把手教你处理下划线">https://jaxsonwang.github.io/styling-underlines-on-the-web.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web前端/" rel="tag"># Web前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/pure-css-content-filter-web.html" rel="next" title="纯CSS过滤内容">
+                <i class="fa fa-chevron-left"></i> 纯CSS过滤内容
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/xiaomi5plus-unpacking-note.html" rel="prev" title="小米5S Plus开箱体验">
+                小米5S Plus开箱体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#手把手教你处理下划线"><span class="nav-number">1.</span> <span class="nav-text">手把手教你处理下划线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标"><span class="nav-number">1.0.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#text-decoration"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">text-decoration</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处"><span class="nav-number">1.0.2.1.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#border-bottom"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">border-bottom</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-1"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-1"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#box-shadow"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">box-shadow</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-2"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-2"><span class="nav-number">1.0.2.3.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景图"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">背景图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Good"><span class="nav-number">1.0.2.4.1.</span> <span class="nav-text">Good</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-3"><span class="nav-number">1.0.2.4.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-3"><span class="nav-number">1.0.2.4.3.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG-filters"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">SVG filters</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">1.0.2.5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.0.2.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Underline-js-Canvas"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">Underline.js (Canvas)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#text-decoration-properties"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">text-decoration-* properties</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-color"><span class="nav-number">1.0.2.7.1.</span> <span class="nav-text">text-decoration-color</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-skip"><span class="nav-number">1.0.2.7.2.</span> <span class="nav-text">text-decoration-skip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-style"><span class="nav-number">1.0.2.7.3.</span> <span class="nav-text">text-decoration-style</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#少了什么？"><span class="nav-number">1.0.2.7.4.</span> <span class="nav-text">少了什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带走"><span class="nav-number">1.0.3.</span> <span class="nav-text">带走</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

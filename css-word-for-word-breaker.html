@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="背景截图的英文单词为什么被截断了？  这个问题太简单了，css里加两行属性，分分钟搞定。 word-break:  keep-all; word-wrap:  break-word; 开心的提交代码，刷新页面。我擦，怎么还是没有断词？不可能啊！！！ 难道这两个属性有什么兼容性问题或者有什么限制条件？为了不搬石头砸自己的脚，还是去深入了解一下。 css单词断词、换行关键字： word-break,">
+<meta name="keywords" content="全栈人生,全栈笔记,全栈工程师,全栈,淮城一只猫,淮城,IT博客,个人博客,王瑾,盒子丶先生,WEB平台,BOX-ROM,BoxMod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS单词换行and断词笔记">
+<meta property="og:url" content="https://jaxsonwang.github.io/css-word-for-word-breaker.html">
+<meta property="og:site_name" content="淮城一只猫">
+<meta property="og:description" content="背景截图的英文单词为什么被截断了？  这个问题太简单了，css里加两行属性，分分钟搞定。 word-break:  keep-all; word-wrap:  break-word; 开心的提交代码，刷新页面。我擦，怎么还是没有断词？不可能啊！！！ 难道这两个属性有什么兼容性问题或者有什么限制条件？为了不搬石头砸自己的脚，还是去深入了解一下。 css单词断词、换行关键字： word-break,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717l1Y.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717Tfq.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717zmN.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717juI.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717kAZ.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717kAN.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/plugins/ckeditor-for-wordpress/ckeditor/plugins/smiley/images/teeth_smile.png">
+<meta property="og:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717DCN.png">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS单词换行and断词笔记">
+<meta name="twitter:description" content="背景截图的英文单词为什么被截断了？  这个问题太简单了，css里加两行属性，分分钟搞定。 word-break:  keep-all; word-wrap:  break-word; 开心的提交代码，刷新页面。我擦，怎么还是没有断词？不可能啊！！！ 难道这两个属性有什么兼容性问题或者有什么限制条件？为了不搬石头砸自己的脚，还是去深入了解一下。 css单词断词、换行关键字： word-break,">
+<meta name="twitter:image" content="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717l1Y.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jaxsonwang.github.io/css-word-for-word-breaker.html">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CSS单词换行and断词笔记 | 淮城一只猫</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c2f0abf0cbe0d6b8d33de1598a8a43d9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淮城一只猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">关注互联网及IT科技的个人博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jaxsonwang.github.io/css-word-for-word-breaker.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="淮城一只猫">
+      <meta itemprop="description" content="淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淮城一只猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS单词换行and断词笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-10 18:37:56" itemprop="dateCreated datePublished" datetime="2016-10-10T18:37:56+09:00">2016-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 00:38:37" itemprop="dateModified" datetime="2018-09-29T00:38:37+09:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程技术/" itemprop="url" rel="index"><span itemprop="name">编程技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/css-word-for-word-breaker.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/css-word-for-word-breaker.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>截图的英文单词为什么被截断了？</p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717l1Y.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717l1Y.png" alt="QQ截图20160523145733.png" title="点击查看大图"></a></p>
+<p>这个问题太简单了，css里加两行属性，分分钟搞定。</p>
+<pre><code>word-break:  keep-all;
+word-wrap:  break-word;
+</code></pre><p>开心的提交代码，刷新页面。我擦，怎么还是没有断词？不可能啊！！！ 难道这两个属性有什么兼容性问题或者有什么限制条件？为了不搬石头砸自己的脚，还是去深入了解一下。</p>
+<h3 id="css单词断词、换行"><a href="#css单词断词、换行" class="headerlink" title="css单词断词、换行"></a>css单词断词、换行</h3><p>关键字： word-break, word-wrap</p>
+<p><strong>提前声明：上面的问题用这两个属性来解决并没有什么问题，这里只是再加深巩固一下知识。想了解原因的同学请直接看下一小节。</strong></p>
+<p>word-break, word-wrap这两个属性都比较常见，断词、溢出显示省略号等常见功能都需要用到它们。但具体它们分别是什么意思，各自有什么属性，可能很多人都不是很清楚。反正我不懂。每次都是从网上查一查就用上了，两个属性长得太像了，总是记不住。</p>
+<p>来，先看文档。</p>
+<pre><code>word-break:  normal  |  break-all  |  keep-all;
+</code></pre><p><strong>normal</strong> 使用浏览器默认的换行规则。 <strong>break-all</strong> 允许在单词内换行。 <strong>keep-all</strong> 只能在半角空格或连字符处换行。</p>
+<p><a href="http://www.w3school.com.cn/cssref/pr_word-break.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/cssref/pr_word-break.asp</a></p>
+<pre><code>word-wrap:  normal  |  break-word;
+</code></pre><p><strong>normal</strong> 只在允许的断字点换行（浏览器保持默认处理）。 <strong>break-word</strong> 在长单词或 URL 地址内部进行换行。</p>
+<p><a href="http://www.w3school.com.cn/cssref/pr_word-wrap.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/cssref/pr_word-wrap.asp</a></p>
+<p>看懂了吗？反正我好像没看懂。</p>
+<p>看图貌似会好点。</p>
+<p><a href="http://www.w3school.com.cn/tiy/t.asp?f=css3_word-wrap" target="_blank" rel="noopener">http://www.w3school.com.cn/tiy/t.asp?f=css3_word-wrap</a></p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717Tfq.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717Tfq.png" alt="word-break.png-6.9kB" title="点击查看大图"></a></p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717zmN.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717zmN.png" alt="word-wrap.png-8.7kB"></a></p>
+<p>相信大概能看明白了，我简单总结下：</p>
+<ol>
+<li>word-break 当行尾放不下一个单词时，决定单词内部该怎么摆放。 break-all: 强行上，挤不下的话剩下的就换下一行显示呗。霸道型。 keep-all: 放不下我了，那我就另起一行展示，再放不下，我也不退缩。傲骄型。</li>
+<li>word-wrap 当行尾放不下时，决定单词内是否允许换行 normal: 单词太长，换行显示，再超过一行就溢出显示。 break-word: 当单词太长时，先尝试换行，换行后还是太长，单词内还可以换行。</li>
+<li>上面这些换行神马的都是针对英文单词，像CJK(中文/日文/韩文)这样的语言就算了，因为他们不需要，不信你读一下下面的文字</li>
+</ol>
+<blockquote>
+<p>研表究明，汉字的序顺并不定一能影阅响读，比如当你看完这句话后，才发这现里的字全是都乱的。</p>
+</blockquote>
+<p>这样子都可以流畅阅读，更别说断词了…</p>
+<p>再回头来看我们的问题，理论上加上了word-break: keep-all;word-wrap: break-word;应该没问题了，看来还有别的坑。</p>
+<h3 id="空格转换"><a href="#空格转换" class="headerlink" title="空格转换"></a>空格转换</h3><p>关键字： white-space</p>
+<p>确认word-break和word-wrap使用方法没有错后，开始检查我们自己的代码。抓包发现，后台同学返回的文本里空格全部以 来代替。</p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717juI.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717juI.png" alt="image_1ajjmjc0r17sp390ho2j0i6h613.png-21.5kB"></a></p>
+<p>what？为什么要用转义字符代替？为什么css不能识别这个转义空格？</p>
+<p>电话后台同学，告知：在很早之前的为了解决某个前端问题才这么做的。 抓耳挠腮，使劲回忆了下，确实有这么回事。 因为浏览器会自动将多个空格压缩为一个空格显示。为了还原用户的原本输入，才将空格进行html转义。</p>
+<ol>
+<li>很多用户会用空格来换行或者实现宽字间距</li>
+<li>字符画也很好玩，压缩空格就全乱了。不知道字符画的请看下面</li>
+</ol>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717kAZ.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717kAZ.png" alt="image_1ajjlmh8r122l1edl2eb1kqc76c9.png-14.2kB"></a></p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717kAN.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717kAN.png" alt="image_1ajjlnmssduu1p4d114p1ete2rrm.png-4.4kB"></a></p>
+<p>专业的字符画制作人员会用全角空格来做，这样就不担心浏览器的空格合并问题了_</p>
+<p>ok,那 暂时还不能动它。</p>
+<h4 id="为什么浏览器会自动压缩空格？"><a href="#为什么浏览器会自动压缩空格？" class="headerlink" title="为什么浏览器会自动压缩空格？"></a>为什么浏览器会自动压缩空格？</h4><ol>
+<li>规范如此,就是这么<strong>任性</strong><a href="https://www.w3.org/TR/REC-html40/struct/text.html#h-9.1" target="_blank" rel="noopener">https://www.w3.org/TR/REC-html40/struct/text.html#h-9.1</a></li>
+<li><p>如果不自动压缩空格，那我们写html的时候就只能写成1行了，否则先这样的代码就会出现大段的空白。</p>
+<div><br>  <div><br>    bananas<br>  </div><br></div>
+
+
+</li>
+</ol>
+<p>既然规范这么定了，埋了坑，肯定会想办法让你绕过的，想起了white-space。 white-space我们更多的时候只用到nowrap的属性，来配合实现…的特效，实际它还有更多的姿势未解锁。</p>
+<pre><code>white-space:  normal  |  nowrap  |  pre  |  pre-wrap  |  pre-line 
+我们重点关注pre开头的几个属性。pre是preserve(保留)的缩写。没错，它就跟保留空格有关系。
+</code></pre><p><strong>pre</strong>: 保留所有的空格和回车，且不允许折行。 <strong>pre-wrap</strong>: 保留所有的空格和回车，但是允许折行。 <strong>pre-line</strong>: 会合并空格，且允许折行</p>
+<p>意思简单明了，好像也不用解释什么。</p>
+<p>所以我们的解决方案来了： 后台按照用户的输入的原始空格返回，不用做转义，前端加上</p>
+<pre><code>word-break:  keep-all;
+word-wrap:  break-word;
+white-space:  pre-wrap;
+</code></pre><p><img src="http://cdn.alloyteam.com/wp-content/plugins/ckeditor-for-wordpress/ckeditor/plugins/smiley/images/teeth_smile.png" alt="laugh" title="laugh"></p>
+<p>不过，这些个属性都是作用于Text上的，而我们的页面里有很多都是富文本，如果将pre-wrap作用于富文本上的父节点上也会有同样的功效吗？ 带着疑问，测试了几个富文本，果然出现了大段空白….</p>
+<p><a href="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717DCN.png" target="_blank" rel="noopener"><img src="http://cdn.alloyteam.com/wp-content/uploads/auto_save_image/2016/05/104717DCN.png" alt="image_1ajjnhgql42vmnn1tar165l1kir9.png-24.7kB"></a></p>
+<p><strong>富文本里的html标签之间有空格。</strong></p>
+<p>有兴趣的同学可以在</p>
+<blockquote>
+<p><a href="http://www.taoba.com/" target="_blank" rel="noopener">http://www.taoba.com</a> <a href="http://www.qq.com/" target="_blank" rel="noopener">http://www.qq.com</a> 的body上加上white-space:pre-wrap看看效果。</p>
+</blockquote>
+<p>那富文本的问题要怎么解决呢，黑科技登场了！！</p>
+<p>无法反抗，那就享受吧。 既然浏览器会压缩多个空格，那只要保证文本里每次只有一个空格相邻不就可以了。</p>
+<pre><code>□ -&gt; □ 
+□□ -&gt; □  
+□□□ -&gt; □ □ 
+□□□□ -&gt; □ □ 
+</code></pre><p>自动规避了浏览器的合并空格策略。</p>
+<p>这个思路来自于富文本编辑器，写过富文本编辑器的同学可能会不屑一顾，这个方案我们都用烂了.. 感谢你们！！</p>
+<blockquote>
+<p>(写个富文本编辑器是学习前端的最佳方式，欢迎闲的蛋疼的同学快去踩坑)_</p>
+</blockquote>
+<p>通知后台同学按照这个规则来改，问题搞定。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>word-wrap： 决定句尾放不下单词时，单词是否换行</li>
+<li>word-break: 决定单词内该怎么换行</li>
+<li>平文本可以配合white-space: pre-wrap来解决多空格压缩显示问题</li>
+<li>富文本采用的解决方案是对空格进行<strong>间隔</strong>html转义，这种方法更灵活，可以适应不同的场景，也适用于平文本。</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>淮城一只猫</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jaxsonwang.github.io/css-word-for-word-breaker.html" title="CSS单词换行and断词笔记">https://jaxsonwang.github.io/css-word-for-word-breaker.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/w3c-vs-whatwg-html5-specs-differences-documented.html" rel="next" title="W3C vs. WhatWG HTML5 标准 - 差异记录">
+                <i class="fa fa-chevron-left"></i> W3C vs. WhatWG HTML5 标准 - 差异记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/git-shell-notes.html" rel="prev" title="常用的Git命令">
+                常用的Git命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">淮城一只猫</p>
+              <p class="site-description motion-element" itemprop="description">淮城一只猫，是一个关注于互联网、IT技术经验分享的个人独立博客。更新互联网最火热的IT技术文章、软件应用科技原创文章，提供全面深入的IT信息资讯服务，为访问者提供富有互联网资讯。致力成为互联网上最个性、最极客、具传播力的个人独立博客。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/JaxsonWang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:i@iiong.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css单词断词、换行"><span class="nav-number">2.</span> <span class="nav-text">css单词断词、换行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空格转换"><span class="nav-number">3.</span> <span class="nav-text">空格转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么浏览器会自动压缩空格？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么浏览器会自动压缩空格？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">本博客所有文章是<a href="https://iiong.com">淮城一只猫</a>归档。</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/highlight.pack.js?v=6.4.1"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
+        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
+        placeholder: '支持Markdown评论',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
