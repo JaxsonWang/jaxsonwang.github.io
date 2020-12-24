@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -120,7 +120,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/11/QQ%E6%88%AA%E5%9B%BE20161130155534.png">
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/11/QQ%E6%88%AA%E5%9B%BE20161130155541.png">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Socket编程实现用户登录">
 <meta name="twitter:description" content="前言这几天闲的无事，便把之前一直搞不清的Socket网络编程复习一遍，加深理解。 实现单用户登录Socket网络编程一般分为以下四个步骤：  建立链接 打开Socket关联的输入/输出流 从数据流中写入信息和读取信息 关闭所有的数据流和Socket  按照上面的步骤编写个模拟客户端和服务器之间的交流。 建立个用户类： package socket.entity;  import java.io.S">
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/java-socket-notes-1.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/java-socket-notes-1.html"/>
 
 
 
@@ -241,7 +241,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -249,7 +249,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -257,7 +257,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -267,7 +267,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -290,7 +290,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -402,7 +404,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -423,14 +425,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java-socket-notes-1.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/java-socket-notes-1.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -736,7 +732,7 @@ public class loginServer {
     }
 }
 </code></pre><p>写完之后先运行服务器端再执行客户端。</p>
-<p><img src="https://res.i95.me/wp-content/uploads/2016/11/QQ%E6%88%AA%E5%9B%BE20161130155534.png" alt><img src="https://res.i95.me/wp-content/uploads/2016/11/QQ%E6%88%AA%E5%9B%BE20161130155541.png" alt></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/11/QQ%E6%88%AA%E5%9B%BE20161130155534.png" alt=""><img src="https://res.i95.me/wp-content/uploads/2016/11/QQ%E6%88%AA%E5%9B%BE20161130155541.png" alt=""></p>
 
       
     </div>
@@ -1071,7 +1067,7 @@ public class loginServer {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1215,27 +1211,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

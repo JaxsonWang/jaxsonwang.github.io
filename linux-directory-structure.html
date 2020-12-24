@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -118,7 +118,7 @@
 <meta property="og:site_name" content="淮城一只猫">
 <meta property="og:description" content="/root，根目录。 文件系统的入口，最高一级目录。 只有root用户具有该目录下的写权限。请注意，/root是root用户的主目 录，这与/.不 一样。 /binUser Binaries，用户二进制文件。 包含基础系统所需的命令，是最小系统图所需的命令。 在单用户模式下，你需要使用的常见Linux命令都位于此目录下。系统的所 有用户使 用的命令都设在这里。 /sbinSystem Binari">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux目录结构">
 <meta name="twitter:description" content="/root，根目录。 文件系统的入口，最高一级目录。 只有root用户具有该目录下的写权限。请注意，/root是root用户的主目 录，这与/.不 一样。 /binUser Binaries，用户二进制文件。 包含基础系统所需的命令，是最小系统图所需的命令。 在单用户模式下，你需要使用的常见Linux命令都位于此目录下。系统的所 有用户使 用的命令都设在这里。 /sbinSystem Binari">
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/linux-directory-structure.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/linux-directory-structure.html"/>
 
 
 
@@ -238,7 +238,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -246,7 +246,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -254,7 +254,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -264,7 +264,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -287,7 +287,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -399,7 +401,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -420,14 +422,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux-directory-structure.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/linux-directory-structure.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -454,7 +450,7 @@
       
 
       
-        <h3 id><a href="#" class="headerlink" title="/"></a>/</h3><p>root，根目录。 文件系统的入口，最高一级目录。 只有root用户具有该目录下的写权限。请注意，/root是root用户的主目 录，这与/.不 一样。</p>
+        <h3 id=""><a href="#" class="headerlink" title="/"></a>/</h3><p>root，根目录。 文件系统的入口，最高一级目录。 只有root用户具有该目录下的写权限。请注意，/root是root用户的主目 录，这与/.不 一样。</p>
 <h3 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h3><p>User Binaries，用户二进制文件。 包含基础系统所需的命令，是最小系统图所需的命令。 在单用户模式下，你需要使用的常见Linux命令都位于此目录下。系统的所 有用户使 用的命令都设在这里。</p>
 <h3 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h3><p>System Binaries，系统二进制文件。 就像/bin，/sbin同样也包含二进制可执行文件。 但是，在这个目录下的linux命令通常系统管理命令，对系统进行维护。例 如：ipta bles、reboot、fdisk、ifconfig、swapon命令。</p>
 <h3 id="etc"><a href="#etc" class="headerlink" title="/etc"></a>/etc</h3><p>Configuration Files，存放系统程序或者一般工具的配置文件。 包含所有程序所需的配置文件。 也包含了用于启动/停止单个程序的启动和关闭shell脚本。例如：/etc/reso lv.con f、/etc/logrotate.conf。</p>
@@ -782,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bin"><span class="nav-number">2.</span> <span class="nav-text">/bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sbin"><span class="nav-number">3.</span> <span class="nav-text">/sbin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc"><span class="nav-number">4.</span> <span class="nav-text">/etc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev"><span class="nav-number">5.</span> <span class="nav-text">/dev</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc"><span class="nav-number">6.</span> <span class="nav-text">/proc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var"><span class="nav-number">7.</span> <span class="nav-text">/var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmp"><span class="nav-number">8.</span> <span class="nav-text">/tmp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr"><span class="nav-number">9.</span> <span class="nav-text">/usr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#home"><span class="nav-number">10.</span> <span class="nav-text">/home</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#boot"><span class="nav-number">11.</span> <span class="nav-text">/boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lib"><span class="nav-number">12.</span> <span class="nav-text">/lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opt"><span class="nav-number">13.</span> <span class="nav-text">/opt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mnt"><span class="nav-number">14.</span> <span class="nav-text">/mnt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#media"><span class="nav-number">15.</span> <span class="nav-text">/media</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#srv"><span class="nav-number">16.</span> <span class="nav-text">/srv</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bin"><span class="nav-number">2.</span> <span class="nav-text">/bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sbin"><span class="nav-number">3.</span> <span class="nav-text">/sbin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc"><span class="nav-number">4.</span> <span class="nav-text">/etc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev"><span class="nav-number">5.</span> <span class="nav-text">/dev</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc"><span class="nav-number">6.</span> <span class="nav-text">/proc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var"><span class="nav-number">7.</span> <span class="nav-text">/var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmp"><span class="nav-number">8.</span> <span class="nav-text">/tmp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr"><span class="nav-number">9.</span> <span class="nav-text">/usr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#home"><span class="nav-number">10.</span> <span class="nav-text">/home</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#boot"><span class="nav-number">11.</span> <span class="nav-text">/boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lib"><span class="nav-number">12.</span> <span class="nav-text">/lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opt"><span class="nav-number">13.</span> <span class="nav-text">/opt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mnt"><span class="nav-number">14.</span> <span class="nav-text">/mnt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#media"><span class="nav-number">15.</span> <span class="nav-text">/media</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#srv"><span class="nav-number">16.</span> <span class="nav-text">/srv</span></a></li></ol></div>
             
 
           </div>
@@ -802,7 +798,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -946,27 +942,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -121,7 +121,7 @@
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052501.jpg">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052503.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052502.png">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Router 使用教程">
 <meta name="twitter:description" content="真正学会 React 是一个漫长的过程。  你会发现，它不是一个库，也不是一个框架，而是一个庞大的体系。想要发挥它的威力，整个技术栈都要配合它改造。你要学习一整套解决方案，从后端到前端，都是全新的做法。  举例来说，React 不使用 HTML，而使用 JSX 。它打算抛弃 DOM，要求开发者不要使用任何 DOM 方法。它甚至还抛弃了 SQL ，自己发明了一套查询语言 GraphQL 。当然，这些">
@@ -132,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/react-router-notes.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/react-router-notes.html"/>
 
 
 
@@ -242,7 +242,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -250,7 +250,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -258,7 +258,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -268,7 +268,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -291,7 +291,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -403,7 +405,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -424,14 +426,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/react-router-notes.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/react-router-notes.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -459,13 +455,13 @@
 
       
         <p>真正学会 <a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React</a> 是一个漫长的过程。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052501.jpg" alt></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052501.jpg" alt=""></p>
 <p>你会发现，它不是一个库，也不是一个框架，而是一个庞大的体系。想要发挥它的威力，整个技术栈都要配合它改造。你要学习一整套解决方案，从后端到前端，都是全新的做法。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052503.png" alt></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052503.png" alt=""></p>
 <p>举例来说，React 不使用 HTML，而使用 JSX 。它打算抛弃 DOM，要求开发者不要使用任何 DOM 方法。它甚至还抛弃了 SQL ，自己发明了一套查询语言 GraphQL 。当然，这些你都可以不用，React 照样运行，但是就发挥不出它的最大威力。</p>
 <p>这样说吧，你只要用了 React，就会发现合理的选择就是，采用它的整个技术栈。</p>
 <p>本文介绍 React 体系的一个重要部分：路由库<a href="https://github.com/reactjs/react-router" target="_blank" rel="noopener"><code>React-Router</code></a>。它是官方维护的，事实上也是唯一可选的路由库。它通过管理 URL，实现组件的切换和状态的变化，开发复杂的应用几乎肯定会用到。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052502.png" alt></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016052502.png" alt=""></p>
 <p>本文针对初学者，尽量写得简洁易懂。预备知识是 React 的基本用法，可以参考我写的<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">《React 入门实例教程》</a>。</p>
 <p>另外，我没有准备示例库，因为官方的<a href="https://github.com/reactjs/react-router-tutorial/tree/master/lessons" target="_blank" rel="noopener">示例库</a>非常棒，由浅入深，分成14步，每一步都有详细的代码解释。我强烈建议你先跟着做一遍，然后再看下面的API讲解。</p>
 <h3 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h3><p>React Router 安装命令如下。</p>
@@ -1082,7 +1078,7 @@ export const AdminRoutes = () =&gt; {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1226,27 +1222,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

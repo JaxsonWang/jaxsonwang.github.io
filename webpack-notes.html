@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -120,7 +120,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://segmentfault.com/img/bVzLhA">
 <meta property="og:image" content="https://segmentfault.com/img/bVB25D">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack 从入门到上线">
 <meta name="twitter:description" content="webpack 是什么 一项技术、一个工具的出现，肯定是为了解决问题的。那么，webpack 是为了解决什么问题？答案是：文件依赖管理。浏览器端的 Js, 出于安全的考虑，对本地文件没有操作权限，不能引用其它 js, css 等文件。而 webpack 就是用来解决这个问题的，让你的项目可以很好地分文件、分模块，而且它对外部文件的引入同时支持 cmd, amd 和 commondJs 这三种形式，">
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/webpack-notes.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/webpack-notes.html"/>
 
 
 
@@ -241,7 +241,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -249,7 +249,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -257,7 +257,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -267,7 +267,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -290,7 +290,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -402,7 +404,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -423,14 +425,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/webpack-notes.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/webpack-notes.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -457,7 +453,7 @@
       
 
       
-        <h2 id="webpack-是什么"><a href="#webpack-是什么" class="headerlink" title="webpack 是什么"></a>webpack 是什么</h2><p><img src="https://segmentfault.com/img/bVzLhA" alt></p>
+        <h2 id="webpack-是什么"><a href="#webpack-是什么" class="headerlink" title="webpack 是什么"></a>webpack 是什么</h2><p><img src="https://segmentfault.com/img/bVzLhA" alt=""></p>
 <p>一项技术、一个工具的出现，肯定是为了解决问题的。那么，webpack 是为了解决什么问题？答案是：<strong>文件依赖管理</strong>。浏览器端的 Js, 出于安全的考虑，对本地文件没有操作权限，不能引用其它 js, css 等文件。而 webpack 就是用来解决这个问题的，让你的项目可以很好地分文件、分模块，而且它对外部文件的引入同时支持 cmd, amd 和 commondJs 这三种形式，够有诚意。<br>或许你要说了，解决文件依赖，早在 require.js 和 sea.js 的时候，都已经解决了呀！那么，webpack 在这方面，有哪些新的突破：</p>
 <ol>
 <li>支持引用各种拓展名的文件</li>
@@ -484,7 +480,7 @@
 <h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p><strong>运行 webpack 命令</strong>，进行打包。</p>
 <p><code>&lt;span class=&quot;hljs-variable&quot;&gt;$ &lt;/span&gt;webpack</code></p>
 <p>然后，搞定了，此时在浏览器中打开 <code>views_dev/index.html</code>，你会发现，打包成功了！</p>
-<p><img src="https://segmentfault.com/img/bVB25D" alt></p>
+<p><img src="https://segmentfault.com/img/bVB25D" alt=""></p>
 <p>好的，你入门了，哈哈！接下去，我会详细介绍单个页面打包、多个页面打包，以及最后的发布上线。Now, go ~</p>
 <h2 id="单个页面打包"><a href="#单个页面打包" class="headerlink" title="单个页面打包"></a>单个页面打包</h2><p>这里，你将学到：</p>
 <ol>
@@ -891,7 +887,7 @@ webpack_demo
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1035,27 +1031,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

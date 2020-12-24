@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-4.png">
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-5.png">
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-6.png">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你处理下划线">
 <meta name="twitter:description" content="手把手教你处理下划线 原文：https://css-tricks.com/styling-underlines-web/  译者百科： descenders:降部(不明白的看wiki百科) 设计链接的下划线可能是一件棘手的事，我总是忘记在什么情况下用什么方法。 然而谢天谢地, John Jameson 让我们在这篇博客中加快了处理这个问题的速度. 有许多不同的方法让你设计下划线。也许你还记得这篇文">
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/styling-underlines-on-the-web.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/styling-underlines-on-the-web.html"/>
 
 
 
@@ -245,7 +245,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -253,7 +253,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -261,7 +261,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -271,7 +271,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -294,7 +294,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -406,7 +408,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -427,14 +429,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/styling-underlines-on-the-web.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/styling-underlines-on-the-web.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -558,7 +554,7 @@
 <p>这个的好处就是滤镜加了透明，而不用依赖于<code>text-shadow</code>。这就意味这你可以跳过任何背景的降部，包括渐变和背景图片。但是这个只在单行文本有效，因此先不看他。</p>
 <p>看个例子<a href="http://codepen.io/johndjameson/pen/JXZrqy" target="_blank" rel="noopener">demo</a>.</p>
 <p>这是他在Chrome和Firefox中的效果图：</p>
-<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-2.png" alt></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-2.png" alt=""></p>
 <p>再IE，edge和safari的浏览器支持是很有问题的。很难在CSS中测试SVG滤镜的支持。你可以用<code>@supports</code>和<code>filter</code>，但是之只能测试_引用_有效，不能测试应用滤镜。我的方法就在这里结束了。因此先不看他。</p>
 <h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><ul>
 <li>定位在基线以下</li>
@@ -581,9 +577,9 @@
 <li><code>text-decoration-style</code></li>
 </ul>
 <p>不要太激动了，<strong>浏览器支持</strong>，你懂的！</p>
-<h5 id="text-decoration-color"><a href="#text-decoration-color" class="headerlink" title="text-decoration-color"></a>text-decoration-color</h5><p><code>text-decoration-color</code> 让你可以改变下划线的颜色，以和文字颜色做区分。这个属性还没达到预期的浏览器支持——它只能用在Firefox和加了前缀之后地safari。这里有截图：如果你要清除下行文字，safari把线放在文字顶部。🙃 Firefox: <img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-3.png" alt> Safari: <img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-4.png" alt></p>
+<h5 id="text-decoration-color"><a href="#text-decoration-color" class="headerlink" title="text-decoration-color"></a>text-decoration-color</h5><p><code>text-decoration-color</code> 让你可以改变下划线的颜色，以和文字颜色做区分。这个属性还没达到预期的浏览器支持——它只能用在Firefox和加了前缀之后地safari。这里有截图：如果你要清除下行文字，safari把线放在文字顶部。🙃 Firefox: <img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-3.png" alt=""> Safari: <img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-4.png" alt=""></p>
 <h5 id="text-decoration-skip"><a href="#text-decoration-skip" class="headerlink" title="text-decoration-skip"></a>text-decoration-skip</h5><p><code>text-decoration-skip</code>在下划线文字中切换跳过降部。</p>
-<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-5.png" alt></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-5.png" alt=""></p>
 <p>这个属性不是标准地，因此只在safari中有效，因此你需要用<code>-webkit-</code>前缀来用它。safari默认使这个属性，这就是为什么下划线跳过下行文字甚至在网站上不指明他。</p>
 <p>如果你在用Normalize，那你应该知道最新版本<em>disable</em>这个属性让样式在浏览器之间保持一致。如果你想要这些希望地下划线，你需要设定回来。</p>
 <h5 id="text-decoration-style"><a href="#text-decoration-style" class="headerlink" title="text-decoration-style"></a>text-decoration-style</h5><p><code>text-decoration-style</code>提供了和<code>border-style</code>一样的线的类型，但是添加了<code>wavy</code>（波浪）线。</p>
@@ -596,7 +592,7 @@
 <li><code>wavy</code></li>
 </ul>
 <p>然而，<code>text-decoration-style</code> 只在火狐中有效，这里是截图：</p>
-<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-6.png" alt></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/styling-underlines-on-the-web-6.png" alt=""></p>
 <p>各式各样的纯色下划线风格</p>
 <p>看上去很眼熟？</p>
 <h5 id="少了什么？"><a href="#少了什么？" class="headerlink" title="少了什么？"></a>少了什么？</h5><p><code>text-decoration-*</code>属性远远比其他css属性装饰下划线更加直观。但是看看我们早期需求，这些属性不能提供一个方案，让我们定制线的的厚度和位置。</p>
@@ -926,7 +922,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#手把手教你处理下划线"><span class="nav-number">1.</span> <span class="nav-text">手把手教你处理下划线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标"><span class="nav-number">1.0.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#text-decoration"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">text-decoration</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处"><span class="nav-number">1.0.2.1.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#border-bottom"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">border-bottom</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-1"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-1"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#box-shadow"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">box-shadow</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-2"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-2"><span class="nav-number">1.0.2.3.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景图"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">背景图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Good"><span class="nav-number">1.0.2.4.1.</span> <span class="nav-text">Good</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-3"><span class="nav-number">1.0.2.4.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-3"><span class="nav-number">1.0.2.4.3.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG-filters"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">SVG filters</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">1.0.2.5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.0.2.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Underline-js-Canvas"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">Underline.js (Canvas)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#text-decoration-properties"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">text-decoration-* properties</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-color"><span class="nav-number">1.0.2.7.1.</span> <span class="nav-text">text-decoration-color</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-skip"><span class="nav-number">1.0.2.7.2.</span> <span class="nav-text">text-decoration-skip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-style"><span class="nav-number">1.0.2.7.3.</span> <span class="nav-text">text-decoration-style</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#少了什么？"><span class="nav-number">1.0.2.7.4.</span> <span class="nav-text">少了什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带走"><span class="nav-number">1.0.3.</span> <span class="nav-text">带走</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#手把手教你处理下划线"><span class="nav-number">1.</span> <span class="nav-text">手把手教你处理下划线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标"><span class="nav-number">1.0.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#text-decoration"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">text-decoration</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处"><span class="nav-number">1.0.2.1.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#border-bottom"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">border-bottom</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-1"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-1"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#box-shadow"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">box-shadow</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-2"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-2"><span class="nav-number">1.0.2.3.2.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景图"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">背景图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Good"><span class="nav-number">1.0.2.4.1.</span> <span class="nav-text">Good</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#好处-3"><span class="nav-number">1.0.2.4.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏处-3"><span class="nav-number">1.0.2.4.3.</span> <span class="nav-text">坏处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG-filters"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">SVG filters</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">1.0.2.5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.0.2.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Underline-js-Canvas"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">Underline.js (Canvas)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#text-decoration-properties"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">text-decoration-* properties</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-color"><span class="nav-number">1.0.2.7.1.</span> <span class="nav-text">text-decoration-color</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-skip"><span class="nav-number">1.0.2.7.2.</span> <span class="nav-text">text-decoration-skip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-style"><span class="nav-number">1.0.2.7.3.</span> <span class="nav-text">text-decoration-style</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#少了什么？"><span class="nav-number">1.0.2.7.4.</span> <span class="nav-text">少了什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带走"><span class="nav-number">1.0.3.</span> <span class="nav-text">带走</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -946,7 +942,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1090,27 +1086,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

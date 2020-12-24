@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -119,7 +119,7 @@
 <meta property="og:description" content="前言WordPress集成后的功能如下：  实时预览 即见即所得，甚至你可以作为一个专门的 markdown 编辑器来使用 代码高亮 程序员最爱，需要在前台做代码高亮 代码分离 markdown 的代码和 html 代码分离，互不影响，并且会将 markdown 代码保存下来，以便下次继续编辑。  效果：  原理在 post 页面添加一个 textarea，监听 input 事件，事件中将文本框的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://source.scaperow.com/wp-content/uploads/2015/12/markdown.gif">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WordPress深度集成Markdown">
 <meta name="twitter:description" content="前言WordPress集成后的功能如下：  实时预览 即见即所得，甚至你可以作为一个专门的 markdown 编辑器来使用 代码高亮 程序员最爱，需要在前台做代码高亮 代码分离 markdown 的代码和 html 代码分离，互不影响，并且会将 markdown 代码保存下来，以便下次继续编辑。  效果：  原理在 post 页面添加一个 textarea，监听 input 事件，事件中将文本框的">
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/wordpress-using-markdown.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/wordpress-using-markdown.html"/>
 
 
 
@@ -240,7 +240,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -248,7 +248,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -256,7 +256,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -266,7 +266,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -289,7 +289,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -401,7 +403,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -422,14 +424,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/wordpress-using-markdown.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/wordpress-using-markdown.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -463,7 +459,7 @@
 <li>代码分离 markdown 的代码和 html 代码分离，互不影响，并且会将 markdown 代码保存下来，以便下次继续编辑。</li>
 </ol>
 <p>效果：</p>
-<p><img src="http://source.scaperow.com/wp-content/uploads/2015/12/markdown.gif" alt></p>
+<p><img src="http://source.scaperow.com/wp-content/uploads/2015/12/markdown.gif" alt=""></p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在 post 页面添加一个 textarea，监听 input 事件，事件中将文本框的内容取出，用 marked.js 进行转码，将转码后的 html 放在系统中的 tinyMCE 中。 在保存时将 textarea 中的文本存入 media data 中，下次可以继续编辑。</p>
 <h3 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h3><ol>
 <li>下载 <a href="http://source.scaperow.com/wp-content/themes/twentysixteen/js/marked.js" target="_blank" rel="noopener">marked.js</a> 和 <a href="http://source.scaperow.com/wp-content/themes/twentysixteen/js/makemarkdown.js" target="_blank" rel="noopener">makemarkdown.js</a></li>
@@ -832,7 +828,7 @@ add_action( &apos;admin_enqueue_scripts&apos;, &apos;markdown_script&apos;);
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -976,27 +972,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

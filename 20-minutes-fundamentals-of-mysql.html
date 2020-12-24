@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -119,7 +119,7 @@
 <meta property="og:description" content="开始使用MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成, 如图所示的一个表格：   表头(header): 每一列的名称; 列(col): 具有相同数据类型的数据的集合; 行(row): 每一行用来描述某个人/物的具体信息; 值(value): 行的具体信息, 每个值必须与该列的数据类型相同;  登录M">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://segmentfault.com/img/bVC86a?w=327&h=138">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20分钟MySQL基础入门">
 <meta name="twitter:description" content="开始使用MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成, 如图所示的一个表格：   表头(header): 每一列的名称; 列(col): 具有相同数据类型的数据的集合; 行(row): 每一行用来描述某个人/物的具体信息; 值(value): 行的具体信息, 每个值必须与该列的数据类型相同;  登录M">
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/20-minutes-fundamentals-of-mysql.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/20-minutes-fundamentals-of-mysql.html"/>
 
 
 
@@ -240,7 +240,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -248,7 +248,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -256,7 +256,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -266,7 +266,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -289,7 +289,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -401,7 +403,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -422,14 +424,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/20-minutes-fundamentals-of-mysql.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/20-minutes-fundamentals-of-mysql.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -457,7 +453,7 @@
 
       
         <h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成, 如图所示的一个表格：</p>
-<p><img src="https://segmentfault.com/img/bVC86a?w=327&amp;h=138" alt></p>
+<p><img src="https://segmentfault.com/img/bVC86a?w=327&amp;h=138" alt=""></p>
 <ul>
 <li><code>表头(header)</code>: 每一列的名称;</li>
 <li><code>列(col)</code>: 具有相同数据类型的数据的集合;</li>
@@ -1042,7 +1038,7 @@ drop database samp_db;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开始使用"><span class="nav-number">1.</span> <span class="nav-text">开始使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录MySQL"><span class="nav-number">1.0.1.</span> <span class="nav-text">登录MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.0.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库表"><span class="nav-number">1.0.3.</span> <span class="nav-text">创建数据库表</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#增删改查"><span class="nav-number">2.</span> <span class="nav-text">增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT"><span class="nav-number">2.0.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UPDATE"><span class="nav-number">2.0.2.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INSERT"><span class="nav-number">2.0.3.</span> <span class="nav-text">INSERT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETE"><span class="nav-number">2.0.4.</span> <span class="nav-text">DELETE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WHERE"><span class="nav-number">3.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AND-和-OR"><span class="nav-number">4.</span> <span class="nav-text">AND 和 OR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AND"><span class="nav-number">4.0.1.</span> <span class="nav-text">AND</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OR"><span class="nav-number">4.0.2.</span> <span class="nav-text">OR</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IN"><span class="nav-number">6.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NOT"><span class="nav-number">7.</span> <span class="nav-text">NOT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AS"><span class="nav-number">8.</span> <span class="nav-text">AS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JOIN"><span class="nav-number">9.</span> <span class="nav-text">JOIN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL-函数"><span class="nav-number">10.</span> <span class="nav-text">SQL 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#COUNT"><span class="nav-number">10.0.1.</span> <span class="nav-text">COUNT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAX"><span class="nav-number">10.0.2.</span> <span class="nav-text">MAX</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加索引"><span class="nav-number">11.</span> <span class="nav-text">添加索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通索引-INDEX"><span class="nav-number">11.0.1.</span> <span class="nav-text">普通索引(INDEX)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引-PRIMARY-key"><span class="nav-number">11.0.2.</span> <span class="nav-text">主键索引(PRIMARY key)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引-UNIQUE"><span class="nav-number">11.0.3.</span> <span class="nav-text">唯一索引(UNIQUE)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全文索引-FULLTEXT"><span class="nav-number">11.0.4.</span> <span class="nav-text">全文索引(FULLTEXT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加多列索引"><span class="nav-number">11.0.5.</span> <span class="nav-text">添加多列索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立索引的时机"><span class="nav-number">11.0.6.</span> <span class="nav-text">建立索引的时机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建后表的修改"><span class="nav-number">12.</span> <span class="nav-text">创建后表的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加列"><span class="nav-number">12.0.1.</span> <span class="nav-text">添加列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改列"><span class="nav-number">12.0.2.</span> <span class="nav-text">修改列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除列"><span class="nav-number">12.0.3.</span> <span class="nav-text">删除列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名表"><span class="nav-number">12.0.4.</span> <span class="nav-text">重命名表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空表数据"><span class="nav-number">12.0.5.</span> <span class="nav-text">清空表数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除整张表"><span class="nav-number">12.0.6.</span> <span class="nav-text">删除整张表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除整个数据库"><span class="nav-number">12.0.7.</span> <span class="nav-text">删除整个数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它相关"><span class="nav-number">13.</span> <span class="nav-text">其它相关</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开始使用"><span class="nav-number">1.</span> <span class="nav-text">开始使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录MySQL"><span class="nav-number">1.0.1.</span> <span class="nav-text">登录MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.0.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库表"><span class="nav-number">1.0.3.</span> <span class="nav-text">创建数据库表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增删改查"><span class="nav-number">2.</span> <span class="nav-text">增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT"><span class="nav-number">2.0.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UPDATE"><span class="nav-number">2.0.2.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INSERT"><span class="nav-number">2.0.3.</span> <span class="nav-text">INSERT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETE"><span class="nav-number">2.0.4.</span> <span class="nav-text">DELETE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WHERE"><span class="nav-number">3.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AND-和-OR"><span class="nav-number">4.</span> <span class="nav-text">AND 和 OR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AND"><span class="nav-number">4.0.1.</span> <span class="nav-text">AND</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OR"><span class="nav-number">4.0.2.</span> <span class="nav-text">OR</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IN"><span class="nav-number">6.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NOT"><span class="nav-number">7.</span> <span class="nav-text">NOT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AS"><span class="nav-number">8.</span> <span class="nav-text">AS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JOIN"><span class="nav-number">9.</span> <span class="nav-text">JOIN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL-函数"><span class="nav-number">10.</span> <span class="nav-text">SQL 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#COUNT"><span class="nav-number">10.0.1.</span> <span class="nav-text">COUNT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAX"><span class="nav-number">10.0.2.</span> <span class="nav-text">MAX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加索引"><span class="nav-number">11.</span> <span class="nav-text">添加索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通索引-INDEX"><span class="nav-number">11.0.1.</span> <span class="nav-text">普通索引(INDEX)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引-PRIMARY-key"><span class="nav-number">11.0.2.</span> <span class="nav-text">主键索引(PRIMARY key)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引-UNIQUE"><span class="nav-number">11.0.3.</span> <span class="nav-text">唯一索引(UNIQUE)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全文索引-FULLTEXT"><span class="nav-number">11.0.4.</span> <span class="nav-text">全文索引(FULLTEXT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加多列索引"><span class="nav-number">11.0.5.</span> <span class="nav-text">添加多列索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立索引的时机"><span class="nav-number">11.0.6.</span> <span class="nav-text">建立索引的时机</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建后表的修改"><span class="nav-number">12.</span> <span class="nav-text">创建后表的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加列"><span class="nav-number">12.0.1.</span> <span class="nav-text">添加列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改列"><span class="nav-number">12.0.2.</span> <span class="nav-text">修改列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除列"><span class="nav-number">12.0.3.</span> <span class="nav-text">删除列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名表"><span class="nav-number">12.0.4.</span> <span class="nav-text">重命名表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空表数据"><span class="nav-number">12.0.5.</span> <span class="nav-text">清空表数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除整张表"><span class="nav-number">12.0.6.</span> <span class="nav-text">删除整张表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除整个数据库"><span class="nav-number">12.0.7.</span> <span class="nav-text">删除整个数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它相关"><span class="nav-number">13.</span> <span class="nav-text">其它相关</span></a></li></ol></div>
             
 
           </div>
@@ -1062,7 +1058,7 @@ drop database samp_db;
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1206,27 +1202,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 

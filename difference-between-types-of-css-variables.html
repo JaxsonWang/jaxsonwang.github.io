@@ -15,10 +15,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -56,11 +56,11 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
-<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/default.css" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
@@ -120,7 +120,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/difference-between-types-of-css-variables-1.gif">
 <meta property="og:image" content="https://res.i95.me/wp-content/uploads/2016/10/difference-between-types-of-css-variables-2.gif">
-<meta property="og:updated_time" content="2018-09-28T15:38:37.000Z">
+<meta property="og:updated_time" content="2018-09-28T15:38:37.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS变量和预处理变量有什么不同？">
 <meta name="twitter:description" content="CSS变量和预处理变量有什么不同？ 原文：https://css-tricks.com/difference-between-types-of-css-variables/  变量是 CSS 预处理器 存在的最主要的原因之一。设置变量的能力是有用的，比如把一个颜色设置成变量，用那个变量贯穿你写的CSS，你会发现它是一致的，抽离的，并且容易修改。你也可以用原生 CSS变量（CSS自定义变量）做同样的">
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="https://jaxsonwang.github.io/difference-between-types-of-css-variables.html">
+  <link rel="canonical" href="https://jaxsonwang.github.io/difference-between-types-of-css-variables.html"/>
 
 
 
@@ -241,7 +241,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
         
         
@@ -249,7 +249,7 @@
           
           <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
   </li>
         
         
@@ -257,7 +257,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
 
       
@@ -267,7 +267,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
         </li>
       
     </ul>
@@ -290,7 +290,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -402,7 +404,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -423,14 +425,8 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/difference-between-types-of-css-variables.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/difference-between-types-of-css-variables.html" itemprop="commentCount"></span>
-                </a>
+              |
+                
               </span>
             
           
@@ -510,13 +506,13 @@ h2 {
 </code></pre><p>任何 <code>h2</code> 都会是 orange，因为所有 <code>h2</code> 都是 <code>body</code> 的孩子，而 <code>body</code> 有更高的应用特权。</p>
 <p>你甚至能在媒体查询中重置变量并且把这些变量级联到任何地方去使用，有些事仅用预处理器变量是处理不了的。</p>
 <p>查看 <a href="http://codepen.io/chriscoyier/pen/ORdLvq?editors=0110" target="_blank" rel="noopener">这个例子</a> 当媒体查询改变那些用来设置简单网格的变量：</p>
-<p><img src="https://res.i95.me/wp-content/uploads/2016/10/difference-between-types-of-css-variables-1.gif" alt></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/difference-between-types-of-css-variables-1.gif" alt=""></p>
 <p>Rob Dodson 对 CSS自定义属性的见解 <a href="https://developers.google.com/web/updates/2016/02/css-variables-why-should-you-care" target="_blank" rel="noopener">CSS 变量：你为什么要关心？</a></p>
 <blockquote>
 <p>那些 [预处理器] 使用的变量面临一个重要的缺点，那就是它们是静态的，无法在运行时改变。加入可在运行时更改变量的能力，不仅仅为像动态应用主题打开了大门，也对响应式设计和多边形填充的CSS未来潜力具有深远的影响。</p>
 </blockquote>
 <p>他提到 <a href="https://googlechrome.github.io/samples/css-custom-properties/index.html" target="_blank" rel="noopener">一个例子</a> 当 JavaScript 改变样式时。它不直接在元素上改变样式，而仅仅是在<strong>运行时</strong>重置一些变量：</p>
-<p><img src="https://res.i95.me/wp-content/uploads/2016/10/difference-between-types-of-css-variables-2.gif" alt></p>
+<p><img src="https://res.i95.me/wp-content/uploads/2016/10/difference-between-types-of-css-variables-2.gif" alt=""></p>
 <p>Wes Bos 也有一个关于这个的很好示例：</p>
 <p>看源码 <a href="https://codepen.io/wesbos/pen/adQjoY/" target="_blank" rel="noopener">用 JS 更新 CSS 变量</a> by Wes Bos (<a href="http://codepen.io/wesbos" target="_blank" rel="noopener">@wesbos</a>) on <a href="http://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <p>注意有一大串我留在这的关于 CSS自定义属性的东西。你可以设置回滚。也可以把它们和 <code>calc()</code> 一起使用。你可以有很多技巧使用它们。看下面的家庭作业部分：</p>
@@ -848,7 +844,7 @@ h2 {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS变量和预处理变量有什么不同？"><span class="nav-number">1.</span> <span class="nav-text">CSS变量和预处理变量有什么不同？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的预处理变量的用法像是这样："><span class="nav-number">1.0.1.</span> <span class="nav-text">一个简单的预处理变量的用法像是这样：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的自定义-CSS-属性的用法像这样："><span class="nav-number">1.0.2.</span> <span class="nav-text">一个简单的自定义 CSS 属性的用法像这样：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么你要用原生的-CSS-自定义属性？"><span class="nav-number">1.0.3.</span> <span class="nav-text">为什么你要用原生的 CSS 自定义属性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用预处理器变量？"><span class="nav-number">1.0.4.</span> <span class="nav-text">为什么使用预处理器变量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你可以一起使用它们"><span class="nav-number">1.0.5.</span> <span class="nav-text">你可以一起使用它们</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于CSS自定义属性的浏览器支持"><span class="nav-number">1.0.6.</span> <span class="nav-text">关于CSS自定义属性的浏览器支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#桌面"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">桌面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手机-平板电脑"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">手机 / 平板电脑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#家庭作业时间-强化"><span class="nav-number">1.0.7.</span> <span class="nav-text">家庭作业时间: 强化!</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-看-Lea-Verou-的-CSS-变量：-var-–subtitle"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">1) 看 Lea Verou 的 CSS 变量： var(–subtitle);</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-看-David-Khourshid-的-CSS-的响应式动画【Reactive-Animations-with-CSS】"><span class="nav-number">1.0.7.2.</span> <span class="nav-text">2) 看 David Khourshid 的 CSS 的响应式动画【Reactive Animations with CSS】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-读-Harry-Roberts-Pragmatic-Practical-and-Progressive-Theming-with-Custom-Properties"><span class="nav-number">1.0.7.3.</span> <span class="nav-text">3) 读 Harry Roberts Pragmatic, Practical, and Progressive Theming with Custom Properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-阅读-Roman-Komarov-的-关于-CSS-变量的条件【Conditions-for-CSS-Variables】"><span class="nav-number">1.0.7.4.</span> <span class="nav-text">4) 阅读 Roman Komarov 的 关于 CSS 变量的条件【Conditions for CSS Variables】</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS变量和预处理变量有什么不同？"><span class="nav-number">1.</span> <span class="nav-text">CSS变量和预处理变量有什么不同？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的预处理变量的用法像是这样："><span class="nav-number">1.0.1.</span> <span class="nav-text">一个简单的预处理变量的用法像是这样：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的自定义-CSS-属性的用法像这样："><span class="nav-number">1.0.2.</span> <span class="nav-text">一个简单的自定义 CSS 属性的用法像这样：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么你要用原生的-CSS-自定义属性？"><span class="nav-number">1.0.3.</span> <span class="nav-text">为什么你要用原生的 CSS 自定义属性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用预处理器变量？"><span class="nav-number">1.0.4.</span> <span class="nav-text">为什么使用预处理器变量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你可以一起使用它们"><span class="nav-number">1.0.5.</span> <span class="nav-text">你可以一起使用它们</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于CSS自定义属性的浏览器支持"><span class="nav-number">1.0.6.</span> <span class="nav-text">关于CSS自定义属性的浏览器支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#桌面"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">桌面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手机-平板电脑"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">手机 / 平板电脑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#家庭作业时间-强化"><span class="nav-number">1.0.7.</span> <span class="nav-text">家庭作业时间: 强化!</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-看-Lea-Verou-的-CSS-变量：-var-–subtitle"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">1) 看 Lea Verou 的 CSS 变量： var(–subtitle);</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-看-David-Khourshid-的-CSS-的响应式动画【Reactive-Animations-with-CSS】"><span class="nav-number">1.0.7.2.</span> <span class="nav-text">2) 看 David Khourshid 的 CSS 的响应式动画【Reactive Animations with CSS】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-读-Harry-Roberts-Pragmatic-Practical-and-Progressive-Theming-with-Custom-Properties"><span class="nav-number">1.0.7.3.</span> <span class="nav-text">3) 读 Harry Roberts Pragmatic, Practical, and Progressive Theming with Custom Properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-阅读-Roman-Komarov-的-关于-CSS-变量的条件【Conditions-for-CSS-Variables】"><span class="nav-number">1.0.7.4.</span> <span class="nav-text">4) 阅读 Roman Komarov 的 关于 CSS 变量的条件【Conditions for CSS Variables】</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -868,7 +864,7 @@ h2 {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1012,27 +1008,7 @@ hljs.initHighlightingOnLoad();
   
     
   
-  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'CYNFVtmW68hwThPgXLqDFSh5-gzGzoHsz',
-        appKey: 'SiCtdjUGhYsXKexd1eIkkdWE',
-        placeholder: '支持Markdown评论',
-        avatar:'mm',
-        meta:guest,
-        pageSize:'10' || 10,
-        visitor: false
-    });
-  </script>
+
 
 
 
